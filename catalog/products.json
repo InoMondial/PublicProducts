@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "repository": "InoMondial/PublicProducts",
+  "scope": "PUBLIC_MULTI_PRODUCT_DISTRIBUTION",
+  "products": [
+    {
+      "id": "skillforge",
+      "name": "SkillForge",
+      "description": "Factory for creating and governing Skills",
+      "directory": "products/skillforge",
+      "latest_version": "3.0.4-public.1",
+      "source_directory": "products/skillforge/v3.0.4",
+      "license_path": "products/skillforge/v3.0.4/LICENSE",
+      "channel": "SOURCE_AVAILABLE_PUBLIC",
+      "release_tag": "skillforge-v3.0.4-public.1",
+      "release_status": "SOURCE_PREPARATION_PENDING"
+    }
+  ]
+}
