@@ -13,7 +13,17 @@
       "license_path": "products/skillforge/v3.0.4/LICENSE",
       "channel": "SOURCE_AVAILABLE_PUBLIC",
       "release_tag": "skillforge-v3.0.4-public.1",
-      "release_status": "SOURCE_PREPARATION_PENDING"
+      "release_status": "PUBLISHED_VERIFIED",
+      "release_url": "https://github.com/InoMondial/PublicProducts/releases/tag/skillforge-v3.0.4-public.1",
+      "release_id": 445480791,
+      "release_date_utc": "2026-11-14T17:51:56Z",
+      "artifact": "SkillForge-3.0.4-public.1-SOURCE.zip",
+      "artifact_sha256": "56497c0e707d125c8bec24b00342b780ecc294cc6c623f60bcb18092e68320a0",
+      "source_file_count": 422,
+      "core_skill_count": 19,
+      "privacy_scan_status": "STATIC_SCAN_PASS",
+      "source_commit": "0cdf16e8956806fd4838d42634ecab75d2405ee4",
+      "validation_run_url": "https://github.com/InoMondial/PublicProducts/actions/runs/43623390477"
     }
   ]
 }
