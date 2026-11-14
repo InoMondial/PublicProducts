@@ -1,0 +1,190 @@
+contract_id: INC_G17_DB_GATEWAY_V1
+status: DESIGN_BASELINE_STAGE14
+language:
+  control_plane: ENGLISH_ONLY
+  payload_language: PRESERVE_SOURCE_OR_USER_REQUEST
+  identifiers: ENGLISH_ASCII_ONLY
+default_timezone: UTC
+time_policy:
+  canonical_machine_timestamp: UTC
+  local_timezone_only_when_explicit: true
+  explicit_schedule_timezone_preserves_local_clock: true
+
+request_envelope:
+  required:
+    - request_id
+    - operation
+    - project_ref
+    - actor_ref
+    - purpose
+    - classification
+  optional:
+    - workload_ref
+    - domain_ref
+    - transaction_ref
+    - idempotency_key
+    - expected_version
+    - fields
+    - filter
+    - pagination
+    - sort
+    - payload
+    - timeout_ms
+  rules:
+    - resolve_project_context_before_persistence
+    - deny_unscoped_persistent_writes
+    - PRJ_MISC_requires_workload_or_domain_ref
+    - consumer_skills_do_not_supply_provider_ids
+    - secrets_forbidden_in_payload_unless_encrypted_secret_contract_explicitly_allows
+
+runtime_operations:
+  DB_GET:
+    write: false
+    idempotent: true
+  DB_SEARCH:
+    write: false
+    idempotent: true
+    bounded_result_required: true
+  DB_CREATE:
+    write: true
+    idempotency_key_required: true
+  DB_UPDATE:
+    write: true
+    idempotency_key_required: true
+    optimistic_version_supported: true
+  DB_DELETE:
+    write: true
+    destructive_policy_gate: true
+  DB_TRANSACTION:
+    write: true
+    idempotency_key_required: true
+    atomic: true
+  DB_AGGREGATE:
+    write: false
+    idempotent: true
+    server_side_required: true
+  DB_HEALTH:
+    write: false
+    idempotent: true
+
+admin_operations:
+  DB_SCHEMA_STATUS:
+    role: ADMIN
+  DB_MIGRATE:
+    role: ADMIN
+    migration_only_ddl: true
+  DB_BACKUP:
+    role: ADMIN
+  DB_RESTORE:
+    role: ADMIN
+  DB_PROVIDER_STATUS:
+    role: ADMIN
+  DB_QUOTA_STATUS:
+    role: ADMIN
+
+storage_authority_modes:
+  - LOCAL_SYSTEM_OF_RECORD
+  - REFERENCE
+  - DERIVED
+  - CACHE
+  - SNAPSHOT
+  - EXTERNAL_SYSTEM_OF_RECORD
+
+encryption:
+  protected_classes: [S3_CONFIDENTIAL, S4_RESTRICTED_HIGH_CONSEQUENCE]
+  algorithm_v1: AES-256-GCM
+  kdf: HKDF-SHA-256
+  root_key_location: EXTERNAL_TO_PROVIDER
+  decrypt_only_required_fields: true
+  llm_performs_crypto: false
+
+errors:
+  stable_codes:
+    - PROJECT_CONTEXT_REQUIRED
+    - PROJECT_SCOPE_VIOLATION
+    - VALIDATION_FAILED
+    - AUTH_REQUIRED
+    - PERMISSION_DENIED
+    - SECRET_MATERIAL_FORBIDDEN
+    - CONFLICT_VERSION
+    - IDEMPOTENCY_CONFLICT
+    - TRANSACTION_FAILED
+    - PROVIDER_UNAVAILABLE
+    - PROVIDER_LIMIT_NEAR
+    - PROVIDER_LIMIT_REACHED
+    - BACKUP_REQUIRED_BEFORE_DELETE
+    - BACKUP_FAILED
+    - RESTORE_FAILED
+    - MIGRATION_FAILED
+    - ENCRYPTION_FAILED
+    - DECRYPTION_FAILED
+    - TAMPER_OR_AAD_MISMATCH
+    - TEST_ASSET_EXPIRED
+    - UNSUPPORTED_CAPABILITY
+
+adapter_contract:
+  provider_neutral_input: true
+  required_methods:
+    - resolve_connection
+    - get
+    - search
+    - create
+    - update
+    - delete
+    - transaction
+    - aggregate
+    - health
+    - schema_status
+    - migrate
+    - backup
+    - restore
+    - provider_status
+    - quota_status
+  capability_flags:
+    - transactions
+    - optimistic_concurrency
+    - native_scheduler
+    - native_backup
+    - export
+    - restore
+    - direct_usage_counters
+    - server_side_aggregation
+    - row_level_security
+    - advisory_locking
+    - connection_pooling
+  forbidden:
+    - expose_provider_specific_ids_to_consumer_skills
+    - unrestricted_generic_sql_for_ordinary_skills
+    - silent_paid_upgrade
+    - silent_second_database
+    - fabricate_unknown_metrics
+
+concurrency:
+  optimistic_version_default: true
+  transaction_for_multi_write: true
+  idempotency_receipt_required_for_mutations: true
+
+result_contract:
+  required:
+    - request_id
+    - operation
+    - status
+    - project_ref
+    - provider_ref
+    - adapter_version
+    - measurement_source
+  optional:
+    - data
+    - affected_count
+    - next_cursor
+    - version
+    - receipt_ref
+    - incident_ref
+    - warnings
+  measurement_source_values: [MEASURED, VALIDATED_ESTIMATE, UNKNOWN, NOT_APPLICABLE]
+
+test_profile:
+  test_run_id_required: true
+  naming_prefix: tst_
+  cleanup_readback_required: true
+  unattended_ttl_hours: 24

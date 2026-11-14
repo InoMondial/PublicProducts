@@ -1,0 +1,84 @@
+schema: INC_GOVERNANCE_SKILL_CANDIDATE_V1
+stable_id: O6-SKL-014
+visible_id: G14
+display_name: G14-Artifact Output & Packaging Standardizer
+version: 3.3.2
+lifecycle: production
+phase: 6
+functional_role: NORMAL
+dpga:
+  build_time: REQUIRED
+  runtime: CONDITIONAL
+  hard_gates:
+  - DPGA_COMPLETE
+  - GOVERNANCE_PROPAGATION_COMPLETE
+  - OUTPUT_PACKAGE_VALID
+runtime_condition: produces_or_materially_changes_file_output
+critical_control_assurance:
+  contract_ref: INC_CRITICAL_CONTROL_ASSURANCE_V1
+  build_time_gate: CRITICAL_CONTROLS_COMPILED
+  runtime_exit_gate: CRITICAL_CONTROLS_VERIFIED
+  self_exit_check: REQUIRED_WHEN_RUNTIME_APPLICABLE
+  independent_double_check: CONDITIONAL_MATERIAL_RISK
+  controls:
+  - id: G14-CC-01
+    rule: Packaging runtime is active only when the activity actually creates or materially
+      changes a deliverable.
+    mandatory: true
+    runtime_condition: WHEN_RELEVANT_TO_CURRENT_ACTIVITY
+    evidence_required: false
+  - id: G14-CC-02
+    rule: Produced file/package opens or validates structurally with the format-appropriate
+      check.
+    mandatory: true
+    runtime_condition: WHEN_RELEVANT_TO_CURRENT_ACTIVITY
+    evidence_required: true
+  - id: G14-CC-03
+    rule: The delivered artifact set is the smallest complete set; duplicate/decorative
+      formats are not added without need.
+    mandatory: true
+    runtime_condition: WHEN_RELEVANT_TO_CURRENT_ACTIVITY
+    evidence_required: true
+  - id: G14-CC-04
+    rule: Managed Skill package is handed to G1 canonical deploy/release/preservation
+      gates and never bypasses them.
+    mandatory: true
+    runtime_condition: WHEN_RELEVANT_TO_CURRENT_ACTIVITY
+    evidence_required: true
+  - id: G14-CC-05
+    rule: ChatGPT managed-Skill install ZIP final serialized size is strictly below
+      25,000,000 bytes; oversize packages are remediated and rebuilt or fail closed.
+    mandatory: true
+    runtime_condition: WHEN_CHATGPT_SKILL_INSTALL_ZIP
+    evidence_required: true
+skill_install_zip_size_gate:
+  policy_ref: G14_CHATGPT_SKILL_INSTALL_ZIP_LIMIT_V1
+  scope: CHATGPT_MANAGED_SKILL_INSTALL_ZIP
+  source_classification: OWNER_OBSERVED_OPERATIONAL_CONSTRAINT
+  max_exclusive_bytes: 25000000
+  preparation_target_bytes: 24000000
+  measurement: FINAL_SERIALIZED_ZIP_BYTES
+  oversize_action: SLIM_REBUILD_REVALIDATE_OR_FAIL
+  failure_state: SKILL_INSTALL_ZIP_TOO_LARGE
+public_distribution_packaging:
+  export_policy_ref: INC_SKILLFORGE_PUBLIC_EXPORT_POLICY_V1
+  rights_contract_ref: INC_SKILLFORGE_PUBLIC_LICENSE_PROVENANCE_V1
+  acceptance_contract_ref: INC_SKILLFORGE_PUBLIC_RELEASE_ACCEPTANCE_V1
+  preserve_required_legal_surfaces: REQUIRED
+  bind_export_tree_digest: REQUIRED
+  private_history_or_overlay: HARD_BLOCK
+  ownership_decision_owner: G5
+  final_validation:
+  - G12
+  - G13
+release_acceptance_policy:
+  contract_ref: INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1
+  profile: AUTONOMOUS_EVIDENCE_BASED
+  precedence: SUPERSEDES_RELEASE_ONLY_EXTERNAL_EXECUTOR_GATES
+  available_tests: REQUIRED
+  failed_executed_tests: BLOCK_RELEASE
+  external_assurance: OPTIONAL_NONBLOCKING
+  real_publication_readback: REQUIRED
+  runtime_security_authorization: UNCHANGED
+publication_privacy_contract: INC_PUBLICIZATION_PRIVACY_GATE_V2
+public_release_requires_new_owner_consent: true

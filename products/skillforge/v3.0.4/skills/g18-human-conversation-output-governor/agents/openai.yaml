@@ -1,0 +1,7 @@
+interface:
+  display_name: G18-Human Conversation & Output Governor
+  short_description: Canonical G18/CHAT1 human conversation and output governor for
+    ChatGPT Chat, Work and Codex. Enforces one canonical authority, surface-aware
+    response rendering,
+policy:
+  allow_implicit_invocation: true

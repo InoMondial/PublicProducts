@@ -1,0 +1,130 @@
+schema: INC_GOVERNANCE_SKILL_CANDIDATE_V1
+stable_id: O6-SKL-006
+visible_id: G6
+display_name: G6-Versioning & Lifecycle Standardizer
+version: 3.4.2
+prior_version: 3.3.2-candidate
+lifecycle: production
+functional_role: NORMAL
+builder_framework_ref: INC_SKILLFORGE
+framework_id: INC_SKILLFORGE
+framework_name: SkillForge
+framework_membership: MEMBER
+framework_registry_ref: INC_SKILL_NAMESPACE_REGISTRY
+next_version_backlog_ref: INC_SKILLFORGE_UNIFIED_BACKLOG
+release_scope_lifecycle_contract_ref: INC_RELEASE_SCOPE_LIFECYCLE_V1
+runtime_version_attestation_contract_ref: INC_SKILLFORGE_RUNTIME_VERSION_ATTESTATION_V1
+carry_forward_manifest_contract_ref: INC_SKILLFORGE_CARRY_FORWARD_MANIFEST_V1
+installation_configuration_lifecycle_contract_ref: INC_G6_INSTALLATION_CONFIGURATION_LIFECYCLE_V1
+dpga:
+  build_time: REQUIRED
+  runtime: CONDITIONAL
+  hard_gates:
+  - DPGA_COMPLETE
+  - GOVERNANCE_PROPAGATION_COMPLETE
+  - VERSION_LIFECYCLE_RESOLVED
+  - RELEASE_SCOPE_FROZEN_WHEN_REQUIRED
+  - UPGRADE_COMPATIBILITY_RESOLVED
+  - ROLLBACK_TARGET_RESOLVED_WHEN_REQUIRED
+  - PREVIOUS_VERSION_CARRY_FORWARD_COMPLETE
+runtime_condition: authorized_version_or_lifecycle_mutation
+version_impact_dimensions:
+- FRAMEWORK
+- SKILL
+- SHARED_CONTRACT_OR_REGISTRY
+- DOCUMENTATION_ONLY
+- BACKLOG_ONLY
+- RUNTIME_CONFIGURATION
+release_scope:
+  owner_numbered_selection_required: true
+  frozen_snapshot_required: true
+  post_freeze_change_record_required: true
+  semver_recheck_after_scope_change: true
+upgrade:
+  compatibility_analysis: REQUIRED
+  duplicate_version_prevention: REQUIRED
+  migration_plan_when_needed: REQUIRED
+  rollback_target_when_material: REQUIRED
+  failed_smoke_or_activation: ROLLBACK_OR_BLOCK
+critical_control_assurance:
+  contract_ref: INC_CRITICAL_CONTROL_ASSURANCE_V1
+  build_time_gate: CRITICAL_CONTROLS_COMPILED
+  runtime_exit_gate: CRITICAL_CONTROLS_VERIFIED
+  self_exit_check: REQUIRED_WHEN_RUNTIME_APPLICABLE
+  independent_double_check: CONDITIONAL_MATERIAL_RISK
+  controls:
+  - id: G6-CC-01
+    rule: Version bump type has an evidence-based SemVer rationale.
+    mandatory: true
+    evidence_required: true
+  - id: G6-CC-02
+    rule: Accepted version bytes are immutable and corrections use a new version.
+    mandatory: true
+    evidence_required: false
+  - id: G6-CC-03
+    rule: Lifecycle state is explicit and distinct from version.
+    mandatory: true
+    evidence_required: false
+  - id: G6-CC-04
+    rule: Runtime version/lifecycle mutation occurs only for an authorized version-changing
+      activity.
+    mandatory: true
+    evidence_required: true
+  - id: G6-CC-05
+    rule: Release scope is owner-selected and frozen before final version assembly;
+      post-freeze scope drift is explicitly governed.
+    mandatory: true
+    evidence_required: true
+  - id: G6-CC-06
+    rule: Material upgrade compatibility and rollback target are resolved before activation.
+    mandatory: true
+    evidence_required: true
+  - id: G6-CC-07
+    rule: New SkillForge release certification requires a complete bound previous-version
+      carry-forward manifest with zero unresolved rows.
+    mandatory: true
+    evidence_required: true
+runtime_attestation_semantics:
+  owner: G6
+  discovery_owner: G0_G16_HOST_RUNTIME
+  minimum_version_compare: NUMERIC_SEMVER_CORE
+  exact_allowed_digest_when_present: REQUIRED
+  source_version_equals_installed_runtime: false
+  same_accepted_version_different_digest: VERSION_CONFLICT
+  mismatch_material_work: BLOCK
+  mismatch_read_only_audit: ALLOW_ONLY_AS_NONCONFORMING_RUNTIME_READ_ONLY
+carry_forward_semantics:
+  contract_ref: INC_SKILLFORGE_CARRY_FORWARD_MANIFEST_V1
+  unchanged: PRESERVE_STABLE_IDENTITY_AND_DIGEST
+  modified: REQUIRE_REVALIDATION_SCOPE_AND_LINEAGE
+  retired: REQUIRE_OWNER_REASON_AND_SUCCESSOR_OR_HISTORY
+  unresolved: RELEASE_BLOCK
+  post_certification_source_change: INVALIDATE_AND_REVALIDATE
+installation_configuration_lifecycle:
+  contract_ref: INC_G6_INSTALLATION_CONFIGURATION_LIFECYCLE_V1
+  compatibility_tuple:
+  - source_version
+  - package_version
+  - setup_schema_version
+  - profile_schema_version
+  - edition_id
+  setup_impact:
+  - NONE
+  - MINIMAL
+  - REQUIRED
+  no_op_repeated_setup_questions: prohibited
+  additive_setup: ASK_NEW_REQUIREMENTS_ONLY
+  breaking_setup: GUIDED_MIGRATION_WITH_ROLLBACK
+  community_lag_security_bypass: REQUIRED_FOR_APPROVED_CRITICAL_SECURITY_REMEDIATION
+  single_core_lineage: REQUIRED
+release_acceptance_policy:
+  contract_ref: INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1
+  profile: AUTONOMOUS_EVIDENCE_BASED
+  precedence: SUPERSEDES_RELEASE_ONLY_EXTERNAL_EXECUTOR_GATES
+  available_tests: REQUIRED
+  failed_executed_tests: BLOCK_RELEASE
+  external_assurance: OPTIONAL_NONBLOCKING
+  real_publication_readback: REQUIRED
+  runtime_security_authorization: UNCHANGED
+publication_privacy_contract: INC_PUBLICIZATION_PRIVACY_GATE_V2
+public_release_requires_new_owner_consent: true

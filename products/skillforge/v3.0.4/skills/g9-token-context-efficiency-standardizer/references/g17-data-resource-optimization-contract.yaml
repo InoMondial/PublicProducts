@@ -1,0 +1,80 @@
+contract_id: INC_G9_G17_DATA_RESOURCE_OPTIMIZATION_V1
+status: CANDIDATE_STAGE24
+owners:
+  resource_architecture: G9
+  data_query_architecture: G17
+  telemetry_semantics: G11
+  independent_testing: G12
+purpose: Optimize execution, information, query and provider-resource architecture before token-level compression.
+activation:
+  material_conditions:
+    - material_database_or_query_path
+    - repeated_tool_or_database_round_trips
+    - growing_dataset_pagination
+    - materially_large_structured_model_context
+    - repeated_read_pattern_considering_cache
+    - provider_quota_or_cost_risk
+  routine_micro_query_full_g9_load: false
+optimization_order:
+  - storage_and_authority_placement
+  - query_execution_location
+  - projection_and_row_bounds
+  - server_side_filter_sort_aggregate
+  - join_or_bounded_batch
+  - pagination_strategy
+  - transaction_and_round_trip_shape
+  - index_and_query_plan_design
+  - cache_or_state_placement_if_justified
+  - tool_route_and_result_shape
+  - model_context_minimization
+  - model_capability_escalation_if_materially_justified
+hard_invariants:
+  - SECURITY_AND_CORRECTNESS_BEFORE_RESOURCE_SAVINGS
+  - PROJECT_ISOLATION_CANNOT_BE_WEAKENED
+  - ENCRYPTION_AND_SECRET_BOUNDARIES_CANNOT_BE_WEAKENED
+  - REQUIRED_READBACK_RECONCILIATION_AND_EVIDENCE_CANNOT_BE_REMOVED
+  - BACKUP_MIGRATION_ROLLBACK_GATES_CANNOT_BE_REMOVED
+  - REQUIRED_OWNER_MENTION_CANNOT_BE_SUPPRESSED_OR_BATCHED_AWAY
+  - PROVIDER_RESOURCE_FORMULAS_MUST_NOT_BE_FABRICATED
+  - NO_UNBOUNDED_RAW_ROWS_TO_MODEL
+query_rules:
+  default_page_size: 50
+  ordinary_model_facing_hard_max_rows: 200
+  growing_dataset_pagination: KEYSET_OR_CURSOR_PREFERRED
+  deep_offset: MEASURED_JUSTIFICATION_REQUIRED
+  n_plus_one: FORBIDDEN
+  simple_aggregate_raw_row_transfer_to_model: FORBIDDEN
+  projection: REQUIRED_FIELDS_ONLY
+  server_side_aggregation: REQUIRED_WHEN_SAFE
+  network_or_llm_call_inside_open_transaction: FORBIDDEN
+caching:
+  default: OFF
+  allowed_only_when:
+    - repeated_read_pattern
+    - explicit_staleness_tolerance
+    - authority_unchanged
+    - ttl_or_invalidation_defined
+  cache_is_system_of_record: false
+  plaintext_s3_s4_cross_request_cache: FORBIDDEN_BY_DEFAULT
+provider_resource_behavior:
+  source_owner: G17_ADAPTER
+  allowed_measurement_states: [MEASURED, VALIDATED_ESTIMATE, UNKNOWN]
+  unknown_formula_action: PRESERVE_UNKNOWN
+  project_attribution_required_when_available:
+    - project_ref
+    - workload_ref
+    - operation_class
+    - provider_adapter_ref
+model_capability_escalation:
+  mode: ADVISORY_UNLESS_HOST_ROUTING_IS_EXPLICITLY_AUTHORIZED_AND_VERIFIED
+  trigger: CURRENT_CAPABILITY_MATERIALLY_LIMITS_ARCHITECTURE_OPTIMIZATION
+  routine_micro_optimization: DO_NOT_ESCALATE
+  invented_model_or_unverified_switch: FORBIDDEN
+telemetry:
+  owner: G11
+  parallel_g9_database: FORBIDDEN
+runtime_reforecast:
+  cadence: MATERIAL_CHANGE_ONLY
+claims:
+  provenance: [MEASURED, DERIVED_FROM_MEASURED, ESTIMATED_SCENARIO, UNKNOWN]
+  exact_savings_without_evidence: FORBIDDEN

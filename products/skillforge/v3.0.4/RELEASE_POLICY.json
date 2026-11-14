@@ -1,0 +1,15 @@
+{
+  "autonomous_evidence_based": true,
+  "channel": "PUBLIC_SOURCE_AVAILABLE",
+  "feedback_public_default": "OFF",
+  "lifecycle": "RELEASE",
+  "post_install_setup": "HOST_VERIFIED_OR_READ_ONLY",
+  "privacy_gate": "INC_PUBLICIZATION_PRIVACY_GATE_V2",
+  "public_publication_authorized": true,
+  "qualification": "LOCAL_AND_SIMULATED_TESTS_NOT_HOST_INSTALL_CERTIFICATION",
+  "security_exceptions_allowed": false,
+  "service_bindings": "EXTERNAL_PROFILE_DIGEST_PINNED",
+  "third_party_or_external_runner_required": false,
+  "version": "3.0.4",
+  "edition": "3.0.4-public.1"
+}

@@ -1,0 +1,99 @@
+schema: INC_GOVERNANCE_SKILL_CANDIDATE_V1
+stable_id: O6-SKL-010
+visible_id: G10
+display_name: G10-Dependency & Stable Reference Standardizer
+version: 3.3.2
+prior_version: 3.2.0
+lifecycle: production
+functional_role: NORMAL
+builder_framework_ref: INC_SKILLFORGE
+framework_id: INC_SKILLFORGE
+framework_name: SkillForge
+framework_membership: MEMBER
+framework_registry_ref: INC_SKILL_NAMESPACE_REGISTRY
+next_version_backlog_ref: INC_SKILLFORGE_UNIFIED_BACKLOG
+source_reference_registry_ref: INC_SOURCE_REFERENCE_REGISTRY
+source_reference_registry_contract_ref: INC_SOURCE_REFERENCE_REGISTRY_V1
+dpga:
+  build_time: REQUIRED
+  runtime: CONDITIONAL
+  hard_gates:
+  - DPGA_COMPLETE
+  - GOVERNANCE_PROPAGATION_COMPLETE
+  - DEPENDENCY_GRAPH_VALID
+  - SOURCE_REFERENCE_AUTHORITY_RESOLVED
+runtime_condition: activity_uses_conditional_critical_or_freshness_sensitive_reference
+source_registry:
+  full_runtime_load_default: prohibited
+  authority_classes:
+  - NORMATIVE
+  - INFORMATIVE
+  - EVIDENCE_ONLY
+  - PROVISIONAL
+  exact_external_change_request_required_before_normative_implementation: true
+  historical_source_can_override_active_registry: false
+  writer_authority: G10
+stable_artifact_reference:
+  canonical_remote_ref_required: true
+  local_windows_sandbox_as_stable_authority: prohibited
+  physical_routing_owner: G1
+critical_control_assurance:
+  contract_ref: INC_CRITICAL_CONTROL_ASSURANCE_V1
+  build_time_gate: CRITICAL_CONTROLS_COMPILED
+  runtime_exit_gate: CRITICAL_CONTROLS_VERIFIED
+  self_exit_check: REQUIRED_WHEN_RUNTIME_APPLICABLE
+  independent_double_check: CONDITIONAL_MATERIAL_RISK
+  controls:
+  - id: G10-CC-01
+    rule: Dependencies use stable references and explicit BUILD_TIME/RUNTIME/REFERENCE_ONLY/EVIDENCE_ONLY/REGISTRY
+      edge types.
+    mandatory: true
+    evidence_required: true
+  - id: G10-CC-02
+    rule: Runtime dependency graph is acyclic and does not recursively load the full
+      Governance stack.
+    mandatory: true
+    evidence_required: true
+  - id: G10-CC-03
+    rule: Conditional dependencies are loaded only when current activity needs them.
+    mandatory: true
+    evidence_required: false
+  - id: G10-CC-04
+    rule: Missing or ambiguous critical dependency blocks success.
+    mandatory: true
+    evidence_required: false
+  - id: G10-CC-05
+    rule: Source authority and freshness are explicit; provisional or missing exact
+      external source cannot silently become normative.
+    mandatory: true
+    evidence_required: true
+  - id: G10-CC-06
+    rule: Generated artifact stable references resolve to governed remote objects
+      and never use local Windows or sandbox paths as delivery authority.
+    mandatory: true
+    evidence_required: true
+logical_resource_configuration:
+  contract_ref: INC_LOGICAL_RESOURCE_CONFIGURATION_V1
+  contract_path: references/logical-resource-configuration-contract-v1.yaml
+  provider_specific_identifier_in_consumer_source: prohibited
+  resource_type_and_capability_before_binding: REQUIRED
+  scope_resolution:
+  - INSTALLATION
+  - ENVIRONMENT
+  - PROJECT
+  - ACCOUNT
+  hierarchical_folder_templates_only: true
+  target_resolution_grants_permission: false
+  unresolved_required_resource: FAIL_CLOSED
+  provider_switch_preserves_stable_logical_ref: true
+release_acceptance_policy:
+  contract_ref: INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1
+  profile: AUTONOMOUS_EVIDENCE_BASED
+  precedence: SUPERSEDES_RELEASE_ONLY_EXTERNAL_EXECUTOR_GATES
+  available_tests: REQUIRED
+  failed_executed_tests: BLOCK_RELEASE
+  external_assurance: OPTIONAL_NONBLOCKING
+  real_publication_readback: REQUIRED
+  runtime_security_authorization: UNCHANGED
+publication_privacy_contract: INC_PUBLICIZATION_PRIVACY_GATE_V2
+public_release_requires_new_owner_consent: true

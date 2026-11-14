@@ -1,0 +1,698 @@
+schema: CHAT1_GOVERNANCE_V1
+stable_id: CHAT1-SKL-001
+visible_id: G18
+display_name: G18-Human Conversation & Output Governor
+canonical_name: gpt-chatting-standards
+technical_slug: chat1-gpt-chatting-standards
+version: 0.1.47
+lifecycle: production
+domain: conversation-output-governance
+functional_role: ROUTER
+complexity_profile: FULL
+strictness: S4
+governance_owner: INOMondial Inc.
+builder_framework_ref: INC_SKILLFORGE
+framework_membership: MEMBER
+framework_registry_ref: INC_SKILL_NAMESPACE_REGISTRY
+backlog_topology: CENTRAL_FRAMEWORK_BACKLOG
+next_version_backlog_ref: INC_SKILLFORGE_UNIFIED_BACKLOG
+backlog_owner_ref: G18
+bidi_layout_standard_ref: INC_BIDI_LAYOUT_TYPOGRAPHY_V1
+runtime:
+  canonical_activation:
+    hard_gate: true
+    stable_id: CHAT1-SKL-001
+    entry_check: REQUIRED_BEFORE_EACH_SUBSTANTIVE_TURN
+    exit_recheck: REQUIRED_IMMEDIATELY_BEFORE_VISIBLE_SEND
+    cached_or_installed_copy_assumed_current: false
+    canonical_primary:
+      repository: EXAMPLE-OWNER/PRIVATE-SOURCE
+      skill_path: skills/router/g18-human-conversation-output-governor/SKILL.md
+      governance_path: skills/router/g18-human-conversation-output-governor/GOVERNANCE.yaml
+    legacy_alias:
+      path: skills/external/chat1-gpt-chatting-standards/
+      mode: REDIRECT_ONLY
+      executable_rules_allowed: false
+    fallback: G1_VERIFIED_SHAREPOINT_MIRROR_SAME_STABLE_ID_ONLY
+    failure_codes:
+    - CHAT1_LATEST_VERSION_UNVERIFIED
+    - CHAT1_VERSION_AUTHORITY_CONFLICT
+    - CHAT1_LEGACY_ALIAS_EXECUTION_PROHIBITED
+  target_surfaces:
+  - Chat
+  - Work
+  - Codex
+  surface_resolution:
+    order:
+    - EXPLICIT_HOST_METADATA
+    - VERIFIED_NATIVE_CAPABILITY_MARKERS
+    - SURFACE_UNVERIFIED
+    invent_surface: PROHIBITED
+  turn_budget_guard:
+    hard_gate: true
+    applies_when_surface: Chat
+    assessment_mode_default: HEURISTIC
+    exact_remaining_capacity_claim_without_host_signal: PROHIBITED
+    states:
+    - SINGLE_PASS_SAFE
+    - SEGMENTED_REQUIRED
+    segmentation_risk_signals:
+    - MULTIPLE_INDEPENDENT_DELIVERABLES
+    - MANY_SEQUENTIAL_TOOL_CALLS
+    - MULTIPLE_EXTERNAL_SYSTEMS
+    - LONG_RESEARCH_OR_LARGE_SOURCE_SYNTHESIS
+    - LARGE_ARTIFACT_GENERATION
+    - MULTIPLE_VALIDATION_OR_REMEDIATION_CYCLES
+    - LONG_DEPENDENT_MUTATION_CHAIN
+    - MULTIPLE_RESUMABLE_ATOMIC_STAGES
+    segmented_behavior:
+      minimum_practical_steps: true
+      execute_one_current_step_per_chat_turn: DEFAULT_INTERACTIVE_ONLY
+      safe_checkpoint_required: true
+      finish_or_rollback_atomic_mutation_before_stop: true
+      g16_handoff_checkpoint_when_governed: REQUIRED
+      user_confirmation_before_next_step: REQUIRED_UNLESS_OWNER_AUTONOMOUS_TO_TERMINAL
+      resume_without_repeating_completed_work: true
+      autonomous_to_terminal_owner_override:
+        allowed: true
+        routine_intermediate_return: PROHIBITED
+        continue_until:
+        - TERMINAL_SUCCESS
+        - UNAVOIDABLE_OWNER_ONLY_GATE
+        - HOST_ENFORCED_INTERRUPTION
+        checkpoint_after_every_material_step: REQUIRED
+        safety_gates_waived: false
+    mid_turn_recheck: AFTER_MATERIAL_ATOMIC_SUBTASK_AND_BEFORE_NEXT_LARGE_DEPENDENT_SUBTASK
+    ordinary_safe_work_must_not_be_deferred: true
+  default_style:
+    brevity: SHORT_EFFICIENT_STRAIGHTFORWARD
+    optimism: REALISTIC_NON_OPTIMISTIC
+    structure_first: true
+    global_table_first: false
+    duplicate_summary_prohibited: true
+  exact_table_header: NUM#
+  persian_actual_table_visible_header_exact: ردیف
+  persian_actual_table_row_value_format: BARE_ASCII_DECIMAL_INTEGER_ONLY
+  persian_actual_table_row_value_examples:
+  - '1'
+  - '2'
+  - '3'
+  persian_actual_table_forbidden_row_value_forms:
+  - ردیف 1
+  - ۱
+  - '1.'
+  - '#1'
+  structured_row_label_default: NUM# <n>
+  structured_row_label_persian_visible: ردیف <n>
+  structured_row_machine_key: NUM#
+  semantic_table_row_dedup_required: true
+  table_conformance:
+    hard_gate: true
+    fail_closed_on_structure_error: true
+    required_for_every_actual_table: true
+    exact_row_reference_column_count: 1
+    machine_row_reference_key: NUM#
+    sequential_display_reference_start: 1
+    sequential_display_reference_no_gaps: true
+    sequential_display_reference_no_duplicates: true
+    persian_visible_row_reference_header: ردیف
+    persian_visible_row_reference_header_match: EXACT_ONLY
+    persian_visible_row_reference_values: BARE_ASCII_DECIMAL_INTEGER_ONLY
+    persian_chat_row_reference_render_atom: EXACTLY_ONE_U+200F_RLM_THEN_BARE_ASCII_INTEGER
+    persian_chat_row_reference_hidden_bidi_controls: ONLY_THE_SINGLE_REQUIRED_LEADING_U+200F_RLM_IS_ALLOWED
+    persian_chat_row_reference_alignment: RIGHT
+    rtl_non_reference_column_alignment: RIGHT
+    rtl_markdown_source_order: SURFACE_SPECIFIC_SERIALIZER
+    rtl_row_reference_source_position: SURFACE_SPECIFIC
+    rtl_surface_source_position:
+      Chat: FIRST_REQUIRED_CURRENT_HOST_EVIDENCE_REQUIRED_NON_WAIVABLE
+      Codex: LAST_REQUIRED_REVERSE_DESIRED_VISUAL_ORDER
+      Work: VERIFIED_PROFILE_REQUIRED
+    rtl_markdown_alignment: RIGHT_ALIGN_ALL_COLUMNS
+    exact_renderer_certification_registry: references/rtl-table-renderer-certification-registry.yaml
+    renderer_certification_role: ADVISORY_REGRESSION_EVIDENCE_NOT_COLUMN_ORDER_AUTHORITY
+    user_explicit_table_request_requires_actual_table: WHEN_SURFACE_SERIALIZER_AND_STRUCTURE_VALIDATE
+    uncertified_rtl_table_behavior: DO_NOT_BLOCK_DETERMINISTIC_COLUMN_ORDER; FALLBACK_ONLY_ON_UNRESOLVED_CELL_BIDI_SAFETY
+    persian_chat_markdown_table_default: STRUCTURED_UNLESS_EXPLICIT_TABLE_REQUEST_THEN_CHAT_SERIALIZER_VALIDATION
+    executable_validator: scripts/validate_table_conformance.py
+    fail_codes:
+    - TABLE_ROW_REFERENCE_MISSING
+    - TABLE_ROW_REFERENCE_DUPLICATE
+    - PERSIAN_TABLE_ROW_HEADER_NOT_EXACT
+    - PERSIAN_TABLE_ROW_VALUE_NOT_BARE_ASCII_INTEGER
+    - TABLE_ROW_REFERENCE_NONSEQUENTIAL
+    - TABLE_COLUMN_COUNT_MISMATCH
+    - RTL_TABLE_ROW_REFERENCE_NOT_RIGHTMOST
+    - RTL_CHAT_ROW_REFERENCE_RLM_ENVELOPE_INVALID
+    - RTL_CHAT_ROW_REFERENCE_WRAPPER_PROHIBITED
+    - RTL_TABLE_ROW_REFERENCE_ALIGNMENT_NOT_RIGHT
+    - RTL_TABLE_NON_REFERENCE_ALIGNMENT_NOT_RIGHT
+    - RTL_TABLE_HEADER_NOT_RTL_WORD_FIRST
+    - RTL_TABLE_CELL_NOT_RTL_WORD_FIRST
+    - RTL_CHAT_TEXT_CELL_RLM_ENVELOPE_INVALID
+    - RTL_CHAT_TEXT_CELL_WRAPPER_PROHIBITED
+    - PROJECT_SUMMARY_FOOTER_MISSING
+    - PROJECT_SUMMARY_FOOTER_ROW_COUNT_INVALID
+    - PROJECT_HANDOFF_FOOTER_MISSING_OR_NOT_ABSOLUTE_END
+    - PROJECT_HANDOFF_FOOTER_DUPLICATE
+    - RTL_TABLE_BARE_LTR_RUN_NOT_ISOLATED
+    - RTL_TABLE_LTR_ISOLATE_UNBALANCED
+    - RTL_TABLE_LTR_ISOLATE_NESTED
+    - RTL_TABLE_LTR_ISOLATE_CONTAINS_RTL
+    - RTL_TABLE_LTR_NEUTRAL_WRAPPER_PROHIBITED
+    - RTL_TABLE_INLINE_CODE_TOKEN_PROHIBITED
+    - RTL_TABLE_VISIBLE_RAW_URL_FORBIDDEN
+    - PROJECT_HANDOFF_FOOTER_SINGLE_ANCHOR_REQUIRED
+    - PROJECT_HANDOFF_VISIBLE_ALIAS_INVALID
+    - PROJECT_HANDOFF_VISIBLE_RAW_URL_FORBIDDEN
+    - RTL_TABLE_LITERAL_PIPE_NOT_ESCAPED
+    persian_chat_row_reference_inline_code: PROHIBITED
+    rtl_text_header_visible_start: RTL_SCRIPT_WORD_REQUIRED
+    rtl_non_row_body_visible_start: RTL_SCRIPT_WORD_REQUIRED
+    rtl_chat_text_cell_source_envelope: EXACTLY_ONE_U+200F_RLM_THEN_RTL_WORD_FIRST_VISIBLE_CONTENT
+    rtl_chat_text_cell_forbidden_leading_forms:
+    - LATIN_FIRST
+    - ASCII_DIGIT_FIRST
+    - INLINE_CODE_FIRST
+    - URL_FIRST
+    - PATH_FIRST
+    - VERSION_FIRST
+    - NBSP_OR_BIDI_ISOLATE_WRAPPER
+    row_reference_numeric_first_exception: EXACT_ROW_REFERENCE_CONTRACT_ONLY
+    project_chat_footer_contract: INC_G18_GOVERNED_PROJECT_CHAT_FOOTER_V3
+    project_chat_footer_validator: scripts/validate_project_chat_footer.py
+    project_chat_final_summary_rows: 4
+    project_chat_handoff_absolute_end: REQUIRED
+    rtl_chat_embedded_ltr_run: BALANCED_NON_NESTED_U+2066_LRI_PLUS_TECHNICAL_RUN_PLUS_U+2069_PDI_REQUIRED_FOR_EVERY_VISIBLE_ASCII_ALNUM_RUN
+    rtl_chat_bare_ltr_alnum_outside_isolate: PROHIBITED
+    rtl_chat_inline_code_in_human_table_cell: PROHIBITED
+    rtl_chat_neutral_wrapper_around_ltr_isolate: PROHIBITED
+    rtl_chat_visible_raw_url: PROHIBITED_MARKDOWN_DESTINATION_WITH_RTL_VISIBLE_LABEL_ALLOWED
+    literal_visible_pipe_inside_cell: MUST_ESCAPE_AS_BACKSLASH_PIPE_IN_SOURCE
+  persian_bilingual:
+    persian_first_when_practical: true
+    preferred_pattern: <Persian equivalent> (<English term>)
+    multiple_latin_runs_in_one_sentence: AVOID_WHEN_PRACTICAL
+    mixed_direction_inline_arrow_chain: PROHIBITED_ON_CHAT
+    long_technical_tokens: ISOLATE_WHEN_PRACTICAL
+    exemptions:
+    - urls
+    - filenames
+    - technical_ids
+    - code
+    - versions
+    - exact_quotes
+  semantic_direction:
+    contract_ref: INC_BIDI_LAYOUT_TYPOGRAPHY_V1
+    hard_gate: true
+    classify_before_serialization: true
+    allowed_states:
+    - SEMANTIC_RTL
+    - SEMANTIC_LTR
+    - AUTO_UNKNOWN
+    generated_persian_with_latin_or_numeric_first_token: REWRITE_TO_PERSIAN_FIRST_AND_SEMANTIC_RTL
+    generated_persian_visible_first_strong_character: PERSIAN_ARABIC_SCRIPT_REQUIRED
+    leading_RLM_alone_satisfies_lexical_rule: false
+    generated_english_with_rtl_phrase: SEMANTIC_LTR
+    auto_unknown_only_for_genuinely_unknown_dynamic_text: true
+    first_visible_token_only_classifier: PROHIBITED
+    plain_text_presentation:
+      semantic_rtl_seed_when_needed: U+200F_RLM
+      semantic_ltr_seed_when_needed: U+200E_LRM
+      opposite_direction_isolates:
+      - U+2066_LRI
+      - U+2067_RLI
+      - U+2068_FSI
+      - U+2069_PDI
+      presentation_layer_only: true
+      machine_identifier_contamination: PROHIBITED
+    failure_code: PERSIAN_SEMANTIC_DIRECTION_MISMATCH
+  citation_reference_safety:
+    hard_gate: true
+    internal_tool_reference_ids_visible: PROHIBITED
+    malformed_manual_reference_forms_visible: PROHIBITED
+    allowed_rendering: PLATFORM_NATIVE_CITATION_OR_VERIFIED_LINK_ONLY
+    exemptions:
+    - USER_EXPLICIT_SOURCE_DEBUG_REQUEST
+    - USER_QUOTED_INTERNAL_TOKEN
+    failure_code: RAW_INTERNAL_CITATION_REFERENCE_LEAK
+  persian_profile: PERSIAN_SURFACE_ADAPTIVE_RTL_BIDI_SAFE_V11
+  surface_rtl_serializers:
+    Chat:
+      profile: CHAT_PERSIAN_RTL_SOURCE_FIRST_V12_OWNER_CONFIRMED
+      default_format: NUMBERED_STRUCTURED_BLOCK
+      raw_html_presentation: PROHIBITED
+      markdown_multicolumn_table_default: STRUCTURED_BY_DEFAULT_ACTUAL_TABLE_ON_EXPLICIT_REQUEST_AFTER_SERIALIZER_VALIDATION
+      semantic_direction_required_before_serialization: true
+      semantic_rtl_latin_or_numeric_start_preserved: false
+      assistant_generated_persian_lexical_start: PERSIAN_ARABIC_SCRIPT_REQUIRED
+      visible_structured_row_label: ردیف <n>
+      actual_table_visible_row_header: ردیف
+      actual_table_visible_row_value: <ASCII_INTEGER_ONLY>
+      machine_structured_row_key: NUM#
+      explicit_user_table_request_alone_is_sufficient: true
+      explicit_user_table_request_behavior: EMIT_ACTUAL_MARKDOWN_AFTER_CHAT_ROW_FIRST_SERIALIZER_VALIDATION
+      rtl_table_source_order: DESIRED_VISUAL_RTL_ORDER_IN_SOURCE
+      rtl_table_row_reference_source_position: FIRST
+      rtl_table_alignment: RIGHT_ALIGN_ALL_COLUMNS
+      actual_table_row_reference_render_atom: EXACTLY_ONE_U+200F_RLM_THEN_BARE_ASCII_INTEGER
+      actual_table_row_reference_hidden_bidi_controls: ONLY_THE_SINGLE_REQUIRED_LEADING_U+200F_RLM_IS_ALLOWED
+      renderer_certification_role: ADVISORY_REGRESSION_EVIDENCE_ONLY
+      visual_rightmost_row_reference_generation_rule: SOURCE_FIRST_REQUIRED_CURRENT_HOST_EVIDENCE_REQUIRED_NON_WAIVABLE
+      raw_html_fail_code: CHAT_RAW_HTML_VISIBLE_OUTPUT_BLOCKED
+      owner_evidence:
+      - MARKDOWN_TABLE_GEOMETRY_NOT_RELIABLY_RTL_2026_09_16
+      - RAW_HTML_TAGS_VISIBLE_AND_UNREADABLE_2026_09_16
+      - LATIN_OR_NUMERIC_FIRST_TOKEN_CAN_TRIGGER_WRONG_PARAGRAPH_DIRECTION_2026_09_16
+      - CENTER_ALIGNED_ROW_ATOM_RENDERED_AT_INNER_EDGE_2026_09_19
+      - LEADING_RLM_BARE_DIGIT_CURRENT_HOST_VISUAL_EVIDENCE_REQUIRED
+      actual_table_row_reference_inline_code: PROHIBITED
+      embedded_ltr_technical_run: LRI_PDI_ISOLATE_EACH_SEMANTIC_RUN
+      bare_ascii_alnum_outside_lri_pdi: PROHIBITED
+      inline_code_in_rtl_table_text_cell: PROHIBITED
+      raw_visible_url_in_rtl_table: PROHIBITED
+      owner_confirmed_row_reference_hard_gate:
+        hard_gate: ABSOLUTE_NON_WAIVABLE
+        confirmed_at: '2026-09-20'
+        owner_live_result: PASS_RIGHTMOST
+        source_position: FIRST
+        desired_visual_position: RIGHTMOST
+        validator_failure: RTL_CHAT_ROW_REFERENCE_SOURCE_POSITION_INVALID
+        universal_rtl_row_last_override: PROHIBITED
+        renderer_registry_override: PROHIBITED
+        release_block_on_regression: true
+    Work:
+      profile: WORK_PERSIAN_SURFACE_VERIFIED_ONLY
+      default_when_unverified: STRUCTURED_OUTPUT
+      semantic_direction_required_before_serialization: true
+      inherit_chat_rules: false
+      inherit_codex_rules: false
+    Codex:
+      profile: CODEX_WINDOWS_PERSIAN_MARKDOWN_RTL_V1
+      table_source_num_position: LAST
+      default_when_unverified: STRUCTURED_OUTPUT
+      semantic_direction_required_before_serialization: true
+      inherit_chat_rules: false
+  project_status:
+    required_when_tracking_applies: true
+    exact_semantic_rows: 4
+    Chat_Persian_representation: GOVERNED_PROJECT_FINAL_TABLE_ONLY_BODY_WITH_FINAL_FOUR_ROW_SUMMARY
+    safe_table_surfaces: CHAT_RTL_MARKDOWN_ADAPTER_AND_SURFACE_SPECIFIC_PROFILES
+    duplicate_loose_progress_prose: PROHIBITED
+    handoff_row: PROHIBITED
+  governed_project_response:
+    applies_when: ACTIVE_CANONICAL_G16_HANDOFF_CONTEXT
+    substantive_final_body: TABLE_ONLY_MARKDOWN
+    standalone_prose_heading_bullet_or_list_before_handoff: PROHIBITED
+    transient_tool_progress_commentary: EXEMPT
+    terminal_table_order:
+    - G16_HANDOFF_CONTROL_TABLE
+    - FOUR_ROW_PROJECT_SUMMARY_FINAL_TABLE
+    handoff_final_line_exact_pattern: 'CLICKABLE_ALIAS_ONLY: <RLM>[<LRI><handoff_id>
+      | S:<continuity_seq><PDI>](<verified-url>)'
+    handoff_current_sequence_required: true
+    handoff_visible_ref_required: true
+    handoff_visible_ref_consistency_required: true
+    handoff_absolute_final_line: true
+    validator: scripts/validate_project_chat_footer.py
+    handoff_visible_raw_url: PROHIBITED
+    handoff_visible_labels: PROHIBITED
+    handoff_clickable_alias_only: true
+  ledgers:
+    semantic_fields_preserved: true
+    Chat_Persian_default_representation: NUMBERED_STRUCTURED_RECORDS
+    explicit_table_request: EMIT_RTL_MARKDOWN_TABLE
+    forced_wide_markdown_table_without_user_request: AVOID_WHEN_LOW_VALUE
+    handoff_absolute_exclusion: true
+  multi_stage_approval_gate: true
+  owner_autonomous_to_terminal_preapproval:
+    allowed: true
+    removes_routine_stage_return: true
+    destructive_security_privacy_financial_license_owner_only_gates_remain: true
+  final_simulation:
+    required_for_multistage: true
+    required_as_last_weighted_stage: true
+    non_zero_weight_required: true
+    owner_waiver_must_be_explicit_in_current_conversation: true
+    cycles:
+      simple_multistage_no_external: 1
+      relatively_complex: 3
+      external_system_or_api_or_plugin: 3_TO_5
+      default_state_changing_or_multi_system_external: 5
+    remediation:
+      minimum_attempts_if_failure_persists: 3
+      maximum_attempts: 5
+      stop_early_when_passed: true
+      materially_different_or_evidence_driven_attempts: true
+      never_bypass_owner_approval_or_destructive_action_confirmation: true
+g16:
+  first_handoff_bootstrap:
+    profile: FIRST_HANDOFF_BOOTSTRAP_V1
+    contract: INC_G16_HANDOFF_TRANSACTIONAL_WRITER_V1
+    no_explicit_handoff_url: REQUEST_G16_NEW_HANDOFF_BOOTSTRAP_BEFORE_TERMINAL_RENDER
+    continuation_authority: EXPLICIT_HANDOFF_URL_ONLY
+    project_binding_without_url: IGNORE
+    bare_handoff_id_without_url: IGNORE
+    explicit_missing_url: FAIL_NO_REPLACEMENT
+    g18_generates_id_or_counter: false
+  single_handoff_occurrence_only: true
+  absolute_end_only: true
+  human_dispatch_notice_max_sentences: 2
+  mandatory_surface_visibility:
+    required: true
+    source_owner: G16-SKL-001
+    incompatible_current_surface_is_execution_ready: false
+    persian_notice_must_begin_persian: true
+    preferred_notice_pattern: 'سطح اجرای الزامی: 🖥️⚠️ <surface> — دلیل: <reason>'
+  execution_profile_visibility:
+    contract_ref: INC_G16_EXECUTION_PROFILE_RECOMMENDATION_V1
+    source_owner: G16-SKL-001
+    render_only: true
+    recompute_forbidden: true
+    below_floor_risk_must_be_visible: true
+link_delivery:
+  hard_gate: true
+  verification_freshness: SAME_RESPONSE_CYCLE
+  required_checks:
+  - TARGET_EXISTS
+  - TARGET_IDENTITY_MATCH
+  - ACCESS_MODE_KNOWN
+  - LINK_KIND_MATCH
+  - BROWSER_USABILITY_WHEN_PROBE_AVAILABLE
+  on_unverified: OMIT_CLICKABLE_LINK
+  auth_required_verified_target:
+    clickable_allowed: true
+    explicit_warning_required: true
+    label: AUTH_REQUIRED
+artifact_contract_attestation:
+  id: G1_ARTIFACT_DELIVERY_CONTRACT_ATTESTATION_V2
+  active_contract_ref: INC_REMOTE_ARTIFACT_DELIVERY_V2
+  compatibility_matrix_ref: INC_G1_G18_ARTIFACT_DELIVERY_COMPATIBILITY_V2
+  semantic_owner: G1
+  startup_required_before_first_governed_artifact_action: true
+  package_build_required: true
+  historical_contracts_non_executable:
+  - INC_REMOTE_ARTIFACT_DELIVERY_V1
+  failure: ARTIFACT_CONTRACT_ATTESTATION_FAILED
+artifact_egress:
+  contract_ref: INC_REMOTE_ARTIFACT_DELIVERY_V2
+  hard_gate: ABSOLUTE_FAIL_CLOSED
+  physical_router_ref: G1
+  pipeline:
+  - NON_USER_VISIBLE_TRANSIENT_STAGING
+  - GOVERNED_REMOTE_DESTINATION
+  - REMOTE_WRITE
+  - REMOTE_READBACK
+  - VERIFIED_REMOTE_LINK_ONLY
+  direct_local_delivery: PROHIBITED
+  sandbox_link_visible_to_user: PROHIBITED
+  local_path_visible_to_user: PROHIBITED
+  direct_chat_attachment_delivery: PROHIBITED
+  direct_work_attachment_delivery: PROHIBITED
+  direct_codex_local_delivery: PROHIBITED
+  direct_generated_inline_media_delivery: PROHIBITED
+  direct_generated_image_tool_surface_delivery: PROHIBITED
+  terminal_delivery_requires_remote_write_readback: true
+  terminal_delivery_allowed_surfaces:
+  - SHAREPOINT_VERIFIED_LINK
+  - GITHUB_VERIFIED_LINK_FOR_G1_REPOSITORY_GOVERNED_NONCONFIDENTIAL_SOURCE_ONLY
+  generated_media:
+    classes:
+    - IMAGE
+    - INFOGRAPHIC
+    - CHART
+    - DIAGRAM
+    - SCREENSHOT
+    final_destination: SHAREPOINT_VERIFIED_LINK_ONLY
+    non_user_visible_staging_required: true
+    direct_user_visible_generation_side_effect: PROHIBITED
+    if_surface_cannot_stage_and_publish: G16_TRANSFER_OR_BLOCK_REQUIRED
+  github_allowed_classes:
+  - SOURCE_CODE
+  - REPOSITORY_TEXT
+  - REPOSITORY_CONFIG
+  github_confidential_scope: PROHIBITED
+  user_specified_sharepoint_boundary_lock: true
+  visible_response_forbidden_patterns:
+  - sandbox:/
+  - /mnt/data/
+  - file://
+  - data:image/
+  - direct_generated_attachment_card
+confidentiality:
+  security_ref: G8
+  github_for_confidential_scope: PROHIBITED
+  sharepoint_only_for_confidential_scope: true
+  handoff_inside_confidential_boundary: REQUIRED
+documents:
+  document_skill_ref: DF1
+  aliases:
+  - DOCS
+  - DocForge
+  required_by_default: true
+  user_explicit_waiver_allowed: true
+human_writing:
+  concise_polite_direct_natural: true
+  main_point_first: true
+  preserve_owner_facts_and_voice: true
+  invent_personal_history_or_commitment: PROHIBITED
+dual_sequence_handoff_rendering:
+  hard_gate: true
+  visible_ref: <handoff_id> | S:<interaction_seq> | M:<material_seq>
+  current_turn_S_receipt: REQUIRED
+  material_M_receipt: REQUIRED_WHEN_MATERIAL
+  non_material_turn_preserves_M: true
+  g18_counter_mutation: PROHIBITED
+  failure_codes:
+  - PROJECT_HANDOFF_CURRENT_TURN_S_RECEIPT_MISSING
+  - PROJECT_HANDOFF_MATERIAL_M_RECEIPT_MISSING
+  - PROJECT_HANDOFF_DUAL_SEQUENCE_STALE
+  - PROJECT_HANDOFF_S_M_CAUSAL_BINDING_INVALID
+runtime_version_attestation:
+  contract: INC_SKILLFORGE_RUNTIME_VERSION_ATTESTATION_V1
+  render_only_no_recompute: true
+  material_success_requires_conforming_receipt: true
+  nonconforming_runtime_read_only_visible_blocker: true
+  source_or_handoff_claim_as_runtime_proof: PROHIBITED
+pre_send_validator:
+  full_applicable_clause_audit: REQUIRED
+  allowed_clause_states:
+  - PASS
+  - NOT_APPLICABLE_WITH_REASON
+  forbidden_clause_states:
+  - FAIL
+  - UNKNOWN
+  - SKIPPED
+  revalidate_on_mid_turn_version_change: true
+  required_for_every_substantive_response: true
+  fail_closed: true
+  safe_draft_repair_max_passes: 3
+  checks:
+  - first_handoff_missing_routes_to_g16_bootstrap_before_terminal_render
+  - canonical_router_path_is_runtime_authority
+  - legacy_external_alias_is_redirect_only
+  - active_language_and_surface
+  - chat_turn_budget_guard_and_checkpoint_when_applicable
+  - semantic_direction_classified_before_serialization
+  - semantic_rtl_not_overridden_by_latin_or_numeric_first_visible_token
+  - persian_generated_visible_first_strong_character_is_persian_arabic_script
+  - persian_visible_structured_row_label_is_persian_led_not_NUM_prefix
+  - autonomous_to_terminal_owner_override_suppresses_routine_intermediate_return
+  - presentation_bidi_controls_do_not_contaminate_machine_identifiers
+  - persian_chat_structured_rtl_safe_v9
+  - no_assistant_authored_raw_html_presentation_tags_in_chat
+  - every_actual_table_has_exactly_one_row_reference_column
+  - every_actual_table_has_sequential_row_reference_values
+  - persian_actual_table_header_is_exact_radeef
+  - persian_actual_table_row_values_are_bare_ascii_integers
+  - every_semantic_rtl_actual_table_uses_reverse_logical_source_order
+  - chat_rtl_actual_table_row_reference_is_first_source_column_and_codex_is_last
+  - every_semantic_rtl_actual_table_right_aligns_non_reference_columns
+  - every_persian_chat_actual_table_right_aligns_row_reference_column
+  - every_persian_chat_row_reference_cell_uses_exact_single_rlm_plus_bare_ascii_integer
+  - explicit_persian_table_request_emits_actual_table
+  - persian_first_bilingual_order_when_practical
+  - no_mixed_direction_inline_arrow_chain_in_persian_chat
+  - no_raw_internal_citation_reference_leak
+  - sequential_NUM_referenceability
+  - exact_four_semantic_project_status_records
+  - semantic_table_row_artifact_status_dedup
+  - g1_remote_delivery_and_sharepoint_boundary
+  - no_direct_artifact_attachment_or_inline_generated_media_delivery
+  - generated_media_sharepoint_publish_readback_verified_link_only
+  - no_visible_sandbox_local_or_file_uri_artifact_delivery
+  - confidentiality
+  - docs_df1_interlock
+  - stage_approval_and_final_simulation
+  - single_final_g16_footer_last_when_applicable
+  - g16_execution_profile_visibility_when_applicable
+  - mandatory_execution_surface_notice_when_applicable
+  - same_cycle_visible_link_preflight
+  - no_false_success
+  - every_rtl_chat_text_cell_is_rtl_word_first
+  - every_visible_embedded_ascii_alnum_run_is_balanced_lri_pdi_isolated
+  - no_bare_embedded_ltr_run_in_rtl_table
+  - no_inline_code_direction_workaround_in_rtl_table
+  - single_clickable_handoff_alias_with_hidden_url_absolute_end
+  - every_human_visible_table_has_language_correct_sequential_title
+  - project_table_serials_start_at_one_and_are_contiguous
+  - table_title_is_immediately_adjacent_to_exactly_one_table
+  - governed_project_footer_survives_read_only_backlog_only_no_mutation
+  - directional_title_plus_numbered_table_grammar_supersedes_absolute_table_only
+critical_assurance:
+  global_assurance_ref: G3
+  local_controls:
+  - CHAT1-CC-01
+  - CHAT1-CC-02
+  - CHAT1-CC-03
+  - CHAT1-CC-04
+  - CHAT1-CC-05
+  - CHAT1-CC-06
+  - CHAT1-CC-07
+  - CHAT1-CC-08
+  - CHAT1-CC-09
+  - CHAT1-CC-10
+  - CHAT1-CC-11
+  - CHAT1-CC-12
+  - CHAT1-CC-13
+  - CHAT1-CC-14
+  - CHAT1-CC-15
+  - CHAT1-CC-16
+  - CHAT1-CC-17
+  - CHAT1-CC-18
+  - CHAT1-CC-19
+  - CHAT1-CC-20
+  - CHAT1-CC-21
+  - CHAT1-CC-22
+  - CHAT1-CC-23
+  - CHAT1-CC-24
+  - CHAT1-CC-25
+  - CHAT1-CC-26
+  - CHAT1-CC-27
+  - CHAT1-CC-28
+  - CHAT1-CC-29
+  - CHAT1-CC-30
+  - CHAT1-CC-31
+  - CHAT1-CC-32
+  - CHAT1-CC-33
+  - CHAT1-CC-34
+  - CHAT1-CC-35
+  - CHAT1-CC-36
+  - CHAT1-CC-37
+  - CHAT1-CC-38
+  - CHAT1-CC-39
+  - CHAT1-CC-40
+  - CHAT1-CC-41
+  - CHAT1-CC-42
+  - CHAT1-CC-43
+  - CHAT1-CC-44
+testing:
+  standard_ref: G12
+  independent_evaluation_ref: G13
+  required_regressions:
+  - SINGLE_CANONICAL_AUTHORITY
+  - PERSIAN_CHAT_STRUCTURED_RTL_OUTPUT
+  - PERSIAN_CHAT_ROW_FIRST_OWNER_CONFIRMED_HARD_GATE
+  - RAW_HTML_LEAK_BLOCK
+  - PERSIAN_BILINGUAL_ORDER
+  - PERSIAN_SEMANTIC_DIRECTION_LATIN_FIRST_TOKEN
+  - PERSIAN_SEMANTIC_DIRECTION_NUMERIC_FIRST_TOKEN
+  - PERSIAN_LEXICAL_FIRST_STRONG_CHARACTER
+  - PERSIAN_VISIBLE_ROW_LABEL_NOT_NUM_PREFIX
+  - AUTONOMOUS_TO_TERMINAL_NO_ROUTINE_RETURN
+  - PRESENTATION_BIDI_CONTROL_MACHINE_ID_CLEANLINESS
+  - RAW_INTERNAL_CITATION_REFERENCE_LEAK_BLOCK
+  - MIXED_DIRECTION_ARROW_CHAIN_BLOCK
+  - TURN_BUDGET_SEGMENTATION
+  - G16_EXECUTION_PROFILE_VISIBILITY
+  live_surface_certification:
+    Chat: RETEST_REQUIRED_V0_1_30
+    Work: NOT_VERIFIED_EXTERNAL
+    Codex: RETEST_REQUIRED
+release:
+  independent_evaluation_required: true
+  independent_evaluator_ref: G13
+  packaging_ref: G14
+  publication_ref: G1
+stage29_namespace_migration:
+  status: PASS
+  migration_id: NS-MIG-20260915-G16-G17-G18-G19-V2
+  visible_id: G18
+  preserved_stable_id: CHAT1-SKL-001
+  legacy_aliases:
+  - CHAT1
+  canonical_path: skills/router/g18-human-conversation-output-governor/
+backlog_completeness_claim:
+  coverage_contract_ref: INC_OWNER_CONVERSATION_BACKLOG_COVERAGE_V1
+  feedback_intake_contract_ref: INC_SKILLFORGE_FEEDBACK_INTAKE_V1
+  validator: scripts/validate_backlog_completeness_claim.py
+  completeness_claim_requires_pass_receipt: true
+  unmapped_count_required: 0
+  canonical_private_mirror_parity_required: true
+  canonical_postwrite_sha_required: true
+  pending_intake_is_canonical_registration: false
+contracts:
+  project_chat_footer_contract: INC_G18_GOVERNED_PROJECT_CHAT_FOOTER_V4
+  governed_project_response_grammar: INC_G18_GOVERNED_PROJECT_RESPONSE_GRAMMAR_V1
+hard_gates:
+- BACKLOG_COMPLETENESS_CLAIM_REQUIRES_ZERO_UNMAPPED_RECEIPT
+- OWNER_MANDATE_LINEAGE_PRESERVED
+- CHAT_PERSIAN_ROW_REFERENCE_SOURCE_FIRST_NON_WAIVABLE
+- SURFACE_SERIALIZER_COLLAPSE_PROHIBITED
+- G16_CHECKPOINT_FRESHNESS_REQUIRED_BEFORE_PROJECT_FINAL_RENDER
+- MATERIAL_CHANGE_REQUIRES_POSTCOMMIT_SEQUENCE_RENDER
+- STALE_PREWRITE_HANDOFF_SEQUENCE_RENDER_PROHIBITED
+- PROJECT_DIRECTIONAL_TITLE_PLUS_NUMBERED_TABLE_GRAMMAR_REQUIRED
+- PROJECT_NUMBERED_TABLE_TITLE_GRAMMAR_REQUIRED
+- PROJECT_TABLE_SERIAL_CONTIGUOUS_RESET_EACH_RESPONSE
+- PROJECT_TERMINAL_HANDOFF_ALWAYS_ON
+- PROJECT_NO_MUTATION_SCOPE_CANNOT_SUPPRESS_HANDOFF_RENDER
+project_segment_presentation:
+  hard_gate: true
+  profile: DIRECTIONAL_SEGMENT_TITLE_PLUS_NUMBERED_TABLES_V3
+  structural_title_exception_to_table_only: SUPERSEDED_BY_CANONICAL_PROJECT_RESPONSE_GRAMMAR_V1
+  markdown_heading_title: PROHIBITED_IN_GOVERNED_PROJECT_CHAT
+  rtl_title_source: EXACT_ONE_RLM_THEN_ONE_ICON_THEN_SPACE_THEN_BOLD_RTL_TITLE
+  ltr_title_source: ONE_ICON_THEN_SPACE_THEN_BOLD_LTR_TITLE_NO_RLM
+  title_icon_source_position: LEADING
+  rtl_title_expected_visual_icon_position: RIGHT
+  ltr_title_expected_visual_icon_position: LEFT
+  title_to_first_table_title_gap: MAX_ONE_BLANK_LINE
+  table_title_to_table_gap: ZERO_BLANK_LINES
+  ordinary_table_max_body_rows: 8
+  per_segment_closure_rows:
+  - جمع‌بندی
+  - پیشنهاد
+  - گام بعدی
+  next_action_specific_required: true
+  validator: scripts/validate_project_segments.py
+table_direction_profile:
+  hard_gate: true
+  rtl_all_columns: RIGHT_ALIGN_EXPLICIT_---COLON
+  rtl_source_order: SURFACE_SPECIFIC_CHAT_ROW_FIRST_OWNER_CONFIRMED_CODEX_ROW_LAST
+  ltr_all_columns: LEFT_ALIGN_EXPLICIT_COLON---
+  ltr_source_order: NORMAL_LOGICAL_ROW_REFERENCE_FIRST
+  host_table_container_margin_control: NOT_CLAIMED_UNLESS_NATIVE_VERIFIED_SURFACE_SUPPORT
+  validator: scripts/validate_table_conformance.py
+artifact_tool_route_gate:
+  hard_gate: true
+  applies_before_tool_call: true
+  background_reads_require_non_surfacing_route: true
+  required_execution_visibility: INTERNAL_ANALYSIS_NON_SURFACING
+  route_preflight_status: PASS_REQUIRED
+  commentary_or_user_visible_artifact_tool_route: PROHIBITED
+  raw_download_materialize_background_read: PROHIBITED
+  known_or_unknown_auto_file_card_route: PROHIBITED
+  direct_file_card_exception_even_when_user_requested: NONE
+  pre_and_post_route_ledger_required: true
+release_acceptance_policy:
+  contract_ref: INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1
+  profile: AUTONOMOUS_EVIDENCE_BASED
+  precedence: SUPERSEDES_RELEASE_ONLY_EXTERNAL_EXECUTOR_GATES
+  available_tests: REQUIRED
+  failed_executed_tests: BLOCK_RELEASE
+  external_assurance: OPTIONAL_NONBLOCKING
+  real_publication_readback: REQUIRED
+  runtime_security_authorization: UNCHANGED
+publication_privacy_contract: INC_PUBLICIZATION_PRIVACY_GATE_V2
+public_release_requires_new_owner_consent: true

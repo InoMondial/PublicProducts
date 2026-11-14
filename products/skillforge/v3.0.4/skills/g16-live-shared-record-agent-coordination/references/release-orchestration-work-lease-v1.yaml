@@ -1,0 +1,14 @@
+contract: INC_G16_RELEASE_ORCHESTRATION_WORK_LEASE_V1
+version: 1.0
+semantic_owner: G0
+execution_owner: G16
+hard_gates:
+  canonical_handoff_files_per_project: 1
+  active_work_ledgers_per_release_max: 1
+  closure_reports_per_release_max: 1
+  overlapping_path_leases: PROHIBITED
+  stale_base_sha: BLOCK
+  integration_writer_count: 1
+  freeze_with_active_material_lease: PROHIBITED
+  runtime_mid_session_candidate_switch: PROHIBITED
+required_lease_fields: [lease_id, agent_surface_id, owned_paths, base_sha, expires_at, dependencies, acceptance_criteria, return_target]

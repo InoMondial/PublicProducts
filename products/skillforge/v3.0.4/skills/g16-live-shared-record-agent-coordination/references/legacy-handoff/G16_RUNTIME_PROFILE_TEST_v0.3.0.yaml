@@ -1,0 +1,55 @@
+profile_id: G16_RUNTIME_PROFILE_TEST_V0_3_0
+status: TEST_ONLY
+purpose: Minimum-sufficient runtime profile with explicit ChatGPT instruction-surface coverage.
+activation:
+  persist_current:
+    every_governed_assistant_turn_on_covered_surface: true
+    surfaces:
+      NON_PROJECT:
+        hook: GLOBAL_CUSTOM_INSTRUCTIONS
+        verification_gate: B1-A
+      PROJECT:
+        hook: PROJECT_INSTRUCTIONS_G16_HOOK
+        verification_gate: B1-B
+    uncovered_surface_behavior: DO_NOT_CLAIM_AUTOMATIC_PERSISTENCE
+  resume_explicit:
+    source: EXPLICIT_USER_INTENT
+    auto_resume: prohibited
+persist_current:
+  steps:
+    - resolve_or_create_current_chat_g16_identity
+    - fetch_current_remote_handoff_if_existing
+    - validate_remote_json_schema
+    - verify_remote_chat_id_matches_local_writer_owner
+    - construct_semantically_complete_state
+    - secret_guard_scan_and_redact_or_block
+    - serialize_strict_json
+    - validate_json_schema_v1
+    - write_replace_sharepoint_text_plain
+    - readback_and_verify_handoff_id_chat_id_schema_and_material_state
+  conflict:
+    remote_chat_id_differs: STALE_WRITER_BLOCK
+    post_write_chat_id_differs: OWNERSHIP_CONFLICT_NO_BLIND_RETRY
+resume_explicit:
+  steps:
+    - resolve_requested_handoff
+    - fetch_sharepoint_text
+    - parse_and_validate_declared_schema
+    - apply_authoritative_state
+    - generate_new_chat_id
+    - preserve_handoff_id
+    - construct_continuation_state
+    - secret_guard_scan_and_redact_or_block
+    - refetch_and_verify_remote_not_advanced_since_resume_read
+    - write_new_chat_id_and_updated_state
+    - readback_and_verify_new_chat_id_ownership
+failures:
+  write_or_readback_failure: disclose_latest_exchange_not_persisted
+  malformed_handoff: reject_resume
+  duplicate_handoff_id: integrity_conflict
+  ambiguous_lookup: require_disambiguation
+  unresolved_secret: block_persistence
+logging:
+  runtime: N/A_APPROVED_EXCEPTION
+notification:
+  runtime: NONE

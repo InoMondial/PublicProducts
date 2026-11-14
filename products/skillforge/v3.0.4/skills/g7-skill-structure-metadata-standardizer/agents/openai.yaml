@@ -1,0 +1,7 @@
+interface:
+  display_name: G7-Skill Structure & Metadata Standardizer
+  short_description: SkillForge canonical Skill structure and metadata governance,
+    including framework membership, backlog topology, table referenceability, remote
+    artifact delivery
+policy:
+  allow_implicit_invocation: true

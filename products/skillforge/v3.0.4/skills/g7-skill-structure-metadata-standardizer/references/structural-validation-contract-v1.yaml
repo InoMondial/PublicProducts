@@ -1,0 +1,34 @@
+schema_version: '1.0'
+contract_id: INC_SKILL_SOURCE_PACKAGE_STRUCTURAL_VALIDATION_V1
+owner_skill: G7
+orchestrator_skill: G0
+validator_ref: skills/meta/g0-skill-architect-builder/scripts/skill_structure_setup_gate.py
+scope:
+  formats: [YAML, JSON, TOML, FRONTMATTER, RELEASE_CONTROL]
+  pre_candidate_freeze: REQUIRED
+  post_package_materialization: REQUIRED
+raw_bytes:
+  allowed_encoding: UTF-8
+  invalid_utf8: FAIL_CLOSED
+parsing:
+  strict_target_parser: REQUIRED
+  duplicate_critical_keys: FAIL_CLOSED
+  literal_escaped_newline_in_yaml_or_frontmatter: FAIL_CLOSED
+  malformed_syntax: FAIL_CLOSED
+  schema_mismatch: FAIL_CLOSED_WHEN_SCHEMA_DECLARED
+  truncated_release_control: FAIL_CLOSED
+parity:
+  canonical_vs_package_normalized_semantics: REQUIRED
+  exact_relative_path_binding: REQUIRED
+evidence:
+  required_fields: [path, source_digest, package_digest, parser, schema_version, validation_result]
+  g12_consumer: REQUIRED
+  g13_consumer: REQUIRED
+release_behavior:
+  parse_or_encoding_failure: BLOCK_INSTALLABLE_READY_FREEZE_G12_READY_RELEASE
+  parity_failure: BLOCK_INSTALLABLE_READY_FREEZE_G12_READY_RELEASE
+  warning_downgrade: PROHIBITED
+negative_regression:
+  invalid_utf8_release_json: PERMANENT
+  malformed_release_json: PERMANENT
+  literal_escape_frontmatter: PERMANENT

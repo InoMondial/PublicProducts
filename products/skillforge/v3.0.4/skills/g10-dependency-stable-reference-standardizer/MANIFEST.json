@@ -1,0 +1,39 @@
+{
+  "artifact": "G10-Dependency & Stable Reference Standardizer",
+  "change_scope": "SOURCE_REFERENCE_REGISTRY_REMOTE_STABLE_REFS_AND_LOGICAL_RESOURCE_CONFIGURATION",
+  "contract_ref": "INC_SOURCE_REFERENCE_REGISTRY_V1",
+  "date": "2026-11-13",
+  "effective_release_gate": {
+    "entrypoint": "../g0-skill-architect-builder/scripts/release_closure_gate.py",
+    "historical_certificates": "PRESERVED_NOT_CURRENT_BLOCKERS",
+    "native_activation": "SEPARATE_OPTIONAL_ASSURANCE",
+    "profile": "AUTONOMOUS_EVIDENCE_BASED"
+  },
+  "external_change_request_sources": "BLOCKED_EXACT_SOURCE_REQUIRED",
+  "final_package": "DEFERRED_TO_STAGE7",
+  "framework": "SkillForge",
+  "framework_membership": "MEMBER",
+  "fresh_review": {
+    "independent_third_party": false,
+    "scope": "PRIVATE_3_0_3_PRIVACY_HARDENING"
+  },
+  "historical_metadata_bundled": false,
+  "independent_certification_required_for_release": false,
+  "lifecycle": "production",
+  "logical_resource_configuration_contract": "INC_LOGICAL_RESOURCE_CONFIGURATION_V1",
+  "logical_resource_configuration_path": "references/logical-resource-configuration-contract-v1.yaml",
+  "prior_version": "3.3.1-rc.1",
+  "privacy_responsibility": "Check references and parameter dependencies without embedding live private targets.",
+  "private_history_ref": "PRIVATE_METADATA_61BA2AFEAB2F",
+  "private_state_in_runtime": "EXTERNAL_REFERENCES_ONLY",
+  "publication_mode": "PRIVATE_ONLY_UNTIL_NEW_EXACT_PUBLIC_CONSENT",
+  "publicization_contract": "INC_PUBLICIZATION_PRIVACY_GATE_V2",
+  "registry_ref": "INC_SOURCE_REFERENCE_REGISTRY",
+  "release_policy_profile": "AUTONOMOUS_EVIDENCE_BASED",
+  "release_policy_ref": "INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1",
+  "release_status": "RELEASE",
+  "retained_generic_contracts": [],
+  "stable_id": "O6-SKL-010",
+  "version": "3.3.2",
+  "visible_id": "G10"
+}

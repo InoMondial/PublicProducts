@@ -1,0 +1,31 @@
+schema_version: '1.0'
+policy_id: G14_CHATGPT_SKILL_INSTALL_ZIP_LIMIT_V1
+status: ACTIVE_CANDIDATE
+scope: CHATGPT_MANAGED_SKILL_INSTALL_ZIP
+constraint_source:
+  classification: OWNER_OBSERVED_OPERATIONAL_CONSTRAINT
+  official_numeric_limit_documented_by_openai: NOT_ASSERTED
+limit:
+  max_exclusive_bytes: 25000000
+  required_expression: final_zip_size_bytes < 25000000
+  preparation_target_bytes: 24000000
+  measurement_point: AFTER_FINAL_DETERMINISTIC_ZIP_SERIALIZATION
+evidence:
+- final_zip_size_bytes
+- sha256
+- zip_crc
+- clean_extract
+- manifest_hash_validation
+oversize_remediation_order:
+- remove_backups_history_from_install_zip
+- remove_duplicate_redundant_nonruntime_evidence_docs
+- exclude_temp_cache_test_outputs_not_runtime_required
+- externalize_large_optional_assets_to_canonical_references_with_hashes_when_compatible
+- optimize_compressible_assets_without_semantic_loss
+- deterministic_rebuild
+- rerun_manifest_hash_clean_extract_size_validation
+prohibited:
+- nested_archive_size_evasion
+- disguised_payload_size_evasion
+- remove_required_runtime_functionality_only_to_meet_size
+unresolved_oversize: FAIL_SKILL_INSTALL_ZIP_TOO_LARGE_AND_REQUIRE_REDESIGN_OR_G0_REQUALIFICATION

@@ -1,0 +1,308 @@
+skill_id: G15-SKL-001
+canonical_display_name: G15-Notification_Human_Decision_Gateway
+technical_name: g15-notification-human-decision-gateway
+version: 4.3.1
+lifecycle: candidate
+artifact_type: skill
+complexity_profile: FULL
+functional_role: ROUTER
+security_strictness: S4
+test_profile: T4
+governance_owner: INOMondial Inc.
+ip_owner: INOMondial Inc.
+contact: INFO@INOMONDIAL.com
+source_of_truth:
+  canonical_name: INC Personal AI Ecosystem Architecture & Skill Engineering Standard
+  resolution: registry-latest-approved
+builder_gateway_ref: O6-SKL-003
+standards_registry_ref: INC_STANDARDS_REGISTRY
+independent_validator_required: true
+runtime_resource_routing_applicable: false
+runtime_resource_routing_not_applicable_reason: deterministic_fixed_path
+knowledge_policy:
+  runtime_best_practice_web_discovery: prohibited_by_default
+  selective_loading: true
+  external_research: build_or_maintenance_time_only_unless_current_external_facts_are_intrinsic
+state_policy:
+  dynamic_state_external: true
+  log_store_ref: INC_LOG_STORE
+  priority_rule_store_ref: INC_G15_PRIORITY_RULE_STORE
+  stable_destination_registry_ref: INC_G15_DESTINATION_REGISTRY
+  project_registry_ref: INC_PROJECT_REGISTRY
+architecture_policy:
+  macro_orchestration_owner: Work_or_Agent_or_Orchestrator
+  micro_routing_owner: G15
+  rule_state_separation_required: true
+  source_deployment_separation_required: true
+  runtime_cycles_prohibited: true
+  typed_dependencies_required: true
+  builder_plus_12_standards_plus_validator: true
+notification_policy:
+  mandatory_event_catalog_ref: references/G15-mandatory-notification-catalog-v3.md
+  mandatory_events_may_not_be_silently_suppressed: true
+  routine_low_success_batching_allowed: true
+  batch_must_preserve_each_event_id_and_exact_link: true
+  high_med_decision_failure_batch_suppression_prohibited: true
+  publication_success_default_priority: LOW
+  production_release_or_user_review_publication_priority: MED
+  blocking_publication_failure_priority: HIGH
+  default_priority_destination_mandatory: true
+  producer_destination_discretion: prohibited
+  user_explicit_destination_override_only: true
+  destination_override_authorization_out_of_band: true
+  destination_override_requires_attributable_user_request: true
+  test_channel_for_actual_transport_tests_only: true
+  test_mode_alone_cannot_reclassify_production_traffic: true
+  route_mismatch_blocks_send: true
+  route_mismatch_blocks_terminal_success: true
+project_context_policy:
+  project_context_required_for_ordinary_notifications: true
+  project_progress_required_for_ordinary_notifications: true
+  required_fields:
+    - project_name_or_resolvable_project_id
+    - project_stage
+    - project_progress_percent
+    - message_category
+  progress_percent_range: 0..100
+  resolution_order:
+    - explicit_request
+    - authoritative_project_registry
+    - source_work_or_task_mapping
+    - ecosystem_only_for_true_system_event
+  high_emergency_unknown_delivery_allowed: true
+  fabricated_progress_prohibited: true
+search_tag_policy:
+  bilingual_tags_required_for_every_delivered_message: true
+  absolute_final_message_block: true
+  english_dimensions:
+    - skill
+    - message_type
+    - project
+    - category
+    - priority
+    - event_keywords
+  persian_dimensions:
+    - skill
+    - message_type_meaning
+    - project
+    - category_meaning
+    - priority_meaning
+    - event_keywords
+  structured_keywords_only: true
+  multiword_separator: underscore
+  deduplicate: true
+  english_tag_count_recommended: 5..10
+  persian_tag_count_recommended: 5..10
+  sensitive_free_text_prohibited: true
+  secrets_prohibited: true
+report_policy:
+  canonical_reporting_standard_ref: references/G15-teams-reporting-standard.md
+  visual_standard_ref: references/G15-report-visual-standard.md
+  current_surface: TEAMS_NATIVE_THREAD_POST
+  current_surface_status: FROZEN_FOR_CURRENT_PHASE
+  adaptive_card_future_optional: true
+  canonical_renderer_mandatory: true
+  canonical_renderer_id: G15_TEAMS_NATIVE_V1
+  transport_content_field_required: html_content
+  flat_plain_text_fallback_prohibited: true
+  markdown_fallback_prohibited: true
+  ad_hoc_producer_template_prohibited: true
+  renderer_unavailable_is_blocker: true
+  actual_route_readback_required: true
+  meaningful_title_required: true
+  outcome_first_required: true
+  priority_and_category_visible: true
+  rtl_persian_ltr_english_best_effort: true
+  pixel_perfect_font_or_rtl_claim_prohibited: true
+  raw_markdown_layout_prohibited: true
+  markdown_table_prohibited: true
+  scan_friendly_summary_blocks_required_when_summary_needed: true
+  all_applicable_exact_deep_links_required: true
+  explicit_next_step_required: true
+  project_progress_block_required: true
+  bilingual_search_tags_final_block_required: true
+  remote_post_send_readback_required: true
+  final_success_without_required_links_or_metadata_prohibited: true
+security_policy:
+  external_write: true
+  secrets_prohibited: true
+  credential_collection_in_teams: prohibited
+  high_consequence_double_confirmation: true
+  financial_threshold: 50
+  final_decision_required_before_irreversible_execution: true
+  execution_owned_by_upstream: true
+  passwords_pins_otp_cvv_full_cards_tokens_private_keys_prohibited: true
+  embedded_attachment_instructions_untrusted: true
+human_decision_policy:
+  decision_standard_ref: references/G15-decision-reply-standard.md
+  reply_runtime_architecture_ref: references/G15-reply-monitoring-runtime-architecture-decision.md
+  default_surface: TEAMS_THREAD_REPLY
+  waiting_icon: "⏳"
+  bilingual_order: English_then_Persian
+  default_primary_options: 2
+  max_primary_options: 9
+  reply_code_max_characters: 3
+  meaningful_owner_reply_closed_loop_required: true
+  same_thread_acknowledgment_required: true
+  acknowledgment_minimum_fields:
+    - what_i_understood
+    - current_state
+    - what_happens_next
+  reply_triggered_progress_same_thread: true
+  reply_triggered_final_result_same_thread: true
+  generic_thanks_only_insufficient: true
+  current_reply_discovery: CENTRAL_SCHEDULER_DISPATCHER_TIMER
+  g15_dedicated_timer_prohibited: true
+  g15_specific_new_power_automate_timer_flow_selected: false
+  preferred_future_realtime: MICROSOFT_GRAPH_CHANGE_NOTIFICATIONS_PLUS_LIGHTWEIGHT_RECEIVER
+  timer_retained_for_future_reconciliation: true
+  owner_filter_before_ai_required: true
+  parent_context_jit_required: true
+  outbound_message_ledger_required: true
+  delegated_identity_loop_prevention_required: true
+  reply_message_id_idempotency_required: true
+  mutable_controls:
+    X: CANCELLED
+    D: DEFERRED
+    R: REASK_REQUESTED
+  double_confirmation_codes:
+    Y: FINAL_CONFIRMED
+    N: FINAL_NOT_CONFIRMED
+  native_approval_optional: true
+  adaptive_card_optional: true
+logging_policy:
+  canonical_store: INC_LOG_STORE
+  compact_metadata_only: true
+  message_body_default: not_logged
+  secrets_prohibited: true
+  required_trace_fields:
+    - dispatch_id_or_decision_id_or_report_id
+    - project_id_or_name
+    - project_stage
+    - project_progress_percent
+    - message_type
+    - message_category
+    - priority
+    - status
+    - teams_post_url_when_delivered
+    - source_reference_when_available
+  reply_trace_fields_when_applicable:
+    - owner_reply_message_id
+    - parent_message_id
+    - reply_processing_state
+    - acknowledgment_message_id
+    - outbound_system_message_ids
+dependency_policy:
+  recursive_governance_invocation: prohibited
+  runtime_cycles: prohibited
+  orchestrator_owned_sequencing: true
+  edge_types:
+    - REFERENCE_ONLY
+    - EVIDENCE_ONLY
+    - REGISTRY
+    - RUNTIME
+  edges:
+    - target: Microsoft Teams
+      type: RUNTIME
+      purpose: notification delivery, exact-thread reply capture, deep links
+      resolution: runtime-capability
+    - target: INC_LOG_STORE
+      type: REGISTRY
+      purpose: minimum canonical telemetry, reply ledger and audit events
+    - target: INC_PROJECT_REGISTRY
+      type: REGISTRY
+      purpose: project name, ID, stage and progress resolution
+    - target: INC_G15_PRIORITY_RULE_STORE
+      type: REGISTRY
+      purpose: durable per-class priority feedback
+    - target: CENTRAL_SCHEDULER_DISPATCHER
+      type: RUNTIME
+      purpose: current reply-monitor invocation and reconciliation ticks
+      resolution: platform-runtime
+    - target: Microsoft Graph Change Notifications
+      type: RUNTIME
+      purpose: preferred future low-latency reply event delivery
+      resolution: future-capability
+    - target: Microsoft SharePoint
+      type: RUNTIME
+      purpose: optional durable trace/support links and priority-rule store
+      resolution: runtime-capability
+    - target: Microsoft Planner
+      type: RUNTIME
+      purpose: optional task trace references
+      resolution: runtime-capability
+    - target: GitHub
+      type: RUNTIME
+      purpose: optional exact evidence/source/release links
+      resolution: runtime-capability
+    - target: Microsoft Teams Approvals
+      type: RUNTIME
+      purpose: optional native governed approval surface
+      resolution: runtime-capability
+    - target: Microsoft Teams Adaptive Cards
+      type: RUNTIME
+      purpose: optional future response-capable lightweight interaction surface
+      resolution: runtime-capability
+efficiency_policy:
+  deterministic_first: true
+  progressive_disclosure: true
+  low_verbosity_operational_output: true
+  no_full_governance_reload_at_runtime: true
+  bounded_retries: true
+  current_reply_discovery_timer_based: true
+  future_event_driven_response_read_preferred: true
+  filter_owner_reply_before_ai: true
+  parent_context_load_after_filter_only: true
+  batch_only_routine_low_success_notifications: true
+testing_policy:
+  required_categories:
+    - STRUCTURAL
+    - AGENT_SKILLS_SPEC
+    - SCHEMA
+    - ROUTING
+    - DESTINATION_OVERRIDE_AUTHORIZATION
+    - TEST_ROUTE_ISOLATION
+    - MANDATORY_NOTIFICATION_CATALOG
+    - PROJECT_CONTEXT
+    - PROJECT_PROGRESS
+    - BILINGUAL_SEARCH_TAGS
+    - DECISION_PARSER
+    - DOUBLE_CONFIRMATION
+    - PRIORITY_FLOOR
+    - PRIORITY_FEEDBACK
+    - RTL_LTR_RENDERING
+    - REPORT_VISUAL_CONTRACT
+    - CANONICAL_RENDERER
+    - FLAT_REPORT_REJECTION
+    - DEEP_LINK_CONTRACT
+    - POST_SEND_READBACK
+    - ACTUAL_ROUTE_READBACK
+    - OWNER_REPLY_FILTER
+    - PARENT_THREAD_CORRELATION
+    - SAME_THREAD_ACKNOWLEDGMENT
+    - OUTBOUND_LEDGER_LOOP_PREVENTION
+    - REPLY_IDEMPOTENCY
+    - TIMER_RECONCILIATION
+    - TRACEABILITY
+    - SECURITY_PRIVACY_PERMISSION
+    - OPTIONAL_CAPABILITY_GATING
+    - REGRESSION
+    - PACKAGING_INTEGRITY
+    - CLEAN_EXTRACTION
+    - REPOSITORY_HYGIENE
+promotion_policy:
+  sqs_target: 90
+  unresolved_p0_p1_allowed: false
+  hard_gates_override_score: true
+  independent_validator_required: true
+  platform_scan_required_at_install_time: true
+  chatgpt_post_install_smoke_required: true
+release_policy:
+  single_current_installable_package: true
+  canonical_deploy_folder: deploy
+  historical_release_assets_immutable: true
+  source_and_deployment_separate: true
+  release_asset_required: true
+  deploy_sha_must_match_release_asset: true
+  remote_readback_required: true
+  repository_hygiene_required: true

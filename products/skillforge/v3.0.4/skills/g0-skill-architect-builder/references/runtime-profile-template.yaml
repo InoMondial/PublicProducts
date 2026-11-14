@@ -1,0 +1,107 @@
+schema_ref: INC_GOVERNANCE_RUNTIME_PROFILE_V1
+profile_id: TEMPLATE-G0-COMPILED-RUNTIME-PROFILE
+subject_ref: <candidate-stable-ref>
+principle: minimum-sufficient-runtime-governance
+builder_framework_ref: INC_SKILLFORGE
+framework:
+  membership_contract_ref: INC_SKILL_FRAMEWORK_MEMBERSHIP_V1
+  registry_ref: INC_SKILL_NAMESPACE_REGISTRY
+  framework_id: <resolved-or-null>
+  framework_name: <resolved-or-null>
+  framework_membership: MEMBER | CANDIDATE_MEMBER | EXTERNAL
+  rule: EXTERNAL_SKILLS_BUILT_BY_G0_STILL_RECEIVE_APPLICABLE_COMPILED_RUNTIME_GOVERNANCE
+skill_generation_lineage:
+  applicable: <bool-or-state>
+  contract_ref: INC_SKILLFORGE_SKILL_GENERATION_LINEAGE_V1
+  generated_skill_builder: G0
+  generated_skill_builder_stable_ref: O6-SKL-003
+  direct_child_skill_generation: PROHIBITED
+  existing_skill_interaction: ALLOWED
+  unresolved_builder_behavior: BLOCK
+  failure_code: BLOCKED_NON_SKILLFORGE_SKILL_GENERATION
+backlog:
+  contract_ref: INC_GOVERNED_SKILL_BACKLOG_CONTRACT_V1
+  topology: CENTRAL_FRAMEWORK_BACKLOG | STANDALONE_SKILL_BACKLOG
+  backlog_ref: <stable-backlog-ref>
+  backlog_owner_ref: <root-gate-or-standalone-skill>
+  ordinary_runtime_full_backlog_load: prohibited
+  system_discovered_material_change_intake: CONDITIONAL
+execution_reliability:
+  applicable: <bool-or-state>
+  contract_ref: INC_EXECUTION_TIMEOUT_CHECKPOINT_V1
+  chat_conservative_segmentation: REQUIRED_WHEN_APPLICABLE
+  default_planning_margin: APPROX_ONE_THIRD_PRIOR_PER_TURN_LOAD
+  uncertainty_behavior: SEGMENT
+  checkpoint_after_material_atomic_step: REQUIRED
+  retry_starts_with_reconciliation: REQUIRED
+execution_route:
+  applicable: <bool-or-state>
+  contract_ref: INC_MACHINE_ROUTE_BEFORE_VISUAL_UI_V1
+  visual_ui_default: PROHIBITED_WHEN_MACHINE_ROUTE_AVAILABLE
+  runtime_mode: COMPILED_MINIMUM_ROUTE_PROFILE
+  recursive_full_G16_load_for_route_only: prohibited
+output_contracts:
+  universal_table_referenceability:
+    applicable: <bool-or-state>
+    contract_ref: INC_UNIVERSAL_TABLE_REFERENCEABILITY_V1
+    semantic_row_key: NUM#
+    locale_visible_label: <locale-adapter>
+  bidi_layout:
+    applicable: <bool-or-state>
+    contract_ref: INC_BIDI_LAYOUT_TYPOGRAPHY_V1
+    collection_contract_ref: INC_BIDI_SEMANTIC_COLLECTION_LAYOUT_V1
+    runtime_mode: COMPILED_SURFACE_ADAPTER
+capabilities:
+  git:
+    applicable: <bool-or-state>
+    contract_ref: INC_ARTIFACT_REFERENCE_V1
+  naming:
+    applicable: <bool-or-state>
+    contract_ref: INC_SKILL_NAMESPACE_REGISTRY
+  security:
+    applicable: <bool-or-state>
+    policy_ref: <security-profile-ref>
+  resources:
+    applicable: <bool-or-state>
+    policy_ref: INC_RESOURCE_POLICY_PROFILE
+    activity_map_ref: <optional>
+  logging:
+    applicable: <bool-or-state>
+    event_contract_ref: INC_GOVERNANCE_EVENT_ENVELOPE_V1
+    runtime_gateway_ref: INC_G11_RUNTIME_GATEWAY_V1
+    activity_boundary_ref: INC_GOVERNED_ACTIVITY_BOUNDARY_V1
+    material_activity_ref: INC_MATERIAL_GOVERNED_ACTIVITY_LOGGING_V1
+    logical_store_ref: INC_LOG_STORE
+    writer_route_ref: INC_G11_G17_DB_WRITE_ROUTE_V1
+    runtime_mode: COMPILED_LOCAL_CALLER_PROFILE_TO_G11_GATEWAY
+    recursive_full_G11_skill_invocation: prohibited_for_ordinary_runtime
+    child_physical_db_table_or_sharepoint_schema_awareness: prohibited
+    durable_success_requires_truthful_receipt: true
+  testing:
+    applicable: <bool-or-state>
+    test_profile_ref: <test-profile-ref>
+  evaluation:
+    applicable: <bool-or-state>
+    validator_handoff_ref: INC_VALIDATOR_HANDOFF_V1
+  packaging:
+    applicable: <bool-or-state>
+    artifact_contract_ref: INC_ARTIFACT_REFERENCE_V1
+  notification:
+    applicable: <bool-or-state>
+    event_contract_ref: INC_NOTIFICATION_EVENT_V1
+    runtime_mode: COMPILED_CALLER_PROFILE_OR_G15_GATEWAY_WHEN_EVENT_OCCURS
+  persistence:
+    applicable: <bool-or-state>
+    governor_ref: G17
+    runtime_mode: PROVIDER_NEUTRAL_ADAPTER
+    child_physical_provider_schema_awareness: prohibited
+  coordination:
+    applicable: <bool-or-state>
+    governor_ref: G16
+    runtime_mode: COMPILED_MINIMUM_WORK_ORDER_HANDOFF_PROFILE
+    full_runtime_G16_load: only_when_coordination_is_materially_required
+  human_output:
+    applicable: <bool-or-state>
+    governor_ref: CHAT1-SKL-001
+    runtime_mode: COMPILED_SURFACE_OUTPUT_ADAPTER
+    full_runtime_G18_load: only_when_host_or_workflow_requires_full_conversation_governance

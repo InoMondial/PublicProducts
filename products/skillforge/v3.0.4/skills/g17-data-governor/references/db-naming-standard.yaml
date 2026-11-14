@@ -1,0 +1,143 @@
+standard_id: INC_G17_DB_NAMING_V1
+status: DESIGN_BASELINE_STAGE15
+language:
+  machine_identifiers: ENGLISH_ASCII_ONLY
+  case: lower_snake_case
+  human_payload_values: ANY_LANGUAGE
+provider_neutrality:
+  logical_database_alias: inc_skillforge_main
+  physical_provider_database_name: ADAPTER_PRIVATE
+  provider_ids_in_consumer_skills: FORBIDDEN
+
+identifier_limits:
+  postgres_max_identifier_bytes: 63
+  governed_target_max_bytes: 55
+  rule: keep governed names <=55 bytes so adapter-generated suffixes/checksums can fit safely
+
+data_code:
+  required_for_skill_owned_database_objects: true
+  format: "^[A-Z][A-Z0-9]{2,3}$"
+  length_chars: "3-4"
+  case_insensitive_unique: true
+  immutable_after_production_use: true
+  allocation_source: registries/db-data-code-registry.yaml
+  rules:
+    - prefer the registered Skill family/ordinal when it fits in 3-4 characters
+    - governance G0-G9 use zero-padded technical data codes G00-G09; G10+ use natural G10-G99 form
+    - IA3/IA5/PFA1/PRA1 already fit
+    - longer families receive an explicit registered abbreviation such as ORC1 for ORCH1
+    - visible Skill identity is not renamed by data_code
+
+project:
+  project_ref_format: "PRJ-<registered-project-code>"
+  project_code_format: "^[A-Z][A-Z0-9]{1,7}$"
+  project_schema_format: "prj_<project_code_lower>"
+  misc_project_ref: PRJ_MISC
+  misc_schema: prj_misc
+  test_project_ref_format: "PRJ_TEST_<purpose_code>_<YYYYMMDD>_<short_run_id>"
+  test_schema_format: "tst_<purpose_code_lower>_<short_run_id_lower>"
+
+reserved_shared_schemas:
+  platform_core:
+    purpose: project/data/storage/security registries and platform-wide governance state
+  telemetry:
+    purpose: G11 shared telemetry/event families with mandatory project_ref where applicable
+  data_ops:
+    purpose: schema versions, migrations, backups, restores, reconciliation and data-quality operations
+
+table:
+  skill_owned_format: "<data_code_lower>_<entity_plural>"
+  test_format: "tst_<data_code_lower>_<entity_plural>"
+  entity_naming:
+    language: ENGLISH
+    noun_form: descriptive_plural
+    abbreviations: registered_or_unambiguous_only
+  examples:
+    - g11_runs
+    - g11_events
+    - g17_projects
+    - ia5_applications
+    - orc1_task_claims
+
+column:
+  format: lower_snake_case
+  primary_key: "<entity_singular>_id"
+  foreign_key: "<parent_entity_singular>_id"
+  stable_reference: "<concept>_ref"
+  timestamp: "<event>_at"
+  boolean: "is_<state>"
+  version: row_version
+  created_at: created_at
+  updated_at: updated_at
+  encrypted_payload:
+    ciphertext: "<field>_ciphertext"
+    iv: "<field>_iv"
+    key_version: "<field>_key_version"
+    algorithm_version: "<field>_alg_version"
+  rules:
+    - no generic col1/field1/value/data names for domain fields
+    - suffix _json only when the semantic contract genuinely stores structured JSON
+    - provider-specific column names are forbidden in portable domain tables
+
+constraints:
+  primary_key: "pk_<table>"
+  foreign_key: "fk_<table>__<referenced_table>__<column>"
+  unique: "uq_<table>__<column_or_short_purpose>"
+  check: "ck_<table>__<short_rule>"
+  exclusion: "ex_<table>__<short_rule>"
+  truncation_rule: deterministic_hash_suffix_if_over_55_bytes
+
+indexes:
+  normal: "ix_<table>__<column_or_short_purpose>"
+  unique: "ux_<table>__<column_or_short_purpose>"
+  partial: "px_<table>__<short_purpose>"
+  gin: "gx_<table>__<column_or_short_purpose>"
+  rule: name indexes for query purpose, not implementation accident
+
+sequences:
+  rule: prefer identity/generated UUID keys; explicit sequences require G17 approval
+  format: "sq_<table>__<purpose>"
+
+views:
+  format: "vw_<data_code_lower>_<purpose>"
+materialized_views:
+  format: "mv_<data_code_lower>_<purpose>"
+functions:
+  format: "fn_<data_code_lower>_<verb>_<purpose>"
+
+migrations:
+  filename_format: "<YYYYMMDDHHMMSS>_<data_code_lower>_<verb>_<subject>.sql"
+  timezone_for_filename: UTC
+  examples:
+    - 20260915153000_g17_create_project_registry.sql
+    - 20260915153100_g11_create_run_events.sql
+  rules:
+    - immutable_after_applied
+    - forward_migration_preferred
+    - rollback_or_compensating_plan_required_for_material_change
+    - DDL_outside_governed_migration_is_forbidden_in_production
+    - ephemeral_test_DDL_uses_test_admin_path_and_is_not_added_to_production_migration_history
+
+schema_versioning:
+  canonical_table: data_ops.g17_schema_versions
+  required_fields:
+    - schema_name
+    - version
+    - migration_id
+    - applied_at
+    - checksum
+    - adapter_version
+  compatibility:
+    additive_change: backward_compatible_by_default_if_old_consumers_still_work
+    rename_or_drop: requires_expand_migrate_contract_pattern
+    type_narrowing: breaking_change_requires_migration_and_owner_gate
+    encrypted_field_change: requires_key_and_algorithm_migration_plan
+
+forbidden:
+  - mixed_case_identifiers
+  - quoted_postgres_identifiers_as_normal_practice
+  - spaces_or_hyphens_in_database_identifiers
+  - provider_brand_in_portable_domain_table_names
+  - unregistered_skill_data_code
+  - reuse_of_retired_data_code_for_unrelated_skill
+  - production_object_with_tst_prefix

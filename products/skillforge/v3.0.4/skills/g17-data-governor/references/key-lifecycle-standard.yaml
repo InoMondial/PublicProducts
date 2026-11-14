@@ -1,0 +1,106 @@
+policy_id: INC_G17_KEY_LIFECYCLE_V1
+status: DESIGN_BASELINE_STAGE18
+
+root_key:
+  algorithm_role: ROOT_KEK
+  bytes: 32
+  generation: CSPRNG
+  provider_database_storage: FORBIDDEN
+  derived_key_persistence: FORBIDDEN
+  routine_rotation_max_months: 12
+  immediate_rotation_triggers:
+    - suspected_compromise
+    - permission_expansion
+    - key_material_exposure
+    - crypto_boundary_compromise
+    - material_operator_access_change
+
+states:
+  - PREACTIVE
+  - ACTIVE
+  - DECRYPT_ONLY
+  - COMPROMISED
+  - REVOKED
+  - DESTROYED
+
+derivation:
+  kdf: HKDF-SHA-256
+  protocol_salt: SHA256_INC_G17_HKDF_V1
+  info_encoding: canonical_utf8_json
+  info_fields:
+    - protocol
+    - project_ref
+    - domain_ref
+    - purpose
+    - key_version
+  derived_key_bytes: 32
+
+encryption:
+  algorithm_v1: AES-256-GCM
+  iv_bytes: 12
+  tag_bytes: 16
+  aad_fields:
+    - project_ref
+    - domain_ref
+    - entity
+    - row_ref
+    - field
+    - key_version
+    - alg_version
+
+rotation:
+  new_writes_use_active_only: true
+  old_key_retained_while_dependency_exists: true
+  routine_old_state: DECRYPT_ONLY
+  compromise_requires_priority_reencryption: true
+  delete_old_key_only_after:
+    - all_live_data_reencrypted_or_expired
+    - all_retained_backups_reencrypted_or_expired
+    - recovery_evidence_verified
+    - owner_or_policy_gate_approved
+
+recovery:
+  primary: SharePoint_restricted_primary
+  recovery_copy: SharePoint_restricted_recovery_folder
+  independent_disaster_domain: NOT_YET_IMPLEMENTED
+  high_consequence_scaleup_requires_reassessment: true
+  provider_loss_recoverable_if:
+    - portable_backup_survives
+    - schema_migration_metadata_survives
+    - envelope_metadata_survives
+    - required_root_key_versions_survive
+
+searchable_encryption:
+  deterministic_AES_default: FORBIDDEN
+  plaintext_duplicate_for_search: FORBIDDEN
+  equality_blind_index:
+    algorithm: HMAC-SHA-256
+    key_scope: separately_derived_INDEX_purpose_key
+    requires_explicit_threat_utility_review: true
+    equality_frequency_leakage: acknowledged
+
+metadata:
+  secret_bytes_in_registry: FORBIDDEN
+  fingerprint_allowed: true
+  required:
+    - key_id
+    - version
+    - state
+    - algorithm_role
+    - registered_at
+    - custody_ref
+    - fingerprint_sha256
+    - dependent_data_or_backup_window
+    - rotation_reason
+
+logging:
+  secret_bytes: FORBIDDEN
+  allowed:
+    - key_id
+    - key_version
+    - lifecycle_state
+    - operation_type
+    - success_or_failure
+    - actor_ref
+    - incident_ref
+    - timestamp_utc

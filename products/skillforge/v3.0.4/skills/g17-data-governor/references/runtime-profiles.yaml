@@ -1,0 +1,39 @@
+contract_id: INC_G17_RUNTIME_PROFILES_V1
+status: CANDIDATE_STAGE22
+profiles:
+  DESIGN_BUILD:
+    purpose: SkillForge/new-system data architecture and storage qualification
+    capabilities:
+      - storage_placement
+      - domain_entity_model
+      - schema_design
+      - security_and_encryption_design
+      - adapter_contract
+      - migration_backup_design
+    provider_connection_required: false
+  RUNTIME_ORDINARY:
+    purpose: bounded semantic data operations
+    allowed_ops: [DB_GET, DB_SEARCH, DB_CREATE, DB_UPDATE, DB_DELETE, DB_TRANSACTION, DB_AGGREGATE, DB_HEALTH]
+    unrestricted_sql: false
+    admin_ops: false
+  RUNTIME_ADMIN:
+    purpose: governed DBA/migration/backup/restore
+    allowed_ops: [DB_SCHEMA_STATUS, DB_MIGRATE, DB_BACKUP, DB_RESTORE, DB_PROVIDER_STATUS, DB_QUOTA_STATUS]
+    owner_or_release_gate_required_for_material_change: true
+  STANDALONE_SERVICE:
+    purpose: direct user request to design/build/optimize/migrate data architecture
+    uses_design_build_profile: true
+  OUTAGE_FALLBACK:
+    purpose: preserve approved delayed writes during provider outage
+    primary_reads_requiring_fresh_authority: FAIL_CLOSED
+    current_phase_buffer: CONTROLLED_EXCEL_WHEN_G17_APPROVES
+    requirements:
+      - standardized_outage_banner_except_external_customer_email
+      - incident_ref
+      - high_priority_owner_alert
+      - later_reconciliation
+      - temporary_file_delete_after_verified_reconciliation
+rules:
+  select_minimum_profile: true
+  do_not_load_full_G17_when_no_persistence_need: true
+  admin_profile_never_implicitly_inherited: true

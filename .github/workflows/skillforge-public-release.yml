@@ -1,0 +1,58 @@
+name: Publish SkillForge 3.0.4 public source edition
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "products/skillforge/v3.0.4/**"
+      - "products/skillforge/scripts/build_public_release.py"
+      - ".github/workflows/skillforge-public-release.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: skillforge-public-3.0.4-public.1
+  cancel-in-progress: false
+jobs:
+  release:
+    if: github.repository == 'InoMondial/PublicProducts'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact public main
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify and package public source
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PYTHONDONTWRITEBYTECODE=1
+          export SKILLFORGE_PUBLIC_DIST="$RUNNER_TEMP/skillforge-dist"
+          python -B products/skillforge/scripts/build_public_release.py
+          cd "$SKILLFORGE_PUBLIC_DIST"
+          sha256sum --check SHA256SUMS.txt
+      - name: Validate JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          find products/skillforge/v3.0.4 -type f -name '*.js' -exec node --check {} \;
+      - name: Publish verified versioned GitHub Release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          export SKILLFORGE_PUBLIC_DIST="$RUNNER_TEMP/skillforge-dist"
+          if gh release view skillforge-v3.0.4-public.1 > /dev/null 2>&1; then
+            echo "Release already exists; immutable published version preserved."
+            exit 0
+          fi
+          gh release create skillforge-v3.0.4-public.1 \
+            "$SKILLFORGE_PUBLIC_DIST/SkillForge-3.0.4-public.1-SOURCE.zip" \
+            "$SKILLFORGE_PUBLIC_DIST/SHA256SUMS.txt" \
+            "$SKILLFORGE_PUBLIC_DIST/PUBLIC_RELEASE_VALIDATION.json" \
+            --target "$GITHUB_SHA" \
+            --title "SkillForge 3.0.4-public.1 — Source Available" \
+            --notes-file "products/skillforge/v3.0.4/RELEASE_NOTES.md"

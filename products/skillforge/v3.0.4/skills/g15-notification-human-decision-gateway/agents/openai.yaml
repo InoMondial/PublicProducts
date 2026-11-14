@@ -1,0 +1,7 @@
+interface:
+  display_name: G15-Notification & Human Decision Gateway
+  short_description: G15-Notification & Human Decision Gateway 4.4.1-rc.1 — SkillForge
+    Teams-first governed notification/human-decision gateway with deterministic UTF-8/RTL
+    delivery
+policy:
+  allow_implicit_invocation: true

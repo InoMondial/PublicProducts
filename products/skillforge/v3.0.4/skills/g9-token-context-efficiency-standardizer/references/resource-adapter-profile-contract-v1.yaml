@@ -1,0 +1,40 @@
+schema: INC_RESOURCE_ADAPTER_PROFILE
+schema_version: '1.0'
+owner_policy_skill: G9
+physical_adapter_owner: G17
+control_plane_ref: INC_G9_RESOURCE_FINOPS_CONTROL_PLANE_V1
+required_fields:
+  - provider_ref
+  - service_refs
+  - adapter_ref
+  - adapter_file_ref
+  - capability_profile_ref
+  - checked_at
+  - hierarchy
+  - authoritative_sources
+  - source_precedence
+  - meters
+  - capability_inventory
+  - observability_overhead_budget
+  - activation_route_authority
+  - consumer_direct_provider_binding
+  - collector_model_calls
+  - raw_provider_payload_persistence
+  - parallel_g9_database
+  - g11_semantic_normalization
+  - g17_persistence_path
+  - g15_alert_delivery
+truth:
+  decision_truth: [MEASURED, VALIDATED_ESTIMATE, UNKNOWN]
+  estimates_need_provenance: true
+  provider_formula_without_authoritative_basis: FORBIDDEN
+routing:
+  activation_route_authority: INC_MACHINE_ROUTE_BEFORE_VISUAL_UI_V1
+  local_competing_activation_ladder: FORBIDDEN
+  consumer_direct_provider_binding: FORBIDDEN
+paid_change_policy:
+  purchase_topup_upgrade_quota_increase: EXPLICIT_OWNER_APPROVAL_REQUIRED
+  autonomous_paid_activation: FORBIDDEN
+validation:
+  validator: scripts/validate_resource_finops_profile.py
+  final_G12_G13: REQUIRED

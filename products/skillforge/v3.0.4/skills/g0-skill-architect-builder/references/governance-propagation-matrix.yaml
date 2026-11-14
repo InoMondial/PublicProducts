@@ -1,0 +1,118 @@
+schema_ref: INC_CROSS_CUTTING_GOVERNANCE_PROPAGATION_MATRIX_V1
+subject:
+  skill_ref: O6-SKL-003
+  visible_id: G0
+  version: 3.0.0
+capabilities:
+- id: G1
+  owner: G1-Artifact Archive Router
+  build: REQUIRED
+  runtime: REQUIRED
+  build_application: controlled_candidate_git_publication_and_remote_reconciliation
+  runtime_surface: managed_artifact_publication_or_canonical_input
+  runtime_contract_ref: INC_ARTIFACT_REFERENCE_V1
+  rt_test: RT-G0-G1-01
+- id: G2
+  owner: G2-Artifact Naming Standardizer
+  build: REQUIRED
+  runtime: REQUIRED
+  build_application: resolve_G0_visible_identity_from_namespace_registry
+  runtime_surface: child_skill_or_persistent_artifact_naming
+  runtime_contract_ref: INC_SKILL_NAMESPACE_REGISTRY
+  rt_test: RT-G0-G2-01
+- id: G4
+  owner: G4-Artifact Classification & Skill Profile Standardizer
+  build: REQUIRED
+  runtime: REQUIRED
+  build_application: qualify_G0_and_profile
+  runtime_surface: every_child_build_qualification
+  runtime_contract_ref: INC_GOVERNANCE_RUNTIME_PROFILE_V1
+  rt_test: RT-G0-G4-01
+- id: G5
+  owner: G5-Corporate IP & Copyright Standardizer
+  build: REQUIRED
+  runtime: CONDITIONAL
+  build_application: proprietary_notice_and_ownership_metadata
+  runtime_surface: generated_managed_artifact_with_IP_obligations
+  runtime_contract_ref: INC_GOVERNANCE_RUNTIME_PROFILE_V1
+  rt_test: RT-G0-G5-01
+- id: G6
+  owner: G6-Versioning & Lifecycle Standardizer
+  build: REQUIRED
+  runtime: REQUIRED
+  build_application: semver_candidate_lifecycle_and_rollback_metadata
+  runtime_surface: child_version_or_lifecycle_transition
+  runtime_contract_ref: INC_GOVERNANCE_RUNTIME_PROFILE_V1
+  rt_test: RT-G0-G6-01
+- id: G7
+  owner: G7-Skill Structure & Metadata Standardizer
+  build: REQUIRED
+  runtime: REQUIRED
+  build_application: canonical_package_and_machine_readable_governance
+  runtime_surface: child_skill_structure_and_dpga_metadata
+  runtime_contract_ref: INC_CROSS_CUTTING_GOVERNANCE_PROPAGATION_MATRIX_V1
+  rt_test: RT-G0-G7-01
+- id: G8
+  owner: G8-Security, Privacy & Permission Standardizer
+  build: REQUIRED
+  runtime: REQUIRED
+  build_application: S4_least_privilege_secret_and_approval_gates
+  runtime_surface: sensitive_or_high_impact_child_behavior
+  runtime_contract_ref: INC_GOVERNANCE_RUNTIME_PROFILE_V1
+  rt_test: RT-G0-G8-01
+- id: G9
+  owner: G9-Token & Context Efficiency Standardizer
+  build: REQUIRED
+  runtime: REQUIRED
+  build_application: deterministic_first_JIT_selective_loading
+  runtime_surface: variable_resource_child_activity
+  runtime_contract_ref: INC_RESOURCE_POLICY_PROFILE
+  rt_test: RT-G0-G9-01
+- id: G10
+  owner: G10-Dependency & Stable Reference Standardizer
+  build: REQUIRED
+  runtime: REQUIRED
+  build_application: stable_typed_refs_no_recursive_cycles
+  runtime_surface: child_external_or_cross_skill_dependency
+  runtime_contract_ref: INC_RUNTIME_REFERENCE_REGISTRY
+  rt_test: RT-G0-G10-01
+- id: G11
+  owner: G11-Logging & Traceability Standardizer
+  build: REQUIRED
+  runtime: REQUIRED
+  build_application: minimum_semantic_build_events_no_physical_schema
+  runtime_surface: material_child_activity_trace
+  runtime_contract_ref: INC_GOVERNANCE_EVENT_ENVELOPE_V1
+  rt_test: RT-G0-G11-01
+- id: G12
+  owner: G12-Testing & Evaluation Standardizer
+  build: REQUIRED
+  runtime: REQUIRED
+  build_application: BT_and_RT_test_plan
+  runtime_surface: child_skill_or_material_output_verification
+  runtime_contract_ref: INC_GOVERNANCE_RUNTIME_PROFILE_V1
+  rt_test: RT-G0-G12-01
+- id: G13
+  owner: G13-Skill Quality / SQS Evaluator
+  build: REQUIRED
+  runtime: REQUIRED
+  build_application: independent_handoff_no_self_approval
+  runtime_surface: child_candidate_promotion
+  runtime_contract_ref: INC_VALIDATOR_HANDOFF_V1
+  rt_test: RT-G0-G13-01
+- id: G14
+  owner: G14-Artifact Output & Packaging Standardizer
+  build: REQUIRED
+  runtime: CONDITIONAL
+  build_application: open_zip_manifest_integrity
+  runtime_surface: child_managed_package_output
+  runtime_contract_ref: INC_ARTIFACT_REFERENCE_V1
+  rt_test: RT-G0-G14-01
+- id: G15
+  owner: G15-Notification & Human Decision Gateway
+  build: REQUIRED
+  runtime: REQUIRED
+  build_application: material_build_event_routing_and_visual_reporting
+  runtime_surface: child_report_warning_blocker_decision_approval
+  runtime_contract_ref: INC_NOTIFICATION_EVENT_V1
+  rt_test: RT-G0-G15-01

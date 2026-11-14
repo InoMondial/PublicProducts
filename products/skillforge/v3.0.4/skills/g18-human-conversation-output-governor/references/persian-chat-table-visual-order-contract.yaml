@@ -1,0 +1,70 @@
+contract_id: INC_G18_PERSIAN_CHAT_TABLE_VISUAL_ORDER_V1
+contract_revision: 9
+owner_skill: CHAT1-SKL-001
+visible_owner: G18
+status: STAGE30_CANDIDATE_FAIL_CLOSED
+scope: Persian or semantically-RTL tabular output on Chat, Work or Codex
+root_cause:
+  evidence_date: '2026-09-19'
+  findings:
+    - Host Markdown table geometry is controlled by the renderer; Skill text cannot universally force visual column placement.
+    - The earlier certification-only/fail-closed policy was safe because it withheld unverified Persian Markdown tables.
+    - v0.1.34 reversed that property: explicit requests emitted Markdown while certification was advisory and the registry was empty.
+    - The current owner screenshot disproves the claimed universal pattern: LAST source column + RIGHT alignment + one leading RLM still shows the row-reference content on the visual left.
+    - Source-order, alignment, bidi controls, NBSP, inline-code and raw HTML/CSS experiments are not universal fixes; raw HTML/CSS remains prohibited.
+guarantee_boundary:
+  guaranteed:
+    - Uncertified multi-column Persian/RTL Markdown is never emitted.
+    - Explicit table requests retain all rows and fields through Persian-led numbered structured records.
+    - Actual Persian/RTL Markdown is allowed only for an exact surface/renderer pattern registered with live evidence and digest.
+    - The decision is deterministic and local; GitHub Actions, hosted runners and external services are not required.
+  not_guaranteed:
+    - Visual geometry of an uncertified host renderer.
+hard_rules:
+  - PERSIAN_CHAT_MARKDOWN_TABLE_PROHIBITED_UNLESS_EXACT_CURRENT_HOST_PATTERN_CERTIFIED
+  - EXPLICIT_TABLE_REQUEST_DOES_NOT_OVERRIDE_RENDERER_GEOMETRY_SAFETY
+  - UNVERIFIED_RTL_TABLE_MUST_FALL_BACK_TO_PERSIAN_LED_NUMBERED_STRUCTURED_RECORDS
+  - CERTIFICATION_IS_BLOCKING_FOR_MULTI_COLUMN_PERSIAN_MARKDOWN
+  - CERTIFICATION_IS_BOUND_TO_EXACT_SURFACE_AND_RENDERER_BUILD
+  - EVERY_ACTUAL_TABLE_HAS_ONE_SEQUENTIAL_ROW_REFERENCE_COLUMN
+  - CERTIFIED_RTL_TABLE_ROW_REFERENCE_SOURCE_COLUMN_IS_LAST
+  - CERTIFIED_RTL_TABLE_ALL_COLUMNS_ARE_RIGHT_ALIGNED
+  - PERSIAN_VISIBLE_ROW_HEADER_IS_EXACTLY_ردیف
+  - STRUCTURED_FALLBACK_VISIBLE_ROW_LABEL_IS_ردیف_N
+  - RAW_HTML_CSS_DIRECTION_FORCING_IS_PROHIBITED
+classification:
+  semantic_persian_table: Persian/RTL comparison, status, ledger or matrix regardless of embedded IDs, numbers, paths or versions.
+renderer_certification:
+  registry: references/rtl-table-renderer-certification-registry.yaml
+  role: BLOCKING_FOR_MULTI_COLUMN_PERSIAN_MARKDOWN
+  required_fields: [exact_surface, renderer_build_or_host_revision, live_visual_test_receipt, observed_column_geometry, observed_row_reference_visual_position, mixed_rtl_ltr_readability, artifact_digest]
+  current_state: NO_CERTIFIED_PATTERN
+chat_adapter:
+  applies_to: [Chat, Work, Codex]
+  default_format: PERSIAN_LED_NUMBERED_STRUCTURED_RECORDS
+  explicit_table_request_behavior: EMIT_ACTUAL_MARKDOWN_ONLY_IF_EXACT_CURRENT_PATTERN_CERTIFIED_ELSE_STRUCTURED_RECORDS
+  uncertified_behavior: PERSIAN_LED_NUMBERED_STRUCTURED_RECORDS
+  certified_source_order: REVERSE_LOGICAL_ORDER
+  certified_row_reference_position: LAST
+  certified_alignment: RIGHT_ALIGN_ALL_COLUMNS
+  host_geometry_guarantee: NOT_CLAIMED
+structured_fallback:
+  visible_row_format: 'ردیف <ASCII_INTEGER>: <Persian field/value>'
+  machine_row_key: NUM#
+  actual_markdown_pipe_table: PROHIBITED_WHEN_UNCERTIFIED
+pre_send_validation:
+  - classify_semantic_direction
+  - resolve_exact_surface_and_renderer_build
+  - no_certification_means_structured_fallback
+  - actual_table_requires_matching_registry_entry
+  - certified_table_requires_normal_row/order/alignment_validation
+  - no_raw_html_css_or_universal_workaround_claim
+fail_codes: [PERSIAN_CHAT_TABLE_GEOMETRY_UNSAFE, RTL_TABLE_RENDERER_PATTERN_UNCERTIFIED, RTL_TABLE_CERTIFICATION_SURFACE_MISMATCH, RTL_TABLE_CERTIFICATION_BUILD_MISMATCH, TABLE_ROW_REFERENCE_MISSING, TABLE_ROW_REFERENCE_NONSEQUENTIAL, RTL_TABLE_ROW_REFERENCE_NOT_RIGHTMOST, RTL_TABLE_ALIGNMENT_NOT_RIGHT]
+release_gate:
+  independent_G12_validation: REQUIRED
+  G13_certification: REQUIRED
+  same_candidate_digest_required: true
+history:
+  prior_safe_policy_commit: PUBLIC_EXPORT_PRIVATE_PROVENANCE_REDACTED
+  invalidated_advisory_policy_commit: PUBLIC_EXPORT_PRIVATE_PROVENANCE_REDACTED
+  owner_evidence: OWNER_SCREENSHOT_20260919_RTL_ROW_REFERENCE_VISUALLY_LEFT

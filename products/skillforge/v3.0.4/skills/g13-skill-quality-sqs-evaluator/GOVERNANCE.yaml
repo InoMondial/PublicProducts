@@ -1,0 +1,75 @@
+schema: INC_GOVERNANCE_SKILL_CANDIDATE_V1
+stable_id: O6-SKL-013
+visible_id: G13
+display_name: G13-Skill Quality & SQS Evaluator
+version: 3.3.3
+lifecycle: production
+phase: 6
+functional_role: QUALITY
+dpga:
+  build_time: REQUIRED
+  runtime: CONDITIONAL
+  hard_gates:
+  - DPGA_COMPLETE
+  - GOVERNANCE_PROPAGATION_COMPLETE
+  - SQS_EVIDENCE_COMPLETE
+  - GLOBAL_CRITICAL_CONTROLS_COMPILED
+  - GLOBAL_CRITICAL_CONTROLS_VERIFIED
+runtime_condition: material_acceptance_regression_release_or_audit
+critical_control_assurance:
+  contract_ref: INC_CRITICAL_CONTROL_ASSURANCE_V1
+  build_time_gate: CRITICAL_CONTROLS_COMPILED
+  runtime_exit_gate: CRITICAL_CONTROLS_VERIFIED
+  self_exit_check: REQUIRED_WHEN_RUNTIME_APPLICABLE
+  independent_double_check: CONDITIONAL_MATERIAL_RISK
+  controls:
+  - id: G13-CC-01
+    rule: No SQS score overrides an unresolved security, integrity, approval, dependency,
+      deploy, release or DPGA hard gate.
+    mandatory: true
+    runtime_condition: WHEN_RELEVANT_TO_CURRENT_ACTIVITY
+    evidence_required: true
+  - id: G13-CC-02
+    rule: Static, simulated and live-external evidence are distinguished truthfully.
+    mandatory: true
+    runtime_condition: WHEN_RELEVANT_TO_CURRENT_ACTIVITY
+    evidence_required: true
+  - id: G13-CC-03
+    rule: Both missing required behavior and unnecessary overbuilding/runtime overhead
+      are scored as quality defects.
+    mandatory: true
+    runtime_condition: WHEN_RELEVANT_TO_CURRENT_ACTIVITY
+    evidence_required: false
+  - id: G13-CC-04
+    rule: For autonomous private release, same-executor review and repair are permitted
+      with evidence. Claim independent certification only when genuinely obtained;
+      optional external review never blocks the release.
+    mandatory: true
+    runtime_condition: WHEN_RELEVANT_TO_CURRENT_ACTIVITY
+    evidence_required: true
+global_critical_assurance:
+  contract_ref: INC_CRITICAL_CONTROL_ASSURANCE_V2
+  assurance_skill_ref: G3
+  implicit_inheritance: REQUIRED
+  runtime_exit_gate: GLOBAL_CRITICAL_CONTROLS_VERIFIED
+  compact_vector:
+  - local
+  - security
+  - optimization
+  - logging
+  - notification
+  - archive
+  - terminal
+  full_provider_skill_load_default: prohibited
+  provider_detail_load: JIT_ON_MATERIAL_BRANCH_FAILURE_OR_EVIDENCE_NEED
+release_acceptance_policy:
+  contract_ref: INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1
+  profile: AUTONOMOUS_EVIDENCE_BASED
+  precedence: SUPERSEDES_RELEASE_ONLY_EXTERNAL_EXECUTOR_GATES
+  available_tests: REQUIRED
+  failed_executed_tests: BLOCK_RELEASE
+  external_assurance: OPTIONAL_NONBLOCKING
+  real_publication_readback: REQUIRED
+  runtime_security_authorization: UNCHANGED
+publication_privacy_contract: INC_PUBLICIZATION_PRIVACY_GATE_V2
+public_release_requires_new_owner_consent: true

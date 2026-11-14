@@ -1,0 +1,73 @@
+schema: INC_GOVERNANCE_SKILL_CANDIDATE_V1
+stable_id: O6-SKL-005
+visible_id: G5
+display_name: G5-Corporate IP & Copyright Standardizer
+version: 3.2.2
+lifecycle: production
+phase: 6
+functional_role: NORMAL
+dpga:
+  build_time: REQUIRED
+  runtime: CONDITIONAL
+  hard_gates:
+  - DPGA_COMPLETE
+  - GOVERNANCE_PROPAGATION_COMPLETE
+  - IP_PROVENANCE_VERIFIED
+runtime_condition: creates_or_distributes_ip_relevant_artifact
+critical_control_assurance:
+  contract_ref: INC_CRITICAL_CONTROL_ASSURANCE_V1
+  build_time_gate: CRITICAL_CONTROLS_COMPILED
+  runtime_exit_gate: CRITICAL_CONTROLS_VERIFIED
+  self_exit_check: REQUIRED_WHEN_RUNTIME_APPLICABLE
+  independent_double_check: CONDITIONAL_MATERIAL_RISK
+  controls:
+  - id: G5-CC-01
+    rule: Ownership/provenance basis is verified before a corporate IP claim is applied.
+    mandatory: true
+    runtime_condition: WHEN_RELEVANT_TO_CURRENT_ACTIVITY
+    evidence_required: true
+  - id: G5-CC-02
+    rule: Third-party copyright/license/attribution is preserved during rename, package
+      and publication.
+    mandatory: true
+    runtime_condition: WHEN_RELEVANT_TO_CURRENT_ACTIVITY
+    evidence_required: false
+  - id: G5-CC-03
+    rule: Exclusive ownership is never claimed for external/public-domain/licensed/unknown
+      material without support.
+    mandatory: true
+    runtime_condition: WHEN_RELEVANT_TO_CURRENT_ACTIVITY
+    evidence_required: false
+  - id: G5-CC-04
+    rule: Required NOTICE/license evidence survives packaging and G1 publication.
+    mandatory: true
+    runtime_condition: WHEN_RELEVANT_TO_CURRENT_ACTIVITY
+    evidence_required: true
+public_distribution_rights:
+  contract_ref: INC_SKILLFORGE_PUBLIC_LICENSE_PROVENANCE_V1
+  default_core_rights: CORPORATE_PROPRIETARY_ALL_RIGHTS_RESERVED_UNLESS_EXPLICITLY_LICENSED
+  community_profile: INOMONDIAL_COMMUNITY_PERSONAL_SOURCE_AVAILABLE_V1
+  community_profile_osi_open_source: false
+  explicit_osi_component_exception: VERIFIED_RIGHTS_AND_LICENSE_ONLY
+  blanket_company_ownership: prohibited
+  moral_rights_assignment_equals_waiver: false
+  release_time_rights_revalidation: REQUIRED
+  required_surfaces:
+  - LICENSE
+  - NOTICE
+  - THIRD_PARTY_NOTICES
+  - TRADEMARKS
+  - CONTRIBUTING.md
+  - SECURITY.md
+  - RIGHTS_PROFILE.yaml
+release_acceptance_policy:
+  contract_ref: INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1
+  profile: AUTONOMOUS_EVIDENCE_BASED
+  precedence: SUPERSEDES_RELEASE_ONLY_EXTERNAL_EXECUTOR_GATES
+  available_tests: REQUIRED
+  failed_executed_tests: BLOCK_RELEASE
+  external_assurance: OPTIONAL_NONBLOCKING
+  real_publication_readback: REQUIRED
+  runtime_security_authorization: UNCHANGED
+publication_privacy_contract: INC_PUBLICIZATION_PRIVACY_GATE_V2
+public_release_requires_new_owner_consent: true

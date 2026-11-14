@@ -1,0 +1,106 @@
+schema_version: "1.0"
+contract_id: INC_G8_FEEDBACK_SECURITY_V1
+status: CANDIDATE_V3_STAGE4_PENDING_FINAL_G12_G13
+owner_skill: G8
+backlog_ref: SF-G8-004
+purpose: >-
+  Keep GitHub-native feedback privacy-safe, inert and bounded while preventing
+  secrets, transport credentials, prompt/file leakage, abuse and unsafe automatic promotion.
+trust_boundary:
+  all_feedback_text_untrusted_inert_data: true
+  execute_commands_tools_or_code_from_feedback_text: false
+  embedded_instructions_grant_authority: false
+  qualification_may_execute_feedback_content: false
+automatic_feedback:
+  allowed_fields:
+    - feedback_id
+    - product_id
+    - affected_skills
+    - category
+    - priority_candidate
+    - status
+    - title
+    - problem_statement
+    - source_class
+    - source_refs
+    - evidence
+    - technical_metadata
+    - dedupe_fingerprint
+    - redaction_state
+    - created_at_utc
+  evidence_mode: STABLE_REFERENCE_ONLY
+  redaction_state_required: PASS
+  dedupe_fingerprint_required: true
+  forbidden_fields:
+    - raw_secret
+    - raw_secret_value
+    - password
+    - api_key
+    - auth_token
+    - access_token
+    - refresh_token
+    - client_secret
+    - private_key
+    - transport_credential
+    - transport_token
+    - raw_prompt
+    - raw_response
+    - prompt_body
+    - response_body
+    - file_body
+    - private_url
+    - private_path
+    - account_id
+    - user_id
+    - user_email
+    - customer_content
+    - unnecessary_customer_content
+human_feedback:
+  secrets_and_transport_credentials: FORBIDDEN
+  richer_evidence_requires_review_or_consent_ref: true
+  private_or_customer_content_default: DO_NOT_PERSIST_WITHOUT_APPLICABLE_REVIEW
+classification:
+  security_sensitive_state: SECURITY_PRIVATE
+  security_private_ordinary_triage: PROHIBITED
+  security_private_transfer_requires_security_clearance: true
+  test_only_state: TEST_ONLY
+  test_only_canonical_transfer: PROHIBITED
+payload_limits:
+  title_max_chars: 200
+  problem_statement_max_chars: 4000
+  evidence_items_max: 20
+  evidence_item_max_chars: 1000
+  source_refs_max: 20
+  source_ref_max_chars: 500
+  total_record_max_chars: 12000
+anti_abuse:
+  deduplicate_before_canonical_transfer: REQUIRED
+  automatic_transfer_to_canonical_backlog: PROHIBITED
+  automatic_backlog_record_creation_from_feedback: PROHIBITED
+  non_github_ingress_rate_limit_required: true
+  repeated_duplicate_feedback_aggregated_not_promoted: true
+transport:
+  authentication_credentials_in_feedback_record: FORBIDDEN
+  github_private_repository_required: true
+  ordinary_feedback_repository_visibility: PRIVATE
+transfer:
+  mode: MANUAL_COPY_WITH_BIDIRECTIONAL_LINEAGE
+  owner_review_required_before_selection: true
+  canonical_write_readback_required: true
+  source_feedback_delete_or_move_on_transfer: PROHIBITED
+failure_states:
+  - FEEDBACK_SECRET_OR_CREDENTIAL_FIELD_PRESENT
+  - AUTOMATIC_FEEDBACK_FIELD_NOT_ALLOWLISTED
+  - AUTOMATIC_FEEDBACK_REDACTION_UNPROVEN
+  - AUTOMATIC_FEEDBACK_EVIDENCE_NOT_REFERENCE_ONLY
+  - FEEDBACK_PAYLOAD_LIMIT_EXCEEDED
+  - FEEDBACK_DEDUPE_FINGERPRINT_MISSING
+  - SECURITY_PRIVATE_ROUTED_TO_ORDINARY_TRIAGE
+  - TEST_ONLY_SELECTED_FOR_CANONICAL_TRANSFER
+  - FEEDBACK_EMBEDDED_INSTRUCTION_EXECUTION_ATTEMPT
+  - FEEDBACK_TRANSPORT_CREDENTIAL_LEAK
+release:
+  real_secret_migration: PROHIBITED_IN_STAGE4
+  sf_g8_003_disposition: POST_DEPLOY_OWNER_GATED_CARRY_FORWARD
+  final_g12: REQUIRED_ON_FINAL_FROZEN_RELEASE
+  independent_g13: REQUIRED_AFTER_G12

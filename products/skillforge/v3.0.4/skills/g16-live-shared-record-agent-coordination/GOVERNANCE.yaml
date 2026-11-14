@@ -1,0 +1,157 @@
+governance_schema: INC-SKILL-GOVERNANCE-V4
+artifact:
+  stable_id: G16-SKL-001
+  visible_id: G16
+  display_name: G16-Live Shared Record Agent Coordination
+  canonical_name: live-shared-record-agent-coordination
+  version: 0.1.20
+  lifecycle: production
+  framework_membership: MEMBER
+  strictness: S4
+  governance_owner: INOMondial Inc.
+scope:
+  primary: SYSTEM_TO_SYSTEM_AGENT_COORDINATION
+  includes:
+  - shared_handoff_continuity
+  - multi_agent_work_order_coordination
+  - manager_worker_topology
+  - leases_and_delta_reads
+  - user_wait_resume
+  - cross_surface_execution_delivery
+  - durable_single_or_multi_executor_commands
+  - evidence_weighted_execution_progress
+  - first_handoff_bootstrap
+  excludes:
+  - human_response_formatting
+  - data_storage_architecture
+ownership:
+  human_conversation_output: G18
+  data_governance: G17
+  plugin_packaging: G19
+contracts:
+  cross_surface_execution_delivery: INC_G16_CROSS_SURFACE_EXECUTION_DELIVERY_V1
+  execution_profile_recommendation: INC_G16_EXECUTION_PROFILE_RECOMMENDATION_V1
+  execution_surface_recommendation: INC_G16_EXECUTION_SURFACE_RECOMMENDATION_V1
+  legacy_handoff_data_contract: references/legacy-handoff/G16_HANDOFF_DATA_CONTRACT_v1.1.0.md
+  legacy_handoff_schema: references/legacy-handoff/G16_HANDOFF_STATE_V1.schema.json
+  legacy_secret_guard: references/legacy-handoff/G16_SECRET_GUARD_POLICY_v1.yaml
+  durable_execution_progress: INC_G16_DURABLE_EXECUTION_PROGRESS_V1
+  durable_execution_progress_path: references/durable-execution-progress-v1.md
+  preserved_coordination_baseline: references/coordination-baseline-v0.1.6.md
+  governed_project_chat_return: INC_G16_GOVERNED_PROJECT_CHAT_RETURN_V2
+  handoff_sequence_commit: INC_G16_HANDOFF_DUAL_SEQUENCE_V1
+  handoff_transactional_writer: INC_G16_HANDOFF_TRANSACTIONAL_WRITER_V1
+  handoff_transactional_writer_path: references/handoff-transactional-writer-v1.md
+  handoff_transactional_writer_core: scripts/handoff_transaction.py
+  handoff_bootstrap_profile: FIRST_HANDOFF_BOOTSTRAP_V1
+  handoff_bootstrap_core: scripts/handoff_bootstrap.py
+  handoff_bootstrap_tests: tests/test_handoff_bootstrap.py
+  handoff_topology_registry: INC_G16_HANDOFF_TOPOLOGY_REGISTRY_V1
+  handoff_topology_registry_path: references/handoff-topology-registry-v1.md
+  cross_surface_interaction_ledger: INC_CROSS_SURFACE_INTERACTION_LEDGER_V1
+  cross_surface_interaction_ledger_path: references/cross-surface-interaction-ledger-v1.md
+  skillforge_feedback_intake: INC_SKILLFORGE_FEEDBACK_INTAKE_V1
+  owner_conversation_backlog_coverage: INC_OWNER_CONVERSATION_BACKLOG_COVERAGE_V1
+  runtime_version_attestation: INC_SKILLFORGE_RUNTIME_VERSION_ATTESTATION_V1
+  dual_sequence:
+    interaction_counter: S
+    material_counter: M
+    visible_ref: <handoff_id> | S:<interaction_seq> | M:<material_seq>
+    external_user_turn_increments_S_exactly_once: true
+    non_material_turn_preserves_M: true
+    material_checkpoint_increments_M_exactly_once: true
+    current_turn_S_receipt_required: true
+    material_M_receipt_required_when_applicable: true
+skillforge_feedback_intake:
+  contract_ref: INC_SKILLFORGE_FEEDBACK_INTAKE_V1
+  runtime_core: scripts/skillforge_feedback_intake.py
+  ordinary_runtime_recursive_g0_load: prohibited
+  owner_mandate_downgrade: prohibited
+  no_direct_write_status: PENDING_CANONICAL_INGESTION
+  canonical_registration_claim_requires_readback: true
+  feedback_receipt_ref_in_interaction_event: required_when_applicable
+hard_gates:
+- EXACTLY_ONE_COORDINATION_MANAGER
+- LATEST_G16_BEFORE_CROSS_SURFACE_GENERATION
+- POWERSHELL_FIRST_WHEN_DIRECT_WINDOWS_CODEX_SHELL_VERIFIED
+- REMOTE_REFERENCE_ONLY_DELIVERY
+- NO_DUPLICATE_COORDINATION_STATE
+- EXECUTION_PROFILE_RECOMMENDATION_REQUIRED
+- EXECUTION_SURFACE_RECOMMENDATION_REQUIRED
+- EXECUTION_SURFACE_SELECTION_AUTHORITY_USER_ONLY
+- MACHINE_FIRST_VISUAL_UI_LAST_REQUIRED
+- UI_FRAGMENT_MINIMIZATION_REQUIRED
+- MANDATORY_EXECUTION_SURFACE_COMPATIBILITY_REQUIRED
+- HUMAN_DISPATCH_NOTICE_REQUIRED
+- WRITE_AHEAD_INTENT_BEFORE_MATERIAL_MUTATION
+- UNKNOWN_OUTCOME_REMOTE_RECONCILIATION_BEFORE_RETRY
+- PERSISTED_ROOT_RETRY_AND_NO_PROGRESS_BUDGETS
+- WEIGHTED_REQUIREMENT_COMPLETE_COMMAND_PLAN
+- REPORT_AFTER_EVERY_VISIBLE_EXECUTION_RETURN
+- DURABLE_REPORT_ON_FIRST_RESUME_AFTER_HOST_FAILURE
+- NO_CLAIM_OF_UNVERIFIED_HOST_WATCHDOG
+- NO_INVENTED_PROJECT_PERCENTAGES_FOR_FOOTER
+- CANONICAL_HANDOFF_IDENTITY_ON_EVERY_PROJECT_RETURN
+- PROJECT_CHAT_STATE_ON_EVERY_SUBSTANTIVE_RETURN
+- CURRENT_CYCLE_CANONICAL_HANDOFF_REFRESH_BEFORE_PROJECT_RETURN
+- FIRST_HANDOFF_WITHOUT_EXPLICIT_URL_ALWAYS_BOOTSTRAPS_NEW
+- FIRST_HANDOFF_CREATE_ONLY_AND_POSTCREATE_READBACK_REQUIRED
+- FIRST_HANDOFF_SEED_S0_M0_INTERNAL_ONLY
+- FIRST_HANDOFF_FIRST_EXTERNAL_TURN_S1
+- EXPLICIT_MISSING_HANDOFF_URL_NOT_AUTO_REPLACED
+- PROJECT_BOUND_HANDOFF_REUSE_WITHOUT_EXPLICIT_URL_PROHIBITED
+- BARE_HANDOFF_ID_DOES_NOT_AUTHORIZE_CONTINUATION
+- HANDOFF_CONTINUATION_AUTHORITY_EXPLICIT_URL_ONLY
+- HANDOFF_BOOTSTRAP_PROVIDER_WRITE_UNAVAILABLE_DISTINCT_FROM_NOT_FOUND
+- HANDOFF_DUAL_SEQUENCE_REQUIRED
+- HANDOFF_TRANSACTIONAL_WRITER_ONLY
+- CANONICAL_HANDOFF_TOPOLOGY_EXACTLY_ONE
+- PER_CHECKPOINT_HANDOFF_FILE_PROHIBITED
+- ZERO_OR_ONE_ACTIVE_LEDGER_PER_RELEASE
+- EXACTLY_ONE_IMMUTABLE_CLOSURE_REPORT_AFTER_RELEASE_CLOSE
+- MULTIPLE_ACTIVE_RELEASES_PROHIBITED
+- INTERACTION_LEDGER_APPEND_ONLY
+- INTERACTION_LEDGER_ONE_ALLOCATION_RECORD_PER_S
+- INTERACTION_LEDGER_HASH_CHAIN_REQUIRED
+- INTERACTION_LEDGER_SECRET_REPLICATION_PROHIBITED
+- INTERACTION_LEDGER_RETRIEVE_NEWER_THAN_LAST_SEEN_S
+- INTERACTION_LEDGER_NOT_COUNTER_AUTHORITY
+- RUNTIME_VERSION_ATTESTATION_REQUIRED_BEFORE_MATERIAL_MUTATION
+- NONCONFORMING_RUNTIME_READ_ONLY_ONLY
+- RUNTIME_ATTESTATION_CONTEXT_BOUND_TO_SURFACE_ACCOUNT_SESSION
+- RUNTIME_ATTESTATION_FRESH_AFTER_CONTEXT_CHANGE
+- STALE_G16_CANNOT_REUSE_PRIOR_S_M_RECEIPT
+- HANDOFF_CALLER_SUPPLIED_NEXT_S_PROHIBITED
+- HANDOFF_CALLER_SUPPLIED_NEXT_M_PROHIBITED
+- HANDOFF_PREWRITE_CANONICAL_READBACK_REQUIRED
+- HANDOFF_CAS_OR_VERIFIED_SINGLE_WRITER_REQUIRED
+- HANDOFF_AMBIGUOUS_WRITE_RECONCILE_BEFORE_RETRY
+- HANDOFF_POSTWRITE_READBACK_RECEIPT_REQUIRED
+- HANDOFF_CURRENT_TURN_S_RECEIPT_REQUIRED
+- HANDOFF_MATERIAL_M_RECEIPT_REQUIRED_WHEN_APPLICABLE
+- HANDOFF_VISIBLE_REF_EXACT_MATCH_REQUIRED
+- G16_PROJECT_RETURN_SEMANTIC_VALIDATION_REQUIRED
+- SKILLFORGE_FEEDBACK_INTAKE_RECEIPT_REQUIRED_WHEN_APPLICABLE
+- OWNER_MANDATE_AUTHORITY_PRESERVED
+- EVERY_EXTERNAL_USER_TURN_ADVANCES_S_EXACTLY_ONE
+- MATERIAL_HANDOFF_WRITE_ADVANCES_M_EXACTLY_ONE
+- NON_MATERIAL_TURN_ADVANCES_S_ONCE_AND_PRESERVES_M
+- MATERIAL_CHANGE_REQUIRES_HANDOFF_COMMIT_BEFORE_FINAL_RETURN
+- POSTWRITE_HANDOFF_READBACK_REQUIRED
+- PROVIDER_REVISION_AND_SEMANTIC_SEQUENCE_RECONCILIATION_REQUIRED
+promotion:
+  namespace_stage29: PASS
+  final_g12: PENDING_INDEPENDENT_CERTIFICATION
+  final_g13: PENDING_INDEPENDENT_CERTIFICATION
+release_acceptance_policy:
+  contract_ref: INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1
+  profile: AUTONOMOUS_EVIDENCE_BASED
+  precedence: SUPERSEDES_RELEASE_ONLY_EXTERNAL_EXECUTOR_GATES
+  available_tests: REQUIRED
+  failed_executed_tests: BLOCK_RELEASE
+  external_assurance: OPTIONAL_NONBLOCKING
+  real_publication_readback: REQUIRED
+  runtime_security_authorization: UNCHANGED
+version: 0.1.21
+publication_privacy_contract: INC_PUBLICIZATION_PRIVACY_GATE_V2
+public_release_requires_new_owner_consent: true

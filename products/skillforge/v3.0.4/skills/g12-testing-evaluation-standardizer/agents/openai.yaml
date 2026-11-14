@@ -1,0 +1,6 @@
+interface:
+  display_name: G12-Testing & Evaluation Standardizer
+  short_description: Proportional Build-Time and Runtime testing governance using
+    deterministic-first evaluation, bounded retries and risk-based evaluator depth.
+policy:
+  allow_implicit_invocation: true

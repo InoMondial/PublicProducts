@@ -1,0 +1,194 @@
+policy_id: INC_G17_QUERY_PERFORMANCE_V1
+status: STAGE24_INTEGRATED_WITH_G9
+g9_integration_contract: INC_G9_G17_DATA_RESOURCE_OPTIMIZATION_V1
+scope:
+  - G17 gateway
+  - provider adapters
+  - SkillForge generated Skills with persistent/queryable data
+  - G9 resource optimization integration
+
+principles:
+  - correctness_security_and_authority_before_speed
+  - push_filter_sort_aggregation_to_database_when_safe
+  - return_only_fields_and_rows_needed
+  - avoid_n_plus_one_round_trips
+  - optimize_query_architecture_before_model_context_compression
+  - provider_specific_optimization_stays_in_adapter_or_migration
+  - unknown_provider_cost_formula_remains_unknown
+
+projection:
+  select_star:
+    ordinary_runtime: FORBIDDEN
+    exceptions:
+      - bounded admin diagnostics
+      - explicit export/backup pipeline
+  rule: request only fields required by the consumer operation
+  encrypted_fields: decrypt_only_requested_fields_after_bounded_row_selection
+
+filtering:
+  server_side_required_when_supported: true
+  parameterized_queries_required: true
+  unbounded_full_table_fetch_to_model: FORBIDDEN
+  functions_on_indexed_predicates:
+    rule: avoid unless matching functional index exists and is justified
+
+pagination:
+  default_page_size: 50
+  ordinary_model_facing_hard_max_page_size: 200
+  preferred_strategy: KEYSET_CURSOR
+  offset_strategy:
+    allowed_when: small bounded dataset or measured plan proves acceptable
+    prohibited_pattern: deep_offset_on_growing_table
+  cursor:
+    must_be_stable: true
+    tie_breaker_required_when_sort_key_not_unique: true
+
+aggregation:
+  server_side_required: true
+  raw_rows_to_model_for_simple_count_sum_min_max_grouping: FORBIDDEN
+  exact_count:
+    rule: compute only when the use case needs it
+  materialized_view:
+    allowed_when: repeated_expensive_read_pattern_and_staleness_contract_defined
+
+joins_and_batching:
+  n_plus_one_queries: FORBIDDEN
+  prefer:
+    - joins
+    - bounded_batch_lookup
+    - ANY_or_array_parameter
+  cross_project_join:
+    default: FORBIDDEN
+    exception: explicit_governed_cross_project_contract
+
+indexes:
+  create_from_real_query_patterns: true
+  index_every_column: FORBIDDEN
+  required_review_dimensions:
+    - equality_filters
+    - range_filters
+    - join_keys
+    - ordering
+    - uniqueness
+    - selectivity
+    - write_amplification
+    - storage_overhead
+  composite_index_rule: align leading columns with actual filter/order pattern
+  jsonb_gin_rule: only when measured query need justifies it
+  unused_index_review: periodic
+  provider_portability: prefer_standard_PostgreSQL_features_unless_adapter_justifies_exception
+
+query_plan_review:
+  build_and_change_gate:
+    required_for:
+      - new_material_query_path
+      - materially_changed_query
+      - query_expected_to_scan_large_fraction_for_selective_result
+      - query_with_join_or_sort_on_growing_table
+  tool: EXPLAIN_ANALYZE_BUFFERS_IN_TEST_ONLY
+  production_runtime_continuous_explain: FORBIDDEN
+  red_flags:
+    - deep_offset_scanning_many_rows_for_small_page
+    - sequential_scan_for_selective_lookup_on_growing_table_without_reason
+    - rows_removed_by_filter_far_above_rows_returned
+    - temp_spill_for_routine_query
+    - repeated_sort_where_index_can_safely_cover
+    - N_plus_one_round_trips
+
+transactions:
+  keep_short: true
+  external_network_call_inside_transaction: FORBIDDEN
+  llm_reasoning_inside_open_transaction: FORBIDDEN
+  multi_write_atomic_operation: DB_TRANSACTION
+  idempotency_required_for_mutations: true
+  optimistic_concurrency_default: true
+  retry:
+    bounded: true
+    only_on_known_retryable_conflicts: true
+    preserve_idempotency: true
+
+timeouts_and_cancellation:
+  unbounded_query: FORBIDDEN
+  adapter_timeout_required: true
+  exact_timeout:
+    rule: provider_and_operation_profile_specific_not_global_until_load_test
+  cancellation:
+    propagate_when_provider_supports: true
+
+caching:
+  default: OFF
+  allow_only_when:
+    - repeated_read_pattern
+    - explicit_staleness_tolerance
+    - authority_not_changed
+    - invalidation_or_TTL_defined
+  cache_is_system_of_record: false
+  plaintext_S3_S4_cross_request_cache: FORBIDDEN_BY_DEFAULT
+  cache_key_must_include:
+    - project_ref
+    - query_signature
+    - authorization_scope
+    - relevant_version_or_TTL
+
+resource_and_token_efficiency:
+  g9_rule: optimize_execution_and_information_architecture_not_character_count_only
+  model_context:
+    - send_summaries_or_aggregates_when_raw_rows_not_needed
+    - return_bounded_structured_results
+    - keep_large_exports_out_of_model_context
+  provider_metrics:
+    source_labels: [MEASURED, VALIDATED_ESTIMATE, UNKNOWN]
+    fabricate_unknown_cost_formula: FORBIDDEN
+  telemetry_sampling:
+    rule: collect enough evidence for regression/provider decisions without tracing every micro-query
+
+hatchable_adapter_profile:
+  current_provider: Hatchable
+  free_database_time_monthly_minutes_observed: 120
+  table_limit_observed: 50
+  causal_database_time_formula: UNKNOWN
+  direct_cumulative_usage_counter_in_plugin: UNAVAILABLE
+  strategy:
+    - reduce_round_trips
+    - prefer_server_side_filter_and_aggregate
+    - prefer_keyset_pagination
+    - use_indexed_query_paths
+    - keep_transactions_short
+    - avoid_runtime_EXPLAIN
+    - measure_only_with_bounded_test_or_available_provider_telemetry
+
+performance_regression_gate:
+  compare_against_baseline_for_material_query_changes: true
+  exact_global_latency_SLO: NOT_YET_FROZEN
+  reason: shared_provider_and_workload_variability_requires_operation_specific_baselines
+  require_owner_or_G17_review_when:
+    - result_bounds_are_removed
+    - pagination_changes_keyset_to_deep_offset
+    - index_is_removed_from_material_query_path
+    - provider_specific_feature_reduces_portability
+    - decrypted_sensitive_data_volume_increases_materially
+
+optimization_precedence:
+  architecture_before_token_micro_optimization: true
+  required_order:
+    - storage_authority
+    - query_location
+    - projection_bounds
+    - server_filter_aggregate
+    - batching_joins
+    - pagination
+    - transaction_round_trips
+    - indexes_query_plan
+    - cache_state_if_qualified
+    - tool_result_shape
+    - model_context
+    - model_capability_advisory_if_material
+  non_optimizable:
+    - security
+    - encryption
+    - project_isolation
+    - required_readback
+    - required_evidence
+    - backup_restore
+    - migration_rollback
+    - required_owner_mentions

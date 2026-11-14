@@ -1,0 +1,16 @@
+schema_version: '1.1'
+policy_id: G1_REPOSITORY_HYGIENE_V1
+preflight: {latest_authoritative_main_reconciled: required, capability_preflight: required, atomic_lineage_lock: required}
+proof_shape: {status_PASS: required, transaction_id: required, observed_at: required, reference: required}
+exit:
+  uncommitted_durable_files: 0
+  unpushed_commits: 0
+  required_unmerged_prs: 0
+  transaction_temp_branches: 0
+  transaction_release_ops_branches: 0
+  transaction_temp_workflows: 0
+  transaction_staging_residue: 0
+  remote_main_inventory_readback: required
+cleanup_scope: OWNED_TRANSACTION_RESIDUE_ONLY
+force_overwrite_shared_main: prohibited
+repository_protection: {audit_required: true, settings_mutation_requires_owner_authorization: true}

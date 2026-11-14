@@ -1,0 +1,6 @@
+interface:
+  display_name: G13-Skill Quality & SQS Evaluator
+  short_description: Independent Skill Quality Score evaluator with hard-gate overrides,
+    Build-Time/Runtime separation and explicit overbuilding/underexecution penalties.
+policy:
+  allow_implicit_invocation: true

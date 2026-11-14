@@ -1,0 +1,105 @@
+contract_id: INC_SKILLFORGE_MASTER_ROADMAP_GATE_V1
+status: CANDIDATE_IMPLEMENTED
+owner_skill: G0
+purpose: >
+  Keep the owner-facing InoAgents/InoProfit/SkillForge Master Roadmap synchronized
+  with every non-temporary SkillForge creation or material lifecycle change.
+canonical_workbook:
+  logical_name: InoAgents_InoProfit_Master_Roadmap.xlsx
+  sheet: Roadmap
+  management_role: MANDATORY_OWNER_UI
+  machine_authority:
+    - INC_SKILL_NAMESPACE_REGISTRY
+    - canonical Skill source and metadata in GitHub
+  rule: >
+    The workbook is a mandatory management mirror/interface, not a competing machine
+    source of truth. G0 must reconcile both directions and stop on unresolved conflict.
+entry_gate:
+  applies_to:
+    - CREATE
+    - UPGRADE
+    - MIGRATE
+    - SPLIT
+    - MERGE
+    - RENAME
+    - MATERIAL_CHANGE
+    - PROMOTION
+    - RELEASE
+  exception:
+    allowed_only_when_owner_explicitly_classifies: [TEST, TEMPORARY]
+    promotion_rule: >
+      A TEST/TEMPORARY Skill that is promoted to reusable, candidate, production or
+      otherwise persistent status must be registered before promotion.
+  required_before_design_or_build: true
+identity_resolution_order:
+  - stable_id
+  - registered_visible_id
+  - canonical_name
+  - aliases
+  - draft_name
+  - final_display_name
+  - project_and_domain_context
+ambiguity_policy:
+  one_unambiguous_match: UPDATE_EXISTING_ROW
+  no_match: PROPOSE_OR_ASSIGN_CODE_AND_CREATE_ROW
+  plausible_multiple_matches: ASK_OWNER_AND_BLOCK_DUPLICATE_CREATION
+  user_does_not_know_code: SEARCH_THEN_PROPOSE
+row_rules:
+  preserve_raw_description_by_alireza_verbatim: true
+  required_lifecycle_updates:
+    - INTAKE_AND_IDENTITY
+    - POST_NAMESPACE_ASSIGNMENT
+    - POST_BUILD
+    - POST_TEST_AND_EVALUATION
+    - RELEASE_OR_PROMOTION
+    - MATERIAL_CHANGE
+  update_fields_when_known:
+    - project
+    - item_type
+    - category
+    - draft_name
+    - brand
+    - final_skill_name
+    - goals
+    - dependencies
+    - level
+    - priority
+    - progress
+    - activities
+    - outcomes
+    - inputs
+    - descriptions
+    - source_registry_ref
+    - current_version_or_status_in_description
+  sorting:
+    priority_sort_allowed: true
+    num_sequence_must_be_contiguous: true
+    dependency_num_references_must_be_atomically_remapped: true
+terminal_gate:
+  roadmap_reconciled: REQUIRED
+  latest_version_or_status_ref_present: REQUIRED_WHEN_AVAILABLE
+  canonical_source_link_present: REQUIRED_WHEN_AVAILABLE
+  duplicate_identity_unresolved: HARD_BLOCK
+  workbook_unavailable_or_write_failed: HARD_BLOCK_FOR_PUBLICATION_AND_TERMINAL_SUCCESS
+failure_codes:
+  - ROADMAP_NOT_RECONCILED
+  - ROADMAP_IDENTITY_AMBIGUOUS
+  - ROADMAP_DUPLICATE_RISK
+  - ROADMAP_WRITE_FAILED
+  - ROADMAP_STALE_AT_RELEASE
+
+final_closeout_reconciliation:
+  mandatory_before_skillforge_or_REFERENCE_SCOPE_final_closeout: true
+  checklist:
+    - every_non_temporary_skillforge_skill_has_exactly_one_active_management_row
+    - no_duplicate_active_identity_after_rename_split_merge_or_alias_migration
+    - no_skillforge_built_skill_is_omitted
+    - visible_id_stable_id_name_and_aliases_reconcile_to_registry
+    - latest_released_or_candidate_version_status_is_current
+    - canonical_source_or_registry_link_is_current
+    - progress_matches_evidence_and_new_unbuilt_items_are_not_marked_complete
+    - dependencies_and_NUM_references_are_valid_after_sorting
+    - raw_description_by_alireza_is_preserved_verbatim
+    - test_temporary_exceptions_are_still_test_temporary_or_registered_before_promotion
+  ambiguous_or_conflicting_items: PRESENT_TO_OWNER_AS_CHECKLIST_AND_BLOCK_FINAL_CLOSEOUT
+  evidence_required: true

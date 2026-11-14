@@ -1,0 +1,13 @@
+stable_id: O6-SKL-011
+visible_id: G11
+version: 4.4.2
+phase: 7
+logging_target_ref: INC_LOG_STORE
+logging_event_contract_ref: INC_GOVERNANCE_EVENT_ENVELOPE_V1
+logging_caller_interface_ref: INC_G11_CALLER_INTERFACE_V1
+logging_writer_route_ref: INC_G11_C7_WRITE_ROUTE_V1
+logging_writer_envelope_ref: INC_G11_LOG_ENVELOPE_V1
+critical_control_contract_ref: INC_CRITICAL_CONTROL_ASSURANCE_V2
+
+writer_envelope_schema_ref: INC_G11_LOG_ENVELOPE_V1_SCHEMA
+internal_compiler_ref: G11_CALLER_TO_WRITER_COMPILER_V1

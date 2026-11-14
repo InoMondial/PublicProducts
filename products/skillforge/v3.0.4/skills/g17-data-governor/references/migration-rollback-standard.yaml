@@ -1,0 +1,221 @@
+policy_id: INC_G17_MIGRATION_ROLLBACK_V1
+status: DESIGN_BASELINE_STAGE20
+canonical_time: UTC
+
+principles:
+  - source_authority_remains_until_verified_cutover
+  - every_material_migration_has_backup_and_rollback_plan_before_mutation
+  - stable_business_ids_and_project_ref_are_preserved
+  - migration_is_idempotent_and_restartable
+  - reconcile_before_cutover
+  - rollback_is_a_first_class_path_not_an_afterthought
+  - no_old_authority_deletion_before_observation_and_owner_gate
+  - provider_switch_changes_adapter_not_consumer_contract
+  - no_silent_dual_mutable_master
+  - data_classification_and_encryption_survive_migration
+
+migration_types:
+  - SCHEMA_EVOLUTION
+  - DATA_BACKFILL
+  - PROVIDER_SWITCH
+  - SOURCE_OF_TRUTH_CUTOVER
+  - FILE_AS_DATABASE_TO_RELATIONAL_DB
+  - ENCRYPTION_REKEY_OR_ALGORITHM
+  - PROJECT_NAMESPACE_SPLIT_OR_MERGE
+  - LOGGING_TARGET_CUTOVER
+
+lifecycle_states:
+  - PLANNED
+  - PREFLIGHT
+  - BACKUP_GOOD
+  - TARGET_READY
+  - BACKFILLING
+  - DELTA_REPLAY
+  - RECONCILING
+  - SHADOW_VALIDATED
+  - CUTOVER_PENDING
+  - CUTOVER_ACTIVE
+  - OBSERVATION
+  - COMPLETE
+  - ROLLBACK_ACTIVE
+  - FAILED
+
+preflight:
+  required:
+    - migration_id
+    - owner
+    - source_authority
+    - target_authority
+    - project_ref
+    - data_classification
+    - source_schema_version
+    - target_schema_version
+    - stable_id_mapping
+    - dependency_inventory
+    - backup_ref
+    - rollback_trigger_set
+    - rollback_target
+    - cutover_method
+    - reconciliation_plan
+    - observation_window
+  block_if:
+    - backup_not_GOOD
+    - source_scope_unknown
+    - target_schema_unvalidated
+    - key_versions_unavailable_for_protected_data
+    - rollback_path_undefined
+    - consumer_inventory_incomplete_for_material_cutover
+
+schema_change:
+  additive:
+    strategy: EXPAND_FIRST
+  rename_or_drop:
+    strategy: EXPAND_MIGRATE_CONTRACT
+  type_narrowing:
+    strategy: NEW_FIELD_OR_TABLE_BACKFILL_VALIDATE_SWITCH_CONTRACT
+  applied_migration_file_edit: FORBIDDEN
+  production_DDL_outside_governed_migration: FORBIDDEN
+
+backfill:
+  batch_required_above_rows: 500
+  idempotency_required: true
+  cursor_required_for_large_or_resumable_copy: true
+  checkpoint_fields:
+    - migration_id
+    - batch_no
+    - last_source_cursor
+    - source_count_seen
+    - target_count_written
+    - started_at
+    - completed_at
+    - status
+  retry:
+    bounded: true
+    reprocess_completed_batch: NO_UNLESS_IDEMPOTENT
+  transform:
+    deterministic: true
+    versioned: true
+
+delta_and_writes:
+  preferred_order:
+    - short_write_freeze_if_business_impact_is_low
+    - source_delta_query_by_updated_at_or_stable_cursor
+    - provider_CDC_if_governed_and_available
+  ungoverned_dual_write: FORBIDDEN
+  dual_write_if_used:
+    requires_explicit_contract: true
+    requires_idempotency: true
+    requires_reconciliation: true
+    rollback_complexity_review: true
+
+reconciliation:
+  mandatory_dimensions:
+    - row_count
+    - stable_id_set
+    - required_nullability
+    - foreign_key_orphan_count
+    - classification_preservation
+    - encryption_key_version_readability
+    - deterministic_aggregate_checks
+    - sampled_or_full_content_hash_as_appropriate
+    - transformed_field_rules
+    - duplicate_count
+  tolerance:
+    default: ZERO
+    exception: explicitly_documented_business_semantics_only
+  fail_on_unexplained_mismatch: true
+
+cutover:
+  preconditions:
+    - reconciliation_PASS
+    - consumer_shadow_or_readback_PASS
+    - rollback_target_healthy
+    - owner_gate_if_material
+  operation:
+    - freeze_or_capture_last_delta
+    - replay_last_delta
+    - final_reconcile
+    - atomically_switch_binding_or_adapter_config_where_possible
+    - verify_read_and_write_on_target
+    - enter_observation_window
+  old_source:
+    state_after_cutover: READ_ONLY_OR_FROZEN_BY_DEFAULT
+    delete_immediately: false
+
+rollback:
+  triggers:
+    - target_unavailable
+    - integrity_mismatch
+    - authorization_or_security_regression
+    - unacceptable_performance_regression
+    - missing_required_consumer_behavior
+    - unexpected_data_loss_or_duplication
+    - owner_abort
+  operation:
+    - stop_new_target_mutations_or_capture_them
+    - reconcile_post_cutover_target_writes
+    - replay_required_delta_back_to_rollback_target_if_needed
+    - switch_binding_or_adapter_back
+    - verify_read_write
+    - log_G11_incident_and_migration_result
+  destructive_cleanup_after_rollback: governed_delete_policy_only
+
+provider_switch:
+  consumer_contract_change: FORBIDDEN_BY_DEFAULT
+  preserve:
+    - project_ref
+    - stable_business_ids
+    - logical_schema_contract
+    - encrypted_envelope_metadata
+    - key_versions
+    - authority_modes
+  changes_allowed:
+    - adapter
+    - connection_config
+    - provider_specific_monitoring
+    - provider_specific_backup_transport
+    - provider_specific_tuning
+
+file_to_database:
+  qualification_required: true
+  classifications:
+    KEEP_FILE:
+      examples:
+        - document
+        - report
+        - human_centric_workbook
+        - presentation
+        - signed_artifact
+    MIGRATE_DB:
+      criteria:
+        - file_is_acting_as_structured_mutable_system_of_record
+        - recurring_query_update_join_or_transaction_need
+        - concurrency_or_integrity_need
+  rule: do_not_migrate_genuine_documents_just_because_database_exists
+  old_file_after_cutover:
+    action: archive_or_retire_as_authority_only_after_verified_cutover
+
+protected_data:
+  decrypt_reencrypt_only_in_trusted_crypto_boundary: true
+  provider_side_plaintext_stage: FORBIDDEN
+  old_key_versions_retained_until_live_data_and_backup_dependencies_expire: true
+
+telemetry:
+  G11_events:
+    - MIGRATION_STARTED
+    - MIGRATION_BATCH_COMPLETED
+    - MIGRATION_RECONCILIATION
+    - MIGRATION_CUTOVER
+    - MIGRATION_ROLLBACK
+    - MIGRATION_COMPLETED
+    - MIGRATION_FAILED
+  secret_values_in_events: FORBIDDEN
+
+release_gate:
+  require:
+    - preflight_PASS
+    - backup_GOOD
+    - reconciliation_PASS
+    - cutover_readback_PASS
+    - rollback_test_or_simulation_PASS
+    - no_unexplained_duplicate_authority

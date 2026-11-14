@@ -1,0 +1,14 @@
+{
+  "contract": "INC_SKILLFORGE_RUNTIME_BINDINGS_V1",
+  "default_behavior": "READ_ONLY_UNTIL_AUTHORIZED",
+  "owner_values_embedded": false,
+  "public_feedback": "OFF_UNLESS_EXPLICIT_EXACT_PAYLOAD_CONSENT",
+  "raw_secret_storage": "PROHIBITED",
+  "resolution": "EXTERNAL_PRIVATE_PROFILE_AND_HOST_CONNECTOR",
+  "schema_version": "1.0",
+  "service_families": [
+    "GITHUB_PRIVATE"
+  ],
+  "skill": "g10-dependency-stable-reference-standardizer",
+  "unbound_behavior": "REQUEST_SETUP_OR_SKIP_UNRELATED_CAPABILITY"
+}

@@ -1,0 +1,143 @@
+schema: INC_GOVERNANCE_SKILL_CANDIDATE_V1
+stable_id: O6-SKL-011
+visible_id: G11
+display_name: G11-Logging & Traceability Standardizer
+version: 4.8.2
+prior_version: 4.5.0
+lifecycle: production
+functional_role: QUALITY
+strictness: S4
+builder_framework_ref: INC_SKILLFORGE
+framework_id: INC_SKILLFORGE
+framework_name: SkillForge
+framework_membership: MEMBER
+framework_registry_ref: INC_SKILL_NAMESPACE_REGISTRY
+next_version_backlog_ref: INC_SKILLFORGE_UNIFIED_BACKLOG
+logging_target_ref: INC_LOG_STORE
+caller_interface_ref: INC_G11_CALLER_INTERFACE_V1
+runtime_gateway_ref: INC_G11_RUNTIME_GATEWAY_V1
+activity_boundary_ref: INC_GOVERNED_ACTIVITY_BOUNDARY_V1
+coverage_auditor_ref: INC_G11_MISSING_LOG_COVERAGE_AUDITOR_V1
+backlog_intake_event_ref: INC_BACKLOG_INTAKE_EVENT_V1
+writer_route_ref: INC_G11_G17_DB_WRITE_ROUTE_V1
+writer_envelope_ref: INC_G11_LOG_ENVELOPE_V1
+runtime_gateway:
+  pipeline:
+  - compile
+  - validate_redact_normalize
+  - enqueue
+  - truthful_receipt
+  queue_acceptance_is_durable_persistence: false
+  receipt_binding:
+  - activity_id
+  - run_id
+  - envelope_id
+  required_for_mandatory_logging: true
+  validated_only_state_may_claim_persistence: false
+activity_boundary:
+  surfaces:
+  - CHAT
+  - WORK
+  - CODEX
+  - AGENT
+  - SKILL
+  - ORCHESTRATOR
+  - SCHEDULED
+  - ERROR_HANDLER
+  default_granularity: ONE_MATERIAL_ACTIVITY_OUTCOME
+  microstep_spam: prohibited
+  aggregation_may_omit_mandatory_outcome: false
+coverage_auditor:
+  authoritative_denominator_required_for_percentage: true
+  unavailable_denominator_status: NOT_MEASURABLE
+  known_missing_mandatory_receipt: GOVERNANCE_DEFECT
+  per_row_alert_spam: prohibited
+utf8_rtl:
+  text_transport_encoding: UTF-8
+  persian_human_render_direction: RTL
+  mixed_script_bidi_isolation: required_when_applicable
+  machine_identifier_bidi_contamination: prohibited
+  readback_roundtrip_test: required_when_surface_supports
+backlog_learning:
+  contract_ref: INC_BACKLOG_INTAKE_EVENT_V1
+  system_discovered_allowed: true
+  production_self_modify: prohibited
+  recursive_g0_runtime_load: prohibited
+  direct_child_backlog_mutation: prohibited_unless_authorized_adapter
+schema_change_policy:
+  physical_sharepoint_schema: FROZEN
+  normal_runtime_schema_mutation: prohibited
+  schema_gap_behavior: DB_SCHEMA_CHANGE_REQUIRED
+external_source_gates:
+  G11_EXTERNAL_CHANGE_REQUEST: BLOCKED_SOURCE_REQUIRED
+  provisional_primary_trace_reference_delta_implemented: false
+critical_control_assurance:
+  contract_ref: INC_CRITICAL_CONTROL_ASSURANCE_V2
+  runtime_exit_gate: CRITICAL_CONTROLS_VERIFIED
+  controls:
+  - id: G11-CC-01
+    rule: Stable run/root/trace/correlation meaning is preserved across retries.
+    mandatory: true
+    evidence_required: true
+  - id: G11-CC-02
+    rule: Forbidden raw
+    secret and sensitive payload is excluded.: null
+    mandatory: true
+    evidence_required: true
+  - id: G11-CC-03
+    rule: Approved G17 database route and real read-back precede verified durable
+      persistence PASS.
+    mandatory: true
+    evidence_required: true
+  - id: G11-CC-04
+    rule: No unauthorized physical schema mutation occurs.
+    mandatory: true
+    evidence_required: true
+  - id: G11-CC-05
+    rule: Producers do not directly mutate physical Lists and preserve idempotency/test
+      classification.
+    mandatory: true
+    evidence_required: true
+  - id: G11-CC-06
+    rule: Callers use compact semantic interface without duplicating writer or schema
+      responsibilities.
+    mandatory: true
+    evidence_required: true
+  - id: G11-CC-07
+    rule: Mandatory logging uses INC_G11_RUNTIME_GATEWAY_V1 and returns a receipt
+      bound to activity/run/envelope.
+    mandatory: true
+    evidence_required: true
+  - id: G11-CC-08
+    rule: Activity aggregation does not omit mandatory governed outcomes.
+    mandatory: true
+    evidence_required: true
+  - id: G11-CC-09
+    rule: Coverage percentage is emitted only with authoritative denominator; otherwise
+      NOT_MEASURABLE.
+    mandatory: true
+    evidence_required: true
+  - id: G11-CC-10
+    rule: Applicable Persian text uses UTF-8 and deterministic RTL presentation without
+      BiDi contamination of machine identifiers.
+    mandatory: true
+    evidence_required: true
+stage27_cutover:
+  status: LIVE_DB_ROUTE_PASS_LEGACY_RETIREMENT_IN_PROGRESS
+  canonical_route_ref: INC_G11_G17_DB_WRITE_ROUTE_V1
+  caller_interface_changed: false
+  legacy_route_ref: INC_G11_C7_WRITE_ROUTE_V1
+  legacy_route_new_writes_after_cutover: PROHIBITED
+  power_automate_delete_gate: SOURCE_ARCHIVE_VERIFIED_AND_DB_ROUTE_PASS
+  sharepoint_list_delete_gate: FLOW_RETIREMENT_AND_RECONCILIATION_AND_PENDING_QUEUE_PRESERVED
+release_acceptance_policy:
+  contract_ref: INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1
+  profile: AUTONOMOUS_EVIDENCE_BASED
+  precedence: SUPERSEDES_RELEASE_ONLY_EXTERNAL_EXECUTOR_GATES
+  available_tests: REQUIRED
+  failed_executed_tests: BLOCK_RELEASE
+  external_assurance: OPTIONAL_NONBLOCKING
+  real_publication_readback: REQUIRED
+  runtime_security_authorization: UNCHANGED
+publication_privacy_contract: INC_PUBLICIZATION_PRIVACY_GATE_V2
+public_release_requires_new_owner_consent: true

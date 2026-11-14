@@ -1,0 +1,7 @@
+interface:
+  display_name: G4-Artifact Classification & Skill Profile Standardizer
+  short_description: Classify artifact type, sensitivity, lifecycle, complexity and
+    minimum governance profile without conflating complexity with runtime resource
+    class.
+policy:
+  allow_implicit_invocation: true

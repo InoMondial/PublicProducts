@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "G15 Decision Record v3.0.0",
+  "type": "object",
+  "required": ["decision_id","status","priority","category","teams_thread_ref"],
+  "properties": {
+    "decision_id": {"type":"string","pattern":"^G15-DQ-[0-9a-fA-F-]{36}$"},
+    "dispatch_id": {"type":"string"},
+    "status": {"type":"string"},
+    "priority": {"type":"string","enum":["HIGH","MED","LOW"]},
+    "category": {"type":"string"},
+    "selected_code": {"type":["string","null"]},
+    "final_code": {"type":["string","null"]},
+    "operator_comment": {"type":["string","null"]},
+    "teams_thread_ref": {"type":"string"},
+    "source_work_ref": {"type":["string","null"]},
+    "created_at": {"type":"string"},
+    "closed_at": {"type":["string","null"]}
+  },
+  "additionalProperties": true
+}

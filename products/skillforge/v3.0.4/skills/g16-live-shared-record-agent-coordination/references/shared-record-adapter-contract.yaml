@@ -1,0 +1,78 @@
+schema_version: "1.0"
+contract_id: INC_G16_SHARED_RECORD_ADAPTER_V1
+owner_skill: G16-SKL-001
+status: STAGE29_CANONICAL_CANDIDATE
+
+capabilities:
+  required:
+    - READ_CURRENT
+    - APPEND_OR_REPLACE_WITH_CONCURRENCY_GUARD
+    - READBACK_VERIFY
+  optional:
+    - ATOMIC_APPEND
+    - CAS_OR_ETAG
+    - DELTA_READ
+    - RANGE_READ
+    - NATIVE_EVENT_WAIT
+    - LONG_POLL
+    - LEASE_PRIMITIVE
+
+capability_flags:
+  atomic_append: BOOLEAN
+  cas_etag: BOOLEAN
+  delta_read: BOOLEAN
+  range_read: BOOLEAN
+  native_event_wait: BOOLEAN
+  long_poll: BOOLEAN
+  lease_primitive: BOOLEAN
+
+degradation_order:
+  wait:
+    - NATIVE_EVENT_WAIT
+    - LONG_POLL
+    - DELTA_POLL
+    - RANGE_OR_OFFSET_POLL
+    - FULL_RECORD_POLL_LAST_RESORT
+  concurrency:
+    - ATOMIC_APPEND
+    - CAS_OR_ETAG
+    - SINGLE_WRITER_MANAGER_SERIALIZATION
+    - BLOCK_PARALLEL_WRITES
+
+hard_rules:
+  - EXACTLY_ONE_COORDINATION_MANAGER
+  - EXACTLY_ONE_ACTION_OWNER_PER_WORK_UNIT
+  - NO_PARALLEL_WRITE_CLAIM_WITHOUT_ATOMICITY_OR_CAS
+  - NO_FULL_RECORD_RELOAD_ON_EVERY_POLL_WHEN_DELTA_OR_RANGE_EXISTS
+  - EVERY_MUTATION_READBACK_VERIFIED
+  - WAITING_FOR_USER_CANNOT_BE_BYPASSED
+  - LEASE_EXPIRY_DOES_NOT_IMPLY_BUSINESS_SUCCESS
+  - THIRTY_MINUTE_DEFAULT_LIVE_WAIT_MUST_GRACEFULLY_STOP_OR_YIELD
+  - PROVIDER_SPECIFIC_IDS_STAY_INSIDE_ADAPTER
+
+state_machine:
+  states:
+    - PLANNED
+    - READY
+    - CLAIMED
+    - RUNNING
+    - WAITING_FOR_USER
+    - WAITING_FOR_DEPENDENCY
+    - COMPLETED
+    - FAILED
+    - CANCELLED
+    - TIMED_OUT
+  terminal: [COMPLETED, FAILED, CANCELLED, TIMED_OUT]
+
+provider_examples:
+  sharepoint_file:
+    likely:
+      cas_etag: true
+      atomic_append: false
+      native_event_wait: false
+    required_degradation: SINGLE_WRITER_MANAGER_SERIALIZATION
+  relational_db:
+    likely:
+      cas_etag: false
+      atomic_append: true
+      native_event_wait: provider_specific

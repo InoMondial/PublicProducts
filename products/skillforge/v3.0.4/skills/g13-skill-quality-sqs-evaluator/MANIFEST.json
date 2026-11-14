@@ -1,0 +1,74 @@
+{
+  "artifact": "G13-Skill Quality & SQS Evaluator",
+  "cross_cutting_contracts": [
+    "INC_SKILLFORGE_RELEASE_TRAIN_V1",
+    "INC_RUNNER_INDEPENDENT_CI_V1"
+  ],
+  "date": "2026-11-13",
+  "effective_release_gate": {
+    "entrypoint": "../g0-skill-architect-builder/scripts/release_closure_gate.py",
+    "historical_certificates": "PRESERVED_NOT_CURRENT_BLOCKERS",
+    "native_activation": "SEPARATE_OPTIONAL_ASSURANCE",
+    "profile": "AUTONOMOUS_EVIDENCE_BASED"
+  },
+  "files": [
+    {
+      "path": "CHANGELOG.md",
+      "sha256": "1462a7185f4f61a49450f7edd216074a7ba0452b899afdb8bae2a4f0ea14d8be",
+      "size": 443
+    },
+    {
+      "path": "GOVERNANCE.yaml",
+      "sha256": "79a955228774149e73b4a52fe4787bef7a14d03521d674770cab12446482864f",
+      "size": 2101
+    },
+    {
+      "path": "NOTICE.md",
+      "sha256": "b26753efd14ea14ab4c9aaa3bf707881797458079d1999843b72cfc121c6aa5d",
+      "size": 84
+    },
+    {
+      "path": "SKILL.md",
+      "sha256": "e184165cb8e7befb7ebff1cf226a6960a6450c6702fc5f09bbaca6f212d7f6cf",
+      "size": 3771
+    },
+    {
+      "path": "references/vnext-contract.yaml",
+      "sha256": "295aa74ca3cba77f1c072bb2a398824115018d3dbc3331597c3759cf31d1e603",
+      "size": 62
+    },
+    {
+      "path": "tests/test-cases.yaml",
+      "sha256": "e136aa23aece2eed835612a2ca221365a7fdcbeb15a8e952fdb2fa41dc415cdc",
+      "size": 785
+    }
+  ],
+  "fresh_review": {
+    "independent_third_party": false,
+    "scope": "PRIVATE_3_0_3_PRIVACY_HARDENING"
+  },
+  "g1_document_class_storage_contract_ref": "INC_G1_DOCUMENT_CLASS_STORAGE_V1",
+  "g8_secret_migration_contract_ref": "INC_G8_SECRET_MIGRATION_V1",
+  "g8_secret_provider_contract_ref": "INC_G8_SECRET_PROVIDER_V1",
+  "g9_resource_finops_control_plane_ref": "INC_G9_RESOURCE_FINOPS_CONTROL_PLANE_V1",
+  "global_assurance_contract_ref": "INC_CRITICAL_CONTROL_ASSURANCE_V2",
+  "global_assurance_skill_ref": "G3",
+  "historical_metadata_bundled": false,
+  "independent_certification_required_for_release": false,
+  "lifecycle": "production",
+  "phase": "PRIVATE_CORE_RELEASE",
+  "prior_version": "3.3.2-rc.1",
+  "privacy_responsibility": "A quality score cannot compensate for a failed privacy or unknown-surface gate.",
+  "private_history_ref": "PRIVATE_METADATA_E3020118557E",
+  "private_state_in_runtime": "EXTERNAL_REFERENCES_ONLY",
+  "publication_mode": "PRIVATE_ONLY_UNTIL_NEW_EXACT_PUBLIC_CONSENT",
+  "publicization_contract": "INC_PUBLICIZATION_PRIVACY_GATE_V2",
+  "release_policy_profile": "AUTONOMOUS_EVIDENCE_BASED",
+  "release_policy_ref": "INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1",
+  "release_status": "RELEASE",
+  "retained_generic_contracts": [],
+  "stable_id": "O6-SKL-013",
+  "tests": 12,
+  "version": "3.3.3",
+  "visible_id": "G13"
+}

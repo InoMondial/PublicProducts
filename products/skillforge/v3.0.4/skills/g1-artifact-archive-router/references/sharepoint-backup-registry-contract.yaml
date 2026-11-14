@@ -1,0 +1,18 @@
+schema_version: '1.0'
+contract_id: INC_SHAREPOINT_BACKUP_REGISTRY_V1
+authorized_root: Example Governance Records/PARAM_BACKUP_ROOT
+physical_destination_owner: G1_ARTIFACT_ARCHIVE_ROUTER
+caller_destination_override: FORBIDDEN
+caller_override_error: CALLER_SHAREPOINT_DESTINATION_OVERRIDE_FORBIDDEN
+allowed_namespaces: [Ecosystem, Projects, Shared, _Control]
+canonical_skill:
+  pattern: Ecosystem/Skills/<canonical-skill-name>
+  retention: CURRENT_PLUS_ONE_PREVIOUS
+project_semantic_roots: [Release, Documentation, Evidence]
+nested_managed_binary:
+  default: FORBIDDEN
+  failure: NESTED_MANAGED_ARTIFACT_DUPLICATION
+  exceptions: [RELEASE_BUNDLE, SELF_CONTAINED_DISASTER_RECOVERY]
+authority_failures: [CANONICAL_BACKUP_AUTHORITY_CONFLICT, VERSION_AUTHORITY_DRIFT]
+remote_readback_required: true
+partial_destination_failure_state: PARTIAL

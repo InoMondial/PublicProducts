@@ -1,0 +1,48 @@
+contract_id: INC_G1_DOCUMENT_CLASS_STORAGE_V1
+schema_version: '1.0'
+status: CANDIDATE_STAGE30_PENDING_G12_G13
+owner_skill: G1
+backlog_ref: SF-XCUT-016
+purpose: Enforce SharePoint as the only durable canonical storage authority for document-class human/business artifacts while allowing GitHub source/generator code and lightweight SharePoint pointer/provenance metadata.
+policy:
+  durable_document_canonical_storage: SHAREPOINT_ONLY
+  github_document_binary_storage: FORBIDDEN_CURRENT_NORMATIVE_RUNTIME_PATHS
+  github_pointer_metadata: ALLOWED
+  github_source_generator_code: ALLOWED
+  local_or_sandbox_authority: FORBIDDEN
+  historical_git_evidence_preservation: REQUIRED
+  git_history_rewrite_or_force_purge: SEPARATE_OWNER_APPROVAL_REQUIRED
+  remote_readback_required: true
+  verified_link_required: true
+  sharepoint_hash_or_content_identity_required: true
+  pointer_must_not_embed_document_bytes: true
+  pointer_requires_sharepoint_ref: true
+  pointer_requires_provenance: true
+classification:
+  explicit_extensions: [.doc, .docx, .xls, .xlsx, .xlsm, .pdf, .ppt, .pptx]
+  semantic_classes: [DOCUMENT_CLASS, HUMAN_BUSINESS_REPORT_BINARY]
+  equivalent_document_rule: Any durable artifact semantically acting as a human/business document/report binary follows the same SharePoint-only rule even if its extension is not in the explicit list.
+non_document_examples:
+  github_allowed_when_other_governance_passes: [source_code, generator_code, yaml_json_pointer_metadata, markdown_pointer_metadata, installable_skill_zip, software_release_package]
+routing:
+  durable_document_binary:
+    canonical_storage: SHAREPOINT
+    github_binary: FORBIDDEN
+    required_closure: [SHAREPOINT_WRITE, SHAREPOINT_REMOTE_READBACK, SIZE_OR_HASH_OR_CONTENT_IDENTITY_VERIFY, VERIFIED_SHAREPOINT_LINK, OPTIONAL_GITHUB_POINTER_WITH_PROVENANCE]
+  github_pointer:
+    allowed_fields: [artifact_id, transaction_id, sharepoint_ref, sharepoint_stable_id, sharepoint_url, sha256, size_bytes, source_commit, generator_ref, provenance_ref, classification, created_at]
+    forbidden_payload_fields: [embedded_bytes, base64_payload, document_bytes, binary_payload, inline_file_content]
+failures:
+  github_document_binary: G1_DOCUMENT_CLASS_GITHUB_STORAGE_FORBIDDEN
+  missing_sharepoint_ref: G1_DOCUMENT_POINTER_SHAREPOINT_REF_REQUIRED
+  embedded_document_bytes: G1_DOCUMENT_POINTER_EMBEDDED_BYTES_FORBIDDEN
+  missing_readback: REMOTE_ARTIFACT_DELIVERY_BLOCKED
+  local_authority: LOCAL_ONLY_DELIVERY_FORBIDDEN
+cross_skill:
+  G0: COMPILE_DOCUMENT_CLASS_ROUTE_INTO_GENERATED_SKILLS
+  G3: DOCUMENT_CLASS_STORAGE_IS_CRITICAL_EXIT_CONTROL
+  G12: POSITIVE_SHAREPOINT_AND_NEGATIVE_GITHUB_BINARY_TESTS_REQUIRED
+  G13: INDEPENDENT_DOCUMENT_STORAGE_POLICY_CERTIFICATION_REQUIRED
+  G14: DOCUMENT_DELIVERABLES_ROUTE_TO_SHAREPOINT_SOFTWARE_PACKAGES_REMAIN_SEPARATE
+  G16: HANDOFFS_AND_WORK_ORDERS_MUST_PRESERVE_DOCUMENT_CLASS_ROUTE
+  G17: FILE_DATA_GOVERNANCE_MUST_NOT_RECLASSIFY_DOCUMENTS_AS_GITHUB_OR_DATABASE_ARTIFACTS

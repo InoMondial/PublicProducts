@@ -1,0 +1,25 @@
+schema_version: '1.0'
+contract_id: INC_G11_RUNTIME_GATEWAY_V1
+owner_skill: G11
+framework_id: INC_SKILLFORGE
+pipeline: [compile, validate_redact_normalize, enqueue, truthful_receipt]
+input_contract_ref: INC_G11_CALLER_INTERFACE_V1
+envelope_contract_ref: INC_G11_LOG_ENVELOPE_V1
+writer_route_ref: INC_G11_C7_WRITE_ROUTE_V1
+receipt_states:
+- G11_GATEWAY_VALIDATED
+- G11_ACCEPTED_FOR_PERSISTENCE
+- G11_PERSISTED_VERIFIED
+- TRACE_PERSISTENCE_PENDING
+- TRACE_PERSISTENCE_DEGRADED
+- VALIDATION_FAILED
+rules:
+  queue_acceptance_equals_durable_persistence: false
+  success_verified_requires_receipt_when_logging_mandatory: true
+  receipt_must_bind_activity: true
+  receipt_must_bind_run: true
+  receipt_must_bind_envelope: true
+  raw_prompt_response_hidden_reasoning: prohibited
+  physical_sharepoint_schema_exposed_to_caller: prohibited
+  utf8_json_transport: required
+  system_discovered_backlog_intake_supported_as_semantic_event: true

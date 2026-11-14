@@ -1,0 +1,23 @@
+schema: INC_G9_COMPILED_RUNTIME_REGRESSION_V1
+owner: G9
+status: candidate
+backlog_ref: SF-G9-006
+normal_runtime:
+  profile: MINIMUM_SUFFICIENT_COMPILED
+  recursive_g0_g20_toolchain_load: prohibited
+activation:
+  G19:
+    allowed_intents: [PACKAGING, DISTRIBUTION, BUILD]
+    ordinary_configured_runtime: prohibited
+  G20:
+    allowed_intents: [SETUP, INSTALL, UPGRADE, HEALTH, REPAIR]
+    ordinary_configured_runtime: prohibited
+control_floor:
+  retain: [security, approval, logging, continuity, failure, evidence]
+comparison:
+  equivalent_workload_and_functional_requirements: required
+  measured_context_token_delta: preferred
+  reproducible_proxy: allowed_when_platform_telemetry_unavailable
+  proxy_label: ESTIMATED
+release_gate:
+  material_unexplained_regression: BLOCK_PENDING_REMEDIATION_OR_EXPLICIT_JUSTIFIED_EXCEPTION

@@ -1,0 +1,9 @@
+schema_version: '1.0'
+policy_id: G1_EVIDENCE_FRESHNESS_V1
+runtime_ttl_seconds: 86400
+allowed_clock_skew_seconds: 300
+transaction_id_match_required: true
+captured_at_not_before_transaction_start_minus_skew: true
+future_timestamp_beyond_skew: prohibited
+historical_archival_evidence_not_deleted_by_ttl: true
+failure: EVIDENCE_STALE_OR_WRONG_TRANSACTION

@@ -1,0 +1,51 @@
+schema_version: "1.0"
+contract_id: INC_LOGICAL_RESOURCE_CONFIGURATION_V1
+owner_skill: G10
+purpose: >-
+  Define stable provider-neutral logical resource references and Installation Profile bindings
+  so consumer Skills depend on business capability rather than provider URLs, account IDs or physical paths.
+logical_resource:
+  required_fields: [logical_ref, resource_type, capability_contract, scope]
+  allowed_scopes: [INSTALLATION, ENVIRONMENT, PROJECT, ACCOUNT]
+  provider_specific_identifier_in_consumer_source: prohibited
+  physical_binding_owner: INSTALLATION_PROFILE
+resource_types:
+  HIERARCHICAL_DOCUMENT:
+    folder_template_allowed: true
+  DATABASE:
+    folder_template_allowed: false
+  API:
+    folder_template_allowed: false
+  QUEUE:
+    folder_template_allowed: false
+  LOG:
+    folder_template_allowed: false
+  IDENTITY:
+    folder_template_allowed: false
+  SECRET_REF:
+    folder_template_allowed: false
+canonical_examples:
+  - artifact.primary
+  - handoff.active
+  - logs.durable
+  - database.primary
+  - backlog.target
+installation_profile:
+  binding_fields: [logical_ref, provider_ref, physical_resource_ref, capability_profile_ref, scope]
+  default_root_and_subfolder_templates: allowed_for_hierarchical_document_only
+  per_logical_resource_override: allowed
+  existing_verified_mapping_migration: required_without_reasking_owner_when_authority_is_already_proven
+authorization:
+  target_resolution_is_permission: false
+  provider_credential_or_capability_authorizes_write: true
+  unresolved_required_resource: FAIL_CLOSED
+provider_switch:
+  consumer_contract_stability_required: true
+  provider_capability_must_satisfy_declared_contract: true
+  adapter_or_installation_profile_change_only_when_business_meaning_unchanged: true
+failure_states:
+  - LOGICAL_RESOURCE_UNRESOLVED
+  - RESOURCE_TYPE_CAPABILITY_MISMATCH
+  - PROVIDER_IDENTIFIER_LEAKED_TO_CONSUMER
+  - RESOURCE_SCOPE_AMBIGUOUS
+  - WRITE_CAPABILITY_NOT_AUTHORIZED

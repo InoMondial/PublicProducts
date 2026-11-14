@@ -1,0 +1,89 @@
+contract_id: INC_G9_RESOURCE_FINOPS_CONTROL_PLANE_V1
+schema_version: '1.0'
+status: CANDIDATE_STAGE30_PENDING_G12_G13
+owner_skill: G9
+backlog_ref: SF-XCUT-026
+purpose: Provider-neutral resource quota cost credit capacity telemetry and dual-protection governance without a G9-specific database or provider lock-in.
+architecture:
+  flow: provider/service -> approved adapter -> G11 semantic normalization -> G17 persistence/query -> G9 bounded analysis/forecast/optimization -> G15 alerts/decisions
+  parallel_g9_database: PROHIBITED
+  provider_native_dashboard_replaces_internal_observability: false
+  internal_persistence: MINIMUM_DECISION_GRADE_ONLY
+  consumer_direct_provider_binding: FORBIDDEN_WHEN_APPROVED_ADAPTER_EXISTS
+  routine_collector_model_calls: 0
+measurement:
+  g11_acquisition_status: [MEASURED, PARTIAL, DERIVED, ESTIMATED, UNAVAILABLE]
+  g9_decision_truth: [MEASURED, VALIDATED_ESTIMATE, UNKNOWN]
+  mapping_rule:
+    MEASURED: MEASURED
+    PARTIAL: UNKNOWN_UNLESS_VALIDATED
+    DERIVED: VALIDATED_ESTIMATE_ONLY_WITH_PROVENANCE
+    ESTIMATED: VALIDATED_ESTIMATE_ONLY_WITH_PROVENANCE
+    UNAVAILABLE: UNKNOWN
+  quota_delta_to_raw_tokens: FORBIDDEN_WITHOUT_AUTHORITATIVE_CONVERSION
+  invented_provider_formula: FORBIDDEN
+source_precedence:
+  - AUTHORITATIVE_PROVIDER_BILLING_COST_USAGE
+  - AUTHORITATIVE_PROVIDER_QUOTA_RATE_LIMIT_CREDIT
+  - EXACT_LOCAL_RUNTIME_TELEMETRY
+  - PROVIDER_EXPORT_REPORT
+  - PROVIDER_NATIVE_ALERT_EVENT
+  - BOUNDED_UI_RECONCILIATION
+  - VALIDATED_ESTIMATE
+  - UNKNOWN_UNAVAILABLE
+cadence:
+  C0_EVENT: request response usage throttle tool action exact token or cost event
+  C1_FAST: five-minute bounded poll only for hard operational headroom whose exhaustion can interrupt work
+  C2_OPERATIONAL: fifteen-to-sixty-minute operational health/capacity where it changes decisions
+  C3_DAILY: billed cost reconciliation storage trends usage cards invoices and long-horizon capacity
+  C4_BILLING_EVENT: invoice payment grant refund plan license event
+  C5_ON_CHANGE: static plan price limit capability change
+acquisition_modes: [A0_INLINE, A1_PUSH, A2_FAST_POLL, A3_OPS_POLL, A4_DAILY_RECONCILE, A5_BILLING_EVENT, A6_ON_CHANGE, A7_UI_FALLBACK]
+persistence_classes: [P0_NONE, P1_EVENT_FACT, P2_STATE_CHANGE, P3_TIME_SERIES, P4_BILLING_LEDGER, P5_REFERENCE]
+alert_classes: [AL0_INFO, AL1_WARNING, AL2_HIGH, AL3_CRITICAL, AL4_APPROVAL]
+overhead_hard_gates:
+  zero_llm_calls_in_collectors: true
+  inline_or_push_before_polling: true
+  five_minute_browser_polling: PROHIBITED
+  billing_cost_fast_polling: PROHIBITED_UNLESS_PROVIDER_SPECIFIC_OPERATIONAL_EVIDENCE
+  raw_provider_payload_persistence: OMIT_BY_DEFAULT
+  retries: BOUNDED_WITH_BACKOFF
+  analysis_input: BOUNDED_AGGREGATES_NOT_RAW_HISTORY
+persistence_contract:
+  execution_facts: [g11_runs, g11_actions, g11_metrics]
+  generic_resource_fact_family: g11_resource_observations
+  financial_fact_family: g11_billing_ledger
+  historical_design_name_g11_resource_snapshots: SUPERSEDED_BY_GENERIC_RESOURCE_OBSERVATIONS
+  physical_owner: G17
+  current_adapter: HATCHABLE
+  schema_migration_in_A10: NOT_EXECUTED
+  provider_activation_in_A10: NOT_EXECUTED
+dual_protection:
+  layer_1: SkillForge-owned normalized telemetry history thresholds forecasts alerts RCA prevention optimization
+  layer_2: provider-native budgets alerts quotas schedulers backups health webhooks security and similar safeguards
+  layer_2_cannot_replace_layer_1_silently: true
+  paid_or_plan_change_activation: EXPLICIT_OWNER_APPROVAL_REQUIRED
+  activation_route_authority: INC_MACHINE_ROUTE_BEFORE_VISUAL_UI_V1
+  local_competing_activation_ladder: PROHIBITED
+  g16_owner_approved_handoff_required_for_risky_or_paid_activation: true
+capability_domains:
+  - COST_AND_BUDGET
+  - QUOTA_AND_CAPACITY
+  - OBSERVABILITY_AND_LOGGING
+  - ALERTING_AND_INCIDENT
+  - SCHEDULING_AND_AUTOMATION
+  - DATA_PROTECTION
+  - SECURITY_AND_ACCESS
+  - RELIABILITY_AND_RESILIENCE
+  - LIFECYCLE_AND_GOVERNANCE
+  - SUPPORT_AND_SERVICE
+production_gate:
+  adapter_and_profile_resolve: REQUIRED
+  actual_plan_entitlement_review: REQUIRED
+  layer_1_mapping: REQUIRED
+  layer_2_review: REQUIRED
+  critical_gap: BLOCK_OR_OWNER_RISK_ACCEPTANCE
+  paid_changes_without_owner_approval: FORBIDDEN
+  G11_G17_evidence_mapping: REQUIRED
+  G12_validation: REQUIRED
+  G13_independent_certification: REQUIRED

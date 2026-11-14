@@ -1,0 +1,62 @@
+schema_version: '1.0'
+contract_id: INC_SKILLFORGE_FEEDBACK_INTAKE_V1
+semantic_owner: G0
+metadata_compiler: G7
+runtime_adapter_owner: G16
+logging_observability_owner: G11
+validator_owner: G12
+independent_certifier: G13
+scope:
+  applies_to_builder_framework_ref: INC_SKILLFORGE
+  applies_regardless_framework_membership: [MEMBER, CANDIDATE_MEMBER, EXTERNAL]
+  subject_scope:
+    skillforge_framework_defect_or_improvement: INC_SKILLFORGE_UNIFIED_BACKLOG
+    child_product_or_domain_defect: RESOLVED_CHILD_BACKLOG
+runtime:
+  full_g0_recursive_load: prohibited
+  compact_adapter: required
+  adapter_ref: G16/scripts/skillforge_feedback_intake.py
+  canonical_write_claim_requires_readback: true
+  no_direct_write_status: PENDING_CANONICAL_INGESTION
+origins:
+  SYSTEM_DISCOVERED:
+    authority_class: SYSTEM_EVIDENCE
+    required_context: [discovery_phase, source_skill, source_version, evidence_refs, confidence, occurrence_count]
+  USER_DIRECT:
+    default_authority_class: USER_REQUEST
+    owner_mandate_authority_class: OWNER_MANDATE
+    required_context: [source_skill, source_version, source_surface, user_request_digest, owner_or_user_authority, evidence_refs]
+authority:
+  classes: [OWNER_MANDATE, USER_REQUEST, SYSTEM_EVIDENCE]
+  same_priority_precedence: [OWNER_MANDATE, USER_REQUEST, SYSTEM_EVIDENCE]
+  owner_mandate_auto_defer: prohibited
+  owner_mandate_auto_reject: prohibited
+  owner_mandate_auto_supersede_without_owner_decision: prohibited
+priority:
+  allowed: [P0, P1, P2, P3]
+  origin_automatic_override: prohibited
+  basis: IMPACT_AND_URGENCY
+  owner_override_allowed: true
+  owner_override_requires_reason: true
+deduplication:
+  pipeline: [Deduplicate, Correlate, Aggregate, Qualify]
+  duplicate_record_creation: prohibited
+  system_to_owner_promotion:
+    preserve_original_system_evidence: true
+    promote_authority_class: OWNER_MANDATE
+    owner_mandate: true
+  owner_to_system_aggregation:
+    reduce_owner_authority: prohibited
+receipts:
+  pending:
+    canonical_registered: false
+    canonical_readback_verified: false
+  canonical:
+    canonical_registered: true
+    canonical_readback_verified: true
+    required_fields: [change_id, origin_or_origins, authority_class, priority, record_type, source_skill, source_version, dedupe_result]
+hard_gates:
+  - FEEDBACK_INTAKE_ADAPTER_COMPILED
+  - MATERIAL_SKILLFORGE_FINDING_HAS_CANONICAL_OR_PENDING_RECEIPT
+  - OWNER_DIRECT_ORIGIN_PRESERVED
+  - CANONICAL_REGISTRATION_CLAIM_REQUIRES_READBACK

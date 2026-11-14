@@ -1,0 +1,186 @@
+{
+  "artifact": "G0-Skill Architect / Builder",
+  "authority_separation": {
+    "backlog_item_authority": "INC_SKILLFORGE_UNIFIED_BACKLOG",
+    "older_embedded_release_program_fields": "HISTORICAL_PLANNING_SNAPSHOT_ONLY",
+    "release_stage_state_authority": "INC_SKILLFORGE_NEXT_RELEASE_PROGRAM_STATE"
+  },
+  "canonical_references": {
+    "bidi_layout_contract": "INC_BIDI_LAYOUT_TYPOGRAPHY_V1",
+    "bidi_semantic_collection_addendum": "INC_BIDI_SEMANTIC_COLLECTION_LAYOUT_V1",
+    "carry_forward_manifest_contract": "INC_SKILLFORGE_CARRY_FORWARD_MANIFEST_V1",
+    "carry_forward_manifest_ref": "references/carry-forward-manifest-v1.md",
+    "cross_surface_interaction_ledger_contract": "INC_CROSS_SURFACE_INTERACTION_LEDGER_V1",
+    "descendant_skillforge_build_gate": "INC_SKILLFORGE_DESCENDANT_BUILD_GATE_V1",
+    "execution_timeout_checkpoint_contract": "INC_EXECUTION_TIMEOUT_CHECKPOINT_V1",
+    "exhaustive_pairwise_gate_contract": "INC_SKILLFORGE_EXHAUSTIVE_PAIRWISE_GATE_V1",
+    "exhaustive_pairwise_gate_ref": "references/exhaustive-pairwise-gate-v1.md",
+    "framework_membership_contract": "INC_SKILL_FRAMEWORK_MEMBERSHIP_V1",
+    "g16_execution_surface_recommendation_contract": "INC_G16_EXECUTION_SURFACE_RECOMMENDATION_V1",
+    "g16_first_handoff_bootstrap": "FIRST_HANDOFF_BOOTSTRAP_V1",
+    "g16_handoff_topology_registry_contract": "INC_G16_HANDOFF_TOPOLOGY_REGISTRY_V1",
+    "g18_governed_project_response_grammar_contract": "INC_G18_GOVERNED_PROJECT_RESPONSE_GRAMMAR_V1",
+    "g1_document_class_storage_contract": "INC_G1_DOCUMENT_CLASS_STORAGE_V1",
+    "g8_secret_migration_contract": "INC_G8_SECRET_MIGRATION_V1",
+    "g8_secret_provider_contract": "INC_G8_SECRET_PROVIDER_V1",
+    "g9_resource_finops_control_plane_contract": "INC_G9_RESOURCE_FINOPS_CONTROL_PLANE_V1",
+    "github_usage_boundary_contract": "INC_GITHUB_USAGE_BOUNDARY_V1",
+    "github_usage_boundary_ref": "references/github-usage-boundary-v1.yaml",
+    "governed_skill_backlog_contract": "INC_GOVERNED_SKILL_BACKLOG_CONTRACT_V1",
+    "machine_route_before_visual_ui_contract": "INC_MACHINE_ROUTE_BEFORE_VISUAL_UI_V1",
+    "material_governed_activity_logging_contract": "INC_MATERIAL_GOVERNED_ACTIVITY_LOGGING_V1",
+    "owner_conversation_backlog_coverage_contract": "INC_OWNER_CONVERSATION_BACKLOG_COVERAGE_V1",
+    "owner_conversation_backlog_coverage_ref": "references/owner-conversation-backlog-coverage-v1.md",
+    "pairwise_runtime_member_set": "references/pairwise-runtime-member-set-REFERENCE_SCOPE.json",
+    "previous_release_lineage_anchor": "references/previous-release-carry-forward-source-v2.1.0.json",
+    "provider_resource_profile_registry": "INC_PROVIDER_RESOURCE_PROFILE_REGISTRY_V1",
+    "public_export_policy_contract": "INC_SKILLFORGE_PUBLIC_EXPORT_POLICY_V1",
+    "public_license_provenance_contract": "INC_SKILLFORGE_PUBLIC_LICENSE_PROVENANCE_V1",
+    "public_release_acceptance_contract": "INC_SKILLFORGE_PUBLIC_RELEASE_ACCEPTANCE_V1",
+    "release_closure_gate": "references/release-closure-gate-v1.md",
+    "release_closure_gate_id": "INC_G0_RELEASE_CLOSURE_GATE_V1",
+    "release_program_state": "references/skillforge-next-release-program-state.yaml",
+    "release_program_state_id": "INC_SKILLFORGE_NEXT_RELEASE_PROGRAM_STATE",
+    "runtime_version_attestation_contract": "INC_SKILLFORGE_RUNTIME_VERSION_ATTESTATION_V1",
+    "runtime_version_attestation_ref": "references/runtime-version-attestation-v1.md",
+    "skill_setup_contract": "INC_SKILL_SETUP_CONTRACT_V1",
+    "skillforge_feedback_intake_contract": "INC_SKILLFORGE_FEEDBACK_INTAKE_V1",
+    "skillforge_feedback_intake_ref": "references/skillforge-feedback-intake-v1.yaml",
+    "structural_validation_contract": "INC_SKILL_SOURCE_PACKAGE_STRUCTURAL_VALIDATION_V1",
+    "structural_validation_executor": "scripts/skill_structure_setup_gate.py",
+    "unified_backlog": "references/skillforge-unified-backlog.yaml",
+    "unified_backlog_id": "INC_SKILLFORGE_UNIFIED_BACKLOG",
+    "universal_table_contract": "INC_UNIVERSAL_TABLE_REFERENCEABILITY_V1"
+  },
+  "carry_forward_gate": {
+    "candidate_release_ready": false,
+    "contract": "INC_SKILLFORGE_CARRY_FORWARD_MANIFEST_V1",
+    "final_current_snapshot": "PENDING_FINAL_FREEZE",
+    "final_manifest": "PENDING_FINAL_FREEZE",
+    "final_previous_snapshot": "PENDING_FINAL_FREEZE",
+    "g12_g13_same_digest": "REQUIRED",
+    "generator_validator": "scripts/carry_forward_gate.py",
+    "previous_lineage_anchor": "references/previous-release-carry-forward-source-v2.1.0.json",
+    "previous_package_version": "2.1.0",
+    "previous_runtime_skill_count": 19,
+    "release_binding": "scripts/carry_forward_release_binding.py",
+    "tests": [
+      "tests/test_carry_forward_gate.py",
+      "tests/test_carry_forward_release_binding.py"
+    ]
+  },
+  "change_scope": "V3_S214_HANDOFF_EXPLICIT_URL_CONTINUATION",
+  "cross_cutting_contracts": [
+    "INC_SKILLFORGE_RELEASE_TRAIN_V1",
+    "INC_RUNNER_INDEPENDENT_CI_V1",
+    "INC_CROSS_SURFACE_INTERACTION_LEDGER_V1",
+    "INC_G16_HANDOFF_TOPOLOGY_REGISTRY_V1",
+    "INC_SKILLFORGE_RUNTIME_VERSION_ATTESTATION_V1",
+    "INC_G18_GOVERNED_PROJECT_RESPONSE_GRAMMAR_V1",
+    "INC_SKILLFORGE_CARRY_FORWARD_MANIFEST_V1",
+    "INC_SKILL_SETUP_CONTRACT_V1",
+    "INC_SKILL_SOURCE_PACKAGE_STRUCTURAL_VALIDATION_V1",
+    "INC_SKILLFORGE_PUBLIC_EXPORT_POLICY_V1",
+    "INC_SKILLFORGE_PUBLIC_LICENSE_PROVENANCE_V1",
+    "INC_SKILLFORGE_PUBLIC_RELEASE_ACCEPTANCE_V1"
+  ],
+  "date": "2026-11-13",
+  "effective_release_gate": {
+    "entrypoint": "scripts/release_closure_gate.py",
+    "historical_certificates": "PRESERVED_NOT_CURRENT_BLOCKERS",
+    "native_activation": "SEPARATE_OPTIONAL_ASSURANCE",
+    "profile": "AUTONOMOUS_EVIDENCE_BASED"
+  },
+  "exhaustive_pairwise_gate": {
+    "candidate_matrix_sha256": "b8939ea5a3227f176b02451cae4e60420ebefdc8c9e56b6244f62036593db5e2",
+    "candidate_member_set_sha256": "cd3e2a06e9f0ead7503bb6c9aadbfd8d8353483e3067aaa131978a9c3b439812",
+    "candidate_release_ready": false,
+    "contract": "INC_SKILLFORGE_EXHAUSTIVE_PAIRWISE_GATE_V1",
+    "current_directed_relationship_count": 342,
+    "current_member_count": 19,
+    "current_unique_unordered_pair_count": 171,
+    "final_freeze_matrix": "PENDING_UR05_UR07",
+    "g12_g13_same_digest": "REQUIRED",
+    "generator_validator": "scripts/skillforge_pairwise_gate.py",
+    "member_set": "references/pairwise-runtime-member-set-REFERENCE_SCOPE.json",
+    "release_binding": "scripts/pairwise_release_binding.py",
+    "tests": [
+      "tests/test_skillforge_pairwise_gate.py",
+      "tests/test_pairwise_release_binding.py"
+    ]
+  },
+  "feedback_intake": {
+    "applies_to_framework_membership": [
+      "MEMBER",
+      "CANDIDATE_MEMBER",
+      "EXTERNAL"
+    ],
+    "canonical_write_claim_requires_readback": true,
+    "contract": "INC_SKILLFORGE_FEEDBACK_INTAKE_V1",
+    "logging_owner": "G11",
+    "metadata_compiler": "G7",
+    "runtime_owner": "G16"
+  },
+  "framework": "SkillForge",
+  "framework_id": "INC_SKILLFORGE",
+  "framework_membership": "MEMBER",
+  "framework_registry_ref": "INC_SKILL_NAMESPACE_REGISTRY",
+  "fresh_review": {
+    "independent_third_party": false,
+    "scope": "PRIVATE_3_0_3_PRIVACY_HARDENING"
+  },
+  "global_assurance_contract_ref": "INC_CRITICAL_CONTROL_ASSURANCE_V2",
+  "global_assurance_skill_ref": "G3",
+  "historical_metadata_bundled": false,
+  "independent_certification_required_for_release": false,
+  "lifecycle": "production",
+  "owner_backlog_coverage": {
+    "contract": "INC_OWNER_CONVERSATION_BACKLOG_COVERAGE_V1",
+    "g18_claim_gate": "REQUIRED",
+    "mirror_parity_required": true,
+    "terminal_unmapped_count_required": 0,
+    "validator": "scripts/backlog_coverage_gate.py"
+  },
+  "phase": "PRIVATE_CORE_RELEASE",
+  "prior_version": "3.8.5-rc.1",
+  "privacy_responsibility": "Own explicit publicization plan and deny-by-default export selection.",
+  "private_history_ref": "PRIVATE_METADATA_E89098051D22",
+  "private_state_in_runtime": "EXTERNAL_REFERENCES_ONLY",
+  "publication_mode": "PRIVATE_ONLY_UNTIL_NEW_EXACT_PUBLIC_CONSENT",
+  "publicization_contract": "INC_PUBLICIZATION_PRIVACY_GATE_V2",
+  "registry_schema_version": "1.1",
+  "release_policy_profile": "AUTONOMOUS_EVIDENCE_BASED",
+  "release_policy_ref": "INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1",
+  "release_status": "RELEASE",
+  "retained_generic_contracts": [
+    "INC_SKILL_SETUP_CONTRACT_V1",
+    "INC_SKILL_SOURCE_PACKAGE_STRUCTURAL_VALIDATION_V1"
+  ],
+  "runtime_version_attestation": {
+    "context_binding": [
+      "SURFACE",
+      "RUNTIME_INSTANCE",
+      "ACCOUNT_CONTEXT",
+      "SESSION"
+    ],
+    "contract": "INC_SKILLFORGE_RUNTIME_VERSION_ATTESTATION_V1",
+    "forbidden_substitutes": [
+      "GITHUB_SOURCE_ONLY",
+      "HANDOFF_CLAIM_ONLY",
+      "USER_CLAIM",
+      "ASSISTANT_INFERENCE"
+    ],
+    "material_mode": "FAIL_CLOSED_ON_MISMATCH_OR_UNPROVEN_RUNTIME",
+    "proof_channels": [
+      "CURRENT_RUNTIME_INSTALLATION",
+      "INDEPENDENT_HANDOFF_READBACK"
+    ],
+    "read_only_mode": "NONCONFORMING_RUNTIME_READ_ONLY",
+    "reference": "references/runtime-version-attestation-v1.md",
+    "tests": "tests/test_runtime_version_attestation.py",
+    "validator": "scripts/runtime_version_attestation.py"
+  },
+  "stable_id": "O6-SKL-003",
+  "version": "3.8.6",
+  "visible_id": "G0"
+}

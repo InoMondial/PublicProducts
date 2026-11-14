@@ -1,0 +1,218 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "INC_G11_LOG_ENVELOPE_V1_SCHEMA",
+  "title": "INC_G11_LOG_ENVELOPE_V1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["envelope_version", "contract", "envelope_id", "profile", "producer", "run", "semantic_records", "telemetry"],
+  "properties": {
+    "envelope_version": {"const": "1.1"},
+    "contract": {"const": "INC_G11_LOG_ENVELOPE_V1"},
+    "envelope_id": {"type": "string", "minLength": 1},
+    "profile": {"enum": ["LIGHT", "STANDARD", "DEEP"]},
+    "producer": {
+      "type": "object",
+      "required": ["surface", "producer_ref"],
+      "properties": {
+        "surface": {"type": "string", "minLength": 1},
+        "producer_ref": {"type": "string", "minLength": 1},
+        "skill_id": {"type": "string", "minLength": 1},
+        "skill_version": {"type": "string", "minLength": 1},
+        "agent_id": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": true
+    },
+    "run": {"$ref": "#/$defs/run"},
+    "semantic_records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+          {"$ref": "#/$defs/event"},
+          {"$ref": "#/$defs/action"},
+          {"$ref": "#/$defs/metric"},
+          {"$ref": "#/$defs/error"},
+          {"$ref": "#/$defs/approval"}
+        ]
+      }
+    },
+    "telemetry": {
+      "type": "object",
+      "properties": {
+        "actual_usage_status": {"enum": ["MEASURED", "PARTIAL", "UNAVAILABLE"]}
+      },
+      "additionalProperties": true
+    },
+    "refs": {"type": "object"}
+  },
+  "$defs": {
+    "run": {
+      "type": "object",
+      "required": ["run_id", "root_run_id", "trace_id", "correlation_id", "run_type", "started_at", "status", "spend_mode", "attempt_number", "environment_ref", "retention_class", "is_test"],
+      "properties": {
+        "run_id": {"type": "string", "minLength": 1},
+        "root_run_id": {"type": "string", "minLength": 1},
+        "trace_id": {"type": "string", "minLength": 1},
+        "correlation_id": {"type": "string", "minLength": 1},
+        "run_type": {"enum": ["BUILD", "RUNTIME", "TEST", "EVALUATION", "VALIDATION", "MAINTENANCE", "MIGRATION"]},
+        "started_at": {"type": "string", "format": "date-time"},
+        "status": {"type": "string", "minLength": 1},
+        "spend_mode": {"enum": ["EFFICIENT", "EXPAND", "MAXIMIZE"]},
+        "attempt_number": {"type": "integer", "minimum": 1},
+        "environment_ref": {"type": "string", "minLength": 1},
+        "retention_class": {"enum": ["CRITICAL", "SECURITY", "AUDIT", "STANDARD", "HIGH_VOLUME"]},
+        "is_test": {"type": "boolean"},
+        "parent_run_id": {"type": "string", "minLength": 1},
+        "agent_id": {"type": "string", "minLength": 1},
+        "primary_skill_id": {"type": "string", "minLength": 1},
+        "executing_skill_id": {"type": "string", "minLength": 1},
+        "skill_version": {"type": "string", "minLength": 1},
+        "ended_at": {"type": "string", "format": "date-time"},
+        "result_summary": {"type": "string"},
+        "result_ref": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": true
+    },
+    "base": {
+      "type": "object",
+      "required": ["kind", "run_id", "sequence_number", "timestamp", "component_role", "is_test"],
+      "properties": {
+        "kind": {"enum": ["event", "action", "metric", "error", "approval"]},
+        "run_id": {"type": "string", "minLength": 1},
+        "sequence_number": {"type": "integer", "minimum": 1},
+        "timestamp": {"type": "string", "format": "date-time"},
+        "component_role": {"enum": ["SKILL", "BUILDER", "MODEL", "TOOL", "TEST", "EVALUATOR", "SQS", "VALIDATOR", "ORCHESTRATOR"]},
+        "is_test": {"type": "boolean"}
+      },
+      "additionalProperties": true
+    },
+    "event": {
+      "allOf": [
+        {"$ref": "#/$defs/base"},
+        {
+          "type": "object",
+          "required": ["event_id", "event_type", "severity", "message_code", "message_summary", "data_classification", "retention_class"],
+          "properties": {
+            "kind": {"const": "event"},
+            "event_id": {"type": "string", "minLength": 1},
+            "event_type": {"type": "string", "minLength": 1},
+            "severity": {"type": "string", "minLength": 1},
+            "message_code": {"type": "string", "minLength": 1},
+            "message_summary": {"type": "string", "minLength": 1},
+            "data_classification": {"enum": ["PUBLIC", "INTERNAL", "CONFIDENTIAL", "RESTRICTED"]},
+            "retention_class": {"enum": ["CRITICAL", "SECURITY", "AUDIT", "STANDARD", "HIGH_VOLUME"]},
+            "artifact_ref": {"type": "string", "minLength": 1},
+            "source_ref": {"type": "string", "minLength": 1}
+          }
+        }
+      ]
+    },
+    "action": {
+      "allOf": [
+        {"$ref": "#/$defs/base"},
+        {
+          "type": "object",
+          "required": ["action_id", "actor_ref", "action_type", "risk_level", "data_classification", "attempt_number", "result_status"],
+          "properties": {
+            "kind": {"const": "action"},
+            "action_id": {"type": "string", "minLength": 1},
+            "actor_ref": {"type": "string", "minLength": 1},
+            "action_type": {"type": "string", "minLength": 1},
+            "risk_level": {"enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"]},
+            "data_classification": {"enum": ["PUBLIC", "INTERNAL", "CONFIDENTIAL", "RESTRICTED"]},
+            "attempt_number": {"type": "integer", "minimum": 1},
+            "result_status": {"type": "string", "minLength": 1},
+            "parent_action_id": {"type": "string", "minLength": 1},
+            "span_id": {"type": "string", "minLength": 1},
+            "parent_span_id": {"type": "string", "minLength": 1},
+            "tool_or_model": {"type": "string", "minLength": 1},
+            "target_ref": {"type": "string", "minLength": 1},
+            "approval_id": {"type": "string", "minLength": 1},
+            "result_ref": {"type": "string", "minLength": 1}
+          }
+        }
+      ]
+    },
+    "metric": {
+      "allOf": [
+        {"$ref": "#/$defs/base"},
+        {
+          "type": "object",
+          "required": ["metric_id", "metric_scope", "provider", "cost_source", "usage_source", "attribution_method", "normalization_schema_version", "token_accounting_check_status"],
+          "properties": {
+            "kind": {"const": "metric"},
+            "metric_id": {"type": "string", "minLength": 1},
+            "metric_scope": {"enum": ["MODEL_CALL", "TOOL_CALL", "RUN_AGGREGATE", "OTHER"]},
+            "provider": {"type": "string", "minLength": 1},
+            "cost_source": {"enum": ["PROVIDER_MEASURED", "CALCULATED", "ESTIMATED", "UNAVAILABLE"]},
+            "usage_source": {"enum": ["MEASURED", "ESTIMATED", "UNAVAILABLE"]},
+            "attribution_method": {"enum": ["DIRECT", "CHILD", "ALLOCATED"]},
+            "normalization_schema_version": {"type": "string", "minLength": 1},
+            "token_accounting_check_status": {"enum": ["PASS", "MISMATCH", "NOT_CHECKED"]},
+            "action_id": {"type": "string", "minLength": 1},
+            "model_call_id": {"type": "string", "minLength": 1},
+            "request_model": {"type": "string", "minLength": 1},
+            "response_model": {"type": "string", "minLength": 1},
+            "input_tokens": {"type": "integer", "minimum": 0},
+            "output_tokens": {"type": "integer", "minimum": 0},
+            "total_tokens": {"type": "integer", "minimum": 0},
+            "cache_read_input_tokens": {"type": "integer", "minimum": 0},
+            "cache_creation_input_tokens": {"type": "integer", "minimum": 0},
+            "reasoning_output_tokens": {"type": "integer", "minimum": 0},
+            "cost_value": {"type": "number", "minimum": 0},
+            "cost_currency": {"type": "string", "pattern": "^[A-Z]{3}$"},
+            "pricing_profile_id": {"type": "string", "minLength": 1},
+            "latency_ms": {"type": "integer", "minimum": 0},
+            "attributed_skill_id": {"type": "string", "minLength": 1},
+            "provider_usage_raw_json": {"type": "string"},
+            "provider_usage_raw_ref": {"type": "string", "minLength": 1}
+          }
+        }
+      ]
+    },
+    "error": {
+      "allOf": [
+        {"$ref": "#/$defs/base"},
+        {
+          "type": "object",
+          "required": ["error_id", "error_code", "stage", "severity", "retry_count", "resolution_status"],
+          "properties": {
+            "kind": {"const": "error"},
+            "error_id": {"type": "string", "minLength": 1},
+            "error_code": {"type": "string", "minLength": 1},
+            "stage": {"type": "string", "minLength": 1},
+            "severity": {"type": "string", "minLength": 1},
+            "retry_count": {"type": "integer", "minimum": 0},
+            "resolution_status": {"type": "string", "minLength": 1},
+            "action_id": {"type": "string", "minLength": 1},
+            "provider_error_code": {"type": "string", "minLength": 1},
+            "resolved_by_action_id": {"type": "string", "minLength": 1},
+            "diagnostic_summary": {"type": "string"},
+            "diagnostic_ref": {"type": "string", "minLength": 1}
+          }
+        }
+      ]
+    },
+    "approval": {
+      "allOf": [
+        {"$ref": "#/$defs/base"},
+        {
+          "type": "object",
+          "required": ["approval_id", "action_summary", "risk_level", "requested_at", "decision", "approver_ref", "scope_summary"],
+          "properties": {
+            "kind": {"const": "approval"},
+            "approval_id": {"type": "string", "minLength": 1},
+            "action_summary": {"type": "string", "minLength": 1},
+            "risk_level": {"enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"]},
+            "requested_at": {"type": "string", "format": "date-time"},
+            "decision": {"enum": ["PENDING", "APPROVED", "REJECTED", "CANCELLED"]},
+            "approver_ref": {"type": "string", "minLength": 1},
+            "scope_summary": {"type": "string", "minLength": 1},
+            "action_id": {"type": "string", "minLength": 1},
+            "decided_at": {"type": "string", "format": "date-time"}
+          }
+        }
+      ]
+    }
+  }
+}

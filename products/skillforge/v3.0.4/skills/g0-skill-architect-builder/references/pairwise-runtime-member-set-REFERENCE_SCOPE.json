@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0",
+  "runtime_scope": "G0-G18_WITH_ONE_CANONICAL_G17",
+  "freeze_id": "REFERENCE_SCOPE_UR05_FINAL_SOURCE_FREEZE_20260920",
+  "members": [
+    {
+      "visible_id": "G0",
+      "stable_id": "O6-SKL-003",
+      "version": "3.7.6-candidate",
+      "runtime_package_path": "skills/g0-skill-architect-builder"
+    },
+    {
+      "visible_id": "G1",
+      "stable_id": "G01-SKL-001",
+      "version": "5.1.1-candidate",
+      "runtime_package_path": "skills/g1-artifact-archive-router"
+    },
+    {
+      "visible_id": "G2",
+      "stable_id": "O6-SKL-002",
+      "version": "3.2.0",
+      "runtime_package_path": "skills/g2-artifact-naming-standardizer"
+    },
+    {
+      "visible_id": "G3",
+      "stable_id": "G03-SKL-001",
+      "version": "1.1.0",
+      "runtime_package_path": "skills/g3-critical-control-assurance-runtime-exit-gate"
+    },
+    {
+      "visible_id": "G4",
+      "stable_id": "O6-SKL-004",
+      "version": "3.1.0",
+      "runtime_package_path": "skills/g4-artifact-classification-skill-profile-standardizer"
+    },
+    {
+      "visible_id": "G5",
+      "stable_id": "O6-SKL-005",
+      "version": "3.1.0",
+      "runtime_package_path": "skills/g5-corporate-ip-copyright-standardizer"
+    },
+    {
+      "visible_id": "G6",
+      "stable_id": "O6-SKL-006",
+      "version": "3.3.2-candidate",
+      "runtime_package_path": "skills/g6-versioning-lifecycle-standardizer"
+    },
+    {
+      "visible_id": "G7",
+      "stable_id": "O6-SKL-007",
+      "version": "3.4.0",
+      "runtime_package_path": "skills/g7-skill-structure-metadata-standardizer"
+    },
+    {
+      "visible_id": "G8",
+      "stable_id": "O6-SKL-008",
+      "version": "3.3.0",
+      "runtime_package_path": "skills/g8-security-privacy-permission-standardizer"
+    },
+    {
+      "visible_id": "G9",
+      "stable_id": "O6-SKL-009",
+      "version": "5.3.0",
+      "runtime_package_path": "skills/g9-token-context-efficiency-standardizer"
+    },
+    {
+      "visible_id": "G10",
+      "stable_id": "O6-SKL-010",
+      "version": "3.2.0",
+      "runtime_package_path": "skills/g10-dependency-stable-reference-standardizer"
+    },
+    {
+      "visible_id": "G11",
+      "stable_id": "O6-SKL-011",
+      "version": "4.8.0-candidate",
+      "runtime_package_path": "skills/g11-logging-traceability-standardizer"
+    },
+    {
+      "visible_id": "G12",
+      "stable_id": "O6-SKL-012",
+      "version": "3.3.0-candidate",
+      "runtime_package_path": "skills/g12-testing-evaluation-standardizer"
+    },
+    {
+      "visible_id": "G13",
+      "stable_id": "O6-SKL-013",
+      "version": "3.3.0-candidate",
+      "runtime_package_path": "skills/g13-skill-quality-sqs-evaluator"
+    },
+    {
+      "visible_id": "G14",
+      "stable_id": "O6-SKL-014",
+      "version": "3.2.0",
+      "runtime_package_path": "skills/g14-artifact-output-packaging-standardizer"
+    },
+    {
+      "visible_id": "G15",
+      "stable_id": "G15-SKL-001",
+      "version": "4.4.0",
+      "runtime_package_path": "skills/g15-notification-human-decision-gateway"
+    },
+    {
+      "visible_id": "G16",
+      "stable_id": "G16-SKL-001",
+      "version": "0.1.16-candidate",
+      "runtime_package_path": "skills/g16-live-shared-record-agent-coordination"
+    },
+    {
+      "visible_id": "G17",
+      "stable_id": "G17-SKL-002",
+      "version": "0.1.4-candidate",
+      "runtime_package_path": "skills/g17-data-governor"
+    },
+    {
+      "visible_id": "G18",
+      "stable_id": "CHAT1-SKL-001",
+      "version": "0.1.43",
+      "runtime_package_path": "skills/g18-human-conversation-output-governor"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+interface:
+  display_name: G17-Data Governor
+  short_description: Govern durable data architecture, storage placement, provider-neutral
+    persistence, migration, rollback, integrity, and database operations for SkillForge
+    projec
+policy:
+  allow_implicit_invocation: true

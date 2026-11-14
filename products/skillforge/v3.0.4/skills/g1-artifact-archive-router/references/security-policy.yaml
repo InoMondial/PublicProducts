@@ -1,0 +1,8 @@
+schema_version: '1.0'
+policy_id: G1_SECURITY_GATE_V1
+secret_scan_before_remote_publication: required
+blocked_secret_types: [private_key, github_token, aws_access_key, live_env_secret]
+redacted_placeholder_allowed: true
+env_example_allowed_only_when_no_live_secret: true
+sensitive_nonsecret_transfer_requires_destination_policy: true
+failure: SECURITY_BLOCKED

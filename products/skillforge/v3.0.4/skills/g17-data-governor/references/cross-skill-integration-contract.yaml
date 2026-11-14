@@ -1,0 +1,130 @@
+contract_id: INC_G17_CROSS_SKILL_INTEGRATION_V1
+status: CANDIDATE_STAGE23
+owner_stable_id: G17-SKL-002
+purpose: >
+  Bind Data Governor qualification and minimum runtime contracts into SkillForge
+  build/runtime paths without duplicating ownership from other governance Skills.
+activation:
+  build_time:
+    when_any:
+      - durable_persistence_introduced_or_changed
+      - storage_authority_introduced_or_changed
+      - schema_entity_field_relation_index_changed
+      - file_or_spreadsheet_used_as_mutable_structured_system_of_record
+      - migration_backup_restore_provider_cutover_requested
+    compiler_owner: G0
+    data_governor_ref: G17-SKL-002
+  runtime:
+    rule: PROPAGATE_MINIMUM_APPLICABLE_G17_PROFILE_ONLY
+    full_g17_recursive_load: FORBIDDEN_BY_DEFAULT
+namespace_safety:
+  legacy_plugin_packaging_stable_id_visible_g19: G17-SKL-001
+  data_governor_candidate_stable_id: G17-SKL-002
+  visible_id_collision_until_stage29: RESOLVED_STAGE29_PASS
+  resolution_rule: CANONICAL_VISIBLE_G17_OR_STABLE_G17-SKL-002
+integrations:
+  G0:
+    relationship: COMPILER_GATE_OWNER
+    consumes:
+      - INC_G17_STORAGE_PLACEMENT_V1
+      - INC_G17_CROSS_SKILL_INTEGRATION_V1
+    must_compile:
+      - storage_placement_result
+      - project_ref_or_not_applicable_reason
+      - data_code_when_database_objects_are_required
+      - minimum_runtime_profile
+    must_not_duplicate: data_architecture_or_schema_design
+  G1:
+    relationship: FILE_ARTIFACT_ROUTER
+    g17_owns: placement_decision_and_authority_class
+    g1_owns: physical_governed_file_publication_archive_and_readback
+    handoff: G17_PLACEMENT_TO_G1_ROUTE
+  G4:
+    relationship: CLASSIFICATION_PROFILE_INPUT
+    g4_owns: artifact_and_skill_profile_classification
+    g17_consumes: classification_that_affects_persistence_controls
+  G6:
+    relationship: LIFECYCLE_COMPOSITION
+    g6_owns: general_version_and_lifecycle_policy
+    g17_owns: schema_data_migration_backfill_cutover_rollback_semantics
+  G7:
+    relationship: STRUCTURE_METADATA_COMPOSITION
+    g7_owns: package_structure_and_machine_readable_metadata
+    g17_requires_metadata:
+      - project_ref_policy
+      - data_code_ref
+      - storage_authority_ref
+      - runtime_g17_profile_ref
+  G8:
+    relationship: SECURITY_FLOOR_COMPOSITION
+    g8_owns: general_security_privacy_permission_authority
+    g17_owns: data_architecture_application_of_g8_floor
+    hard_rule: G17_MAY_STRENGTHEN_BUT_NEVER_WEAKEN_G8
+  G9:
+    relationship: RESOURCE_OPTIMIZATION_COMPOSITION
+    g9_owns: global_token_context_resource_optimization
+    g17_owns: query_index_transaction_storage_and_data_access_architecture
+    hard_rule: G9_MAY_NOT_OPTIMIZE_AWAY_INTEGRITY_SECURITY_OR_REQUIRED_READBACK
+  G10:
+    relationship: STABLE_REFERENCE_COMPOSITION
+    g10_owns: typed_dependencies_compatibility_and_stable_reference_rules
+    g17_requires:
+      - provider_neutral_project_ref
+      - stable_domain_refs
+      - adapter_ref_without_consumer_provider_leakage
+  G11:
+    relationship: TELEMETRY_COMPOSITION
+    g11_owns: logging_traceability_semantics
+    g17_owns: persistence_backend_and_data_reliability_facts_emitted_to_g11
+    hard_rule: CONSUMERS_NEVER_DEPEND_ON_G11_PHYSICAL_SCHEMA
+  G12:
+    relationship: INDEPENDENT_TESTING
+    g17_owns: domain_self_tests
+    g12_owns: independent_requirement_reconstruction_and_black_box_3_TO_5_CYCLES
+  G13:
+    relationship: INDEPENDENT_QUALITY_EVALUATION
+    g17_owns: candidate_and_evidence
+    g13_owns: independent_quality_certification
+  G14:
+    relationship: OUTPUT_PACKAGING_COMPOSITION
+    g14_owns: artifact_output_package_integrity
+    g17_owns: data_migration_schema_and_adapter_artifacts_inside_package
+  G15:
+    relationship: HUMAN_DECISION_NOTIFICATION_COMPOSITION
+    g15_owns: teams_notification_rendering_routing_real_owner_mentions
+    g17_emits: semantic_data_risk_backup_quota_migration_outage_events
+  G16:
+    relationship: SYSTEM_COORDINATION_COMPOSITION
+    g16_owns: agent_to_agent_coordination_and_shared_handoff_state
+    g17_owns: data_operations_and_data_change_qualification
+    hard_rule: G17_DOES_NOT_CREATE_SECOND_COORDINATION_STATE_MASTER
+  G18:
+    relationship: HUMAN_CONVERSATION_OUTPUT_COMPOSITION
+    g18_owns: human_facing_conversation_and_output_rendering
+    g17_emits: structured_facts_statuses_options_and_evidence_refs
+    hard_rule: G18_DOES_NOT_BECOME_DATA_AUTHORITY
+ownership_invariants:
+  - EXACTLY_ONE_OWNER_PER_GOVERNANCE_DOMAIN
+  - NO_PROVIDER_SPECIFIC_IDS_OR_TOOL_SEMANTICS_IN_ORDINARY_CONSUMER_LOGIC
+  - NO_SECOND_MUTABLE_MASTER
+  - NO_RUNTIME_SCHEMA_MUTATION_BY_ORDINARY_SKILLS
+  - NO_DUPLICATE_COORDINATION_STATE
+  - NO_DUPLICATE_HUMAN_RENDERING_POLICY
+  - NO_DUPLICATE_GENERAL_SECURITY_AUTHORITY
+build_outputs:
+  mandatory_when_applicable:
+    - g17_applicability_state
+    - storage_authority
+    - project_ref
+    - data_code_ref
+    - schema_or_domain_contract_ref
+    - runtime_profile_ref
+    - migration_rollback_ref_when_material_change
+    - test_and_evidence_refs
+failure_codes:
+  - G17_INTEGRATION_NOT_QUALIFIED
+  - G17_OWNER_COLLISION
+  - G17_PROVIDER_LEAKAGE
+  - G17_RUNTIME_PROFILE_MISSING
+  - G17_PROJECT_CONTEXT_REQUIRED
+  - G17_SECOND_MASTER_DETECTED

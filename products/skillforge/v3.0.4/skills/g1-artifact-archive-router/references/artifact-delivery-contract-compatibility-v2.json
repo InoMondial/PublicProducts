@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "matrix_id": "INC_G1_G18_ARTIFACT_DELIVERY_COMPATIBILITY_V2",
+  "active_contract": "INC_REMOTE_ARTIFACT_DELIVERY_V2",
+  "historical_lineage": [
+    {
+      "contract": "INC_REMOTE_ARTIFACT_DELIVERY_V1",
+      "status": "HISTORICAL_NON_EXECUTABLE"
+    }
+  ],
+  "participants": {
+    "G1": {
+      "stable_id": "G01-SKL-001",
+      "expected_active_ref": "INC_REMOTE_ARTIFACT_DELIVERY_V2"
+    },
+    "G18": {
+      "stable_id": "CHAT1-SKL-001",
+      "expected_active_ref": "INC_REMOTE_ARTIFACT_DELIVERY_V2"
+    }
+  },
+  "active_metadata_paths": {
+    "G1": [
+      "SKILL.md:metadata.remote_artifact_delivery_contract_ref",
+      "GOVERNANCE.yaml:remote_artifact_delivery.contract_ref",
+      "MANIFEST.json:contracts.remote_artifact_delivery"
+    ],
+    "G18": [
+      "SKILL.md:metadata.artifact_egress_contract_ref",
+      "GOVERNANCE.yaml:artifact_egress.contract_ref",
+      "MANIFEST.json:artifact_delivery_contract_ref"
+    ]
+  },
+  "gates": {
+    "startup_attestation": true,
+    "package_build_attestation": true,
+    "canonical_private_parity": true,
+    "drift_failure": "ARTIFACT_CONTRACT_ATTESTATION_FAILED"
+  }
+}

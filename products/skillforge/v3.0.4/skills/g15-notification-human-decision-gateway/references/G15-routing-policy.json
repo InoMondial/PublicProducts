@@ -1,0 +1,98 @@
+{
+  "version": "4.3.1",
+  "priority_order": ["LOW", "MED", "HIGH"],
+  "critical_maps_to": "HIGH",
+  "unknown_default": "MED",
+  "mandatory_high_flags": [
+    "financial_transaction", "purchase_or_sale", "system_waiting_for_user", "blocking", "critical_issue",
+    "serious_legal_impact", "high_consequence", "system_crash", "workflow_blocked", "process_stopped",
+    "serious_error", "service_outage", "data_integrity_risk"
+  ],
+  "med_flags": ["degraded_service", "recoverable_error", "action_required", "must_read"],
+  "low_flags": ["routine_report", "activity_confirmation"],
+  "destinations": {
+    "HIGH": "INC_G15_PRIORITY_HIGH_CHANNEL",
+    "MED": "INC_G15_PRIORITY_MED_CHANNEL",
+    "LOW": "INC_G15_PRIORITY_LOW_CHANNEL",
+    "TEST": "INC_G15_TEST_CHANNEL"
+  },
+  "routing_enforcement": {
+    "default_priority_route_mandatory": true,
+    "producer_destination_override_prohibited": true,
+    "user_explicit_override_only": true,
+    "override_authorization_channel": "OUT_OF_BAND_RUNTIME_BOOLEAN",
+    "override_required_fields": ["destination_override_ref", "destination_override_reason"],
+    "test_channel_actual_transport_tests_only": true,
+    "unauthorized_override_status": "DESTINATION_OVERRIDE_NOT_AUTHORIZED",
+    "production_event_on_test_route_status": "TEST_ROUTE_NOT_AUTHORIZED_FOR_PRODUCTION_EVENT",
+    "route_resolution_failure_status": "ROUTE_RESOLUTION_FAILED"
+  },
+  "rendering_enforcement": {
+    "canonical_renderer_required": true,
+    "renderer_id": "G15_TEAMS_NATIVE_V1",
+    "transport_content_field": "html_content",
+    "plain_text_fallback_prohibited": true,
+    "markdown_fallback_prohibited": true,
+    "ad_hoc_template_prohibited": true,
+    "post_send_actual_route_readback_required": true,
+    "render_failure_blocks_send": true
+  },
+  "project_context": {
+    "required_for_ordinary_notifications": true,
+    "required_dimensions": ["project_name_or_id", "message_category", "project_stage", "project_progress_percent"],
+    "progress_range": [0, 100],
+    "resolution_order": ["explicit_request", "authoritative_registry", "source_work_or_task_mapping", "ECOSYSTEM_if_true_system_event"],
+    "high_emergency_unknown_allowed": true,
+    "normal_missing_project": "PROJECT_CONTEXT_REQUIRED",
+    "normal_missing_progress": "PROJECT_PROGRESS_REQUIRED",
+    "emergency_missing_project": "PROJECT_CONTEXT_DEGRADED",
+    "emergency_missing_progress": "PROJECT_PROGRESS_DEGRADED"
+  },
+  "search_tags": {
+    "required_for_every_delivered_message": true,
+    "absolute_final_block": true,
+    "english_dimensions": ["G15", "message_type", "project", "category", "priority", "event_keywords"],
+    "persian_dimensions": ["G15", "message_type_meaning", "project", "category_meaning", "priority_meaning", "event_keywords"],
+    "recommended_english_count": [5, 10],
+    "recommended_persian_count": [5, 10],
+    "multiword_separator": "_",
+    "deduplicate": true,
+    "structured_metadata_only": true,
+    "sensitive_free_text_prohibited": true,
+    "secrets_prohibited": true,
+    "ordinary_missing_keywords": "SEARCH_KEYWORDS_REQUIRED",
+    "high_emergency_degraded": "SEARCH_TAGS_DEGRADED"
+  },
+  "mandatory_notifications": {
+    "decision_authorization": {"mandatory": true, "default_priority": "HIGH"},
+    "financial_transaction": {"mandatory": true, "default_priority": "HIGH"},
+    "critical_failure_risk": {"mandatory": true, "default_priority": "HIGH"},
+    "recoverable_failure": {"mandatory": true, "default_priority": "MED"},
+    "publication_success": {"mandatory": true, "default_priority": "LOW", "upgrade_to_med_when": ["major_project_milestone", "production_release", "user_review_required"]},
+    "backup_success": {"mandatory": true, "default_priority": "LOW"},
+    "project_lifecycle": {"mandatory": true, "default_priority": "MED"},
+    "operational_completion_audit": {"mandatory": true, "default_priority": "LOW", "upgrade_to_med_when": ["follow_up_required", "discrepancy_exists", "user_action_required"]},
+    "priority_feedback": {"mandatory": true, "default_priority": "MED"}
+  },
+  "batching": {
+    "mandatory_events_may_not_disappear": true,
+    "routine_low_success_batching_allowed": true,
+    "batch_must_preserve_each_event_id_and_link": true,
+    "high_med_decision_failure_suppression_prohibited": true
+  },
+  "mandatory_high_categories": ["PURCHASE", "SALE", "TRADE_ORDER", "FINANCIAL_TRANSACTION", "PAYMENT", "TRANSFER", "REFUND"],
+  "controls": {"X": "CANCELLED", "D": "DEFERRED", "R": "REASK_REQUESTED"},
+  "double_confirmation": {
+    "amount_threshold": 50,
+    "codes": {"Y": "FINAL_CONFIRMED", "N": "FINAL_NOT_CONFIRMED"},
+    "financial_missing_amount_or_currency": "conservative-confirm"
+  },
+  "optional_interaction_surfaces": {
+    "APPROVAL": "NATIVE_MICROSOFT_TEAMS_APPROVALS_IF_REQUESTED_AND_AVAILABLE",
+    "ACKNOWLEDGMENT": "TEAMS_ADAPTIVE_CARD_IF_REQUESTED_AND_AVAILABLE",
+    "CHOICE": "TEAMS_ADAPTIVE_CARD_IF_REQUESTED_AND_AVAILABLE",
+    "QUICK_CONFIRM": "TEAMS_ADAPTIVE_CARD_IF_REQUESTED_AND_AVAILABLE",
+    "FORM": "TEAMS_ADAPTIVE_CARD_IF_REQUESTED_AND_AVAILABLE"
+  },
+  "telemetry_target": "INC_LOG_STORE"
+}

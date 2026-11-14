@@ -1,0 +1,6 @@
+interface:
+  display_name: G14-Artifact Output & Packaging Standardizer
+  short_description: Output and packaging governance for file-producing activities,
+    including format validation, final bundle rules and canonical Skill deploy handoff.
+policy:
+  allow_implicit_invocation: true

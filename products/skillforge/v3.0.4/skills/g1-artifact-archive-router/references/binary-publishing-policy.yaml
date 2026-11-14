@@ -1,0 +1,46 @@
+schema_version: '1.2'
+policy_id: G1_BINARY_PUBLICATION_V1
+binary_examples:
+- zip
+- doc
+- docx
+- pdf
+- png
+- jpg
+- jpeg
+- xls
+- xlsx
+- ppt
+- pptx
+- svg
+- webp
+transport_preference:
+- native_file_uri_or_byte_stream_connector
+- authenticated_git_runner_or_codex
+- controlled_github_action_binary_uploader
+- approved_binary_safe_api
+forbidden_normal_paths:
+- human_manual_upload
+- conversational_base64_copy_paste
+- reconstruct_binary_from_text_summary
+- manifest_only_publication
+verification:
+  remote_exists: required
+  canonical_filename: required
+  size_match: required
+  fresh_remote_sha256_match: required
+  git_blob_identity_when_applicable: required
+  zip_reopen_when_applicable: required
+office_ooxml:
+  source_staging_remote_byte_equality: required
+  reject_rewriting_provider: true
+deduplication:
+  content_identity: sha256
+  canonical_path_still_required: true
+chatgpt_managed_skill_install_zip:
+  policy_owner: G14
+  policy_ref: G14_CHATGPT_SKILL_INSTALL_ZIP_LIMIT_V1
+  max_exclusive_bytes: 25000000
+  evidence_binding: EXACT_FINAL_ZIP_FILENAME_SHA256_SIZE
+  missing_or_oversize: BLOCK_INSTALLABLE_PUBLICATION
+  failure: INSTALLABLE_PACKAGE_SIZE_LIMIT_EXCEEDED

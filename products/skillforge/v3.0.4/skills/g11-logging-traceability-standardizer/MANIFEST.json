@@ -1,0 +1,93 @@
+{
+  "activity_boundary_ref": "INC_GOVERNED_ACTIVITY_BOUNDARY_V1",
+  "artifact": "G11-Logging & Traceability Standardizer",
+  "backlog_intake_event_ref": "INC_BACKLOG_INTAKE_EVENT_V1",
+  "billing_ledger_fact_family": "g11_billing_ledger",
+  "correlation": {
+    "correlation_id": "REQUIRED_FOR_CROSS_SYSTEM_WHEN_NO_TRACE_CONTEXT",
+    "idempotency_key": "REQUIRED_FOR_APPLICABLE_STATE_CHANGING_RETRY",
+    "project_ref": "REQUIRED_FOR_PROJECT_SCOPED_ACTIVITY",
+    "root_run_run_activity_event": "REQUIRED_WHEN_AVAILABLE",
+    "safe_account_ref": "CONDITIONAL_NO_AUTH_SECRET",
+    "trace_span": "PRESERVE_WHEN_EXPOSED"
+  },
+  "coverage_auditor_ref": "INC_G11_MISSING_LOG_COVERAGE_AUDITOR_V1",
+  "cross_cutting_contracts": [
+    "INC_SKILLFORGE_RELEASE_TRAIN_V1",
+    "INC_RUNNER_INDEPENDENT_CI_V1"
+  ],
+  "date": "2026-11-13",
+  "effective_release_gate": {
+    "entrypoint": "../g0-skill-architect-builder/scripts/release_closure_gate.py",
+    "historical_certificates": "PRESERVED_NOT_CURRENT_BLOCKERS",
+    "native_activation": "SEPARATE_OPTIONAL_ASSURANCE",
+    "profile": "AUTONOMOUS_EVIDENCE_BASED"
+  },
+  "event_classes": [
+    "SECURITY_IDENTITY",
+    "MATERIAL_ACTION",
+    "DATA_TRANSACTION",
+    "CROSS_SURFACE_INVOCATION",
+    "ARTIFACT_AND_EXTERNAL_REFERENCE",
+    "RESOURCE_USAGE",
+    "FAILURE_RECOVERY",
+    "RELEASE_AND_GOVERNANCE"
+  ],
+  "framework": "SkillForge",
+  "framework_membership": "MEMBER",
+  "fresh_review": {
+    "independent_third_party": false,
+    "scope": "PRIVATE_3_0_3_PRIVACY_HARDENING"
+  },
+  "historical_metadata_bundled": false,
+  "independent_certification_required_for_release": false,
+  "lifecycle": "production",
+  "logging_target_ref": "INC_LOG_STORE",
+  "material_activity_logging_ref": "INC_MATERIAL_GOVERNED_ACTIVITY_LOGGING_V1",
+  "observability_correlation_profile_path": "skills/quality/g11-logging-traceability-standardizer/references/observability-correlation-profile-v1.md",
+  "observability_correlation_profile_ref": "INC_G11_OBSERVABILITY_CORRELATION_PROFILE_V1",
+  "phase": "PRIVATE_CORE_RELEASE",
+  "physical_schema": "FROZEN_UNLESS_DB_SCHEMA_CHANGE_REQUIRED",
+  "prior_version": "4.8.1-rc.1",
+  "privacy_responsibility": "Store full incident evidence privately; public logs contain only redacted counts.",
+  "private_history_ref": "PRIVATE_METADATA_0F569F49604E",
+  "private_state_in_runtime": "EXTERNAL_REFERENCES_ONLY",
+  "project": "PROJECT_REF_EXTERNAL",
+  "publication_mode": "PRIVATE_ONLY_UNTIL_NEW_EXACT_PUBLIC_CONSENT",
+  "publicization_contract": "INC_PUBLICIZATION_PRIVACY_GATE_V2",
+  "reference_graph": {
+    "artifact_evidence": true,
+    "database": true,
+    "external_provider_transaction": true,
+    "github": true,
+    "sharepoint": true,
+    "teams": true,
+    "work_unit_handoff": true
+  },
+  "release_policy_profile": "AUTONOMOUS_EVIDENCE_BASED",
+  "release_policy_ref": "INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1",
+  "release_status": "RELEASE",
+  "resource_finops_control_plane_ref": "INC_G9_RESOURCE_FINOPS_CONTROL_PLANE_V1",
+  "resource_observations_fact_family": "g11_resource_observations",
+  "resource_usage_ref": "INC_RESOURCE_USAGE_V1",
+  "retained_generic_contracts": [],
+  "runtime_gateway_ref": "INC_G11_RUNTIME_GATEWAY_V1",
+  "sampling": {
+    "approval_decision": "NEVER_SAMPLE_AWAY",
+    "data_mutation": "NEVER_SAMPLE_AWAY",
+    "high_security": "NEVER_SAMPLE_AWAY",
+    "material_failure_recovery": "NEVER_SAMPLE_AWAY",
+    "release_deploy": "NEVER_SAMPLE_AWAY",
+    "routine_low_value_success": "MAY_AGGREGATE_OR_SAMPLE_WITH_EXPLICIT_POLICY"
+  },
+  "secret_migration_audit_ref": "INC_G8_SECRET_MIGRATION_V1",
+  "secret_migration_logging": "METADATA_ONLY_NO_RAW_SECRET",
+  "secret_provider_audit_ref": "INC_G8_SECRET_PROVIDER_V1",
+  "secret_provider_logging": "METADATA_ONLY_NO_RAW_SECRET",
+  "stable_id": "O6-SKL-011",
+  "surface_adapter_map_ref": "INC_G11_RUNTIME_SURFACE_ADAPTER_MAP_V1",
+  "utf8_rtl": "ENFORCED_IN_CONTRACT",
+  "version": "4.8.2",
+  "visible_id": "G11",
+  "writer_route_ref": "INC_G11_G17_DB_WRITE_ROUTE_V1"
+}

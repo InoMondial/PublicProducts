@@ -1,0 +1,7 @@
+interface:
+  display_name: G11-Logging & Traceability Standardizer
+  short_description: G11-Logging & Traceability Standardizer 4.7.0 — SkillForge runtime
+    logging gateway with receipt-bound traceability, material-activity boundaries,
+    observability/
+policy:
+  allow_implicit_invocation: true

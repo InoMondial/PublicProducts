@@ -1,0 +1,242 @@
+schema_version: '1.0'
+skill:
+  stable_id: G17-SKL-002
+  visible_id: G17
+  display_name: G17-Data Governor
+  canonical_name: data-governor
+  version: 0.2.1
+  lifecycle: production
+  framework_id: INC_SKILLFORGE
+  framework_membership: MEMBER
+  framework_registry_ref: INC_SKILL_NAMESPACE_REGISTRY
+  backlog_topology: CENTRAL_FRAMEWORK_BACKLOG
+  backlog_owner_ref: G0
+  backlog_ref: INC_SKILLFORGE_UNIFIED_BACKLOG
+profile:
+  complexity: CRITICAL
+  functional_role: NORMAL
+  operating_mode_contract: INC_SKILL_OPERATING_MODE_V1
+  operating_modes:
+  - ECOSYSTEM_GOVERNED
+  - STANDALONE_SERVICE
+ownership:
+  owner_skill: G17
+  domain:
+  - data_architecture
+  - storage_placement
+  - database_design
+  - schema_integrity
+  - persistence_gateway
+  - provider_adapters
+  - data_encryption_contract
+  - backup_restore_dr
+  - migration_rollback
+  - automated_dba_policy
+  cross_skill_integration_ref: INC_G17_CROSS_SKILL_INTEGRATION_V1
+  exclusions:
+    G1: physical_artifact_routing
+    G8: general_security_privacy_authority
+    G9: global_resource_optimization
+    G11: logging_semantics
+    G12: independent_testing
+    G13: independent_quality_certification
+    G15: notification_and_human_decision
+    G16: agent_coordination
+    G18: human_conversation_output
+    G19: plugin_packaging_distribution_installation
+build_time:
+  mandatory: true
+  four_planes:
+    A_skillforge_design_evolution: true
+    B_skillforge_builder_runtime: true
+    C_generated_skill_design_time: true
+    D_generated_skill_runtime: CONDITIONAL_PERSISTENCE_NEED
+runtime:
+  propagation: MINIMUM_APPLICABLE
+  ordinary_operations:
+  - DB_GET
+  - DB_SEARCH
+  - DB_CREATE
+  - DB_UPDATE
+  - DB_DELETE
+  - DB_TRANSACTION
+  - DB_AGGREGATE
+  - DB_HEALTH
+  admin_operations:
+  - DB_SCHEMA_STATUS
+  - DB_MIGRATE
+  - DB_BACKUP
+  - DB_RESTORE
+  - DB_PROVIDER_STATUS
+  - DB_QUOTA_STATUS
+  provider_specific_direct_calls_by_consumer: FORBIDDEN
+critical_controls:
+- id: G17-CC-01
+  rule: Storage placement and authority are explicitly qualified before durable persistence
+    is introduced or changed.
+  mandatory: true
+- id: G17-CC-02
+  rule: Every durable DB operation resolves project_ref; PRJ_MISC requires workload_ref
+    or domain_ref.
+  mandatory: true
+- id: G17-CC-03
+  rule: Provider-neutral gateway contract remains between consumer Skills and provider
+    adapters.
+  mandatory: true
+- id: G17-CC-04
+  rule: S3/S4 provider-stored protected fields use approved external-key application
+    encryption.
+  mandatory: true
+- id: G17-CC-05
+  rule: Destructive bulk delete requires verified recoverable backup and G11 evidence
+    before mutation.
+  mandatory: true
+- id: G17-CC-06
+  rule: Material migrations reconcile and have rollback before cutover.
+  mandatory: true
+- id: G17-CC-07
+  rule: Test DB assets use governed test namespace and are cleaned with read-back
+    verification.
+  mandatory: true
+- id: G17-CC-08
+  rule: Unknown provider quotas/formulas are not fabricated and no silent paid upgrade
+    occurs.
+  mandatory: true
+- id: G17-CC-09
+  rule: Database is not forced when file/GitHub/external-system authority is semantically
+    correct.
+  mandatory: true
+- id: G17-CC-10
+  rule: Release cannot close while Stage19 remote backup proof, Stage29 namespace
+    migration, G12 or G13 gates remain open.
+  mandatory: true
+dependencies:
+  build_time_required:
+  - G0
+  - G1
+  - G2
+  - G4
+  - G5
+  - G6
+  - G7
+  - G8
+  - G9
+  - G10
+  - G11
+  - G12
+  - G13
+  - G14
+  runtime_conditional:
+  - G8
+  - G9
+  - G11
+  - G15
+  - G16
+  - G18
+  integration_contract_ref: INC_G17_CROSS_SKILL_INTEGRATION_V1
+  compiler_binding:
+    owner: G0
+    data_governor_ref: G17-SKL-002
+    visible_id_resolution_before_stage29: STABLE_ID_REQUIRED
+    full_g17_recursive_runtime_load: FORBIDDEN_BY_DEFAULT
+namespace_gate:
+  current_canonical_G17_stable_id: G17-SKL-002
+  current_canonical_G17_identity: data-governor
+  target_candidate_stable_id: G17-SKL-002
+  target_identity: data-governor
+  promotion_stage: 29
+  promotion_status: PASS
+  overwrite_legacy_in_place: false
+stage23:
+  cross_skill_governance_integration: PASS_CANDIDATE
+  provider_specific_leakage: FORBIDDEN
+  duplicate_governance_ownership: NONE_DETECTED
+  evidence_ref: ../references/stage23-cross-skill-governance-integration.md
+  test_ref: tests/stage23-cross-skill-integration-tests.md
+release_blocks:
+- G12_INDEPENDENT_VALIDATION
+- G13_INDEPENDENT_CERTIFICATION
+- G1_FINAL_PUBLICATION_READBACK
+- G13_INDEPENDENT_CERTIFICATION
+human_output_compatibility:
+  owner: G18
+  g17_role: STRUCTURED_DATA_TRUTH_ONLY
+  persian_markdown_visual_num_position: RIGHTMOST
+  persian_markdown_source_num_position: SURFACE_SPECIFIC_HUMAN_OUTPUT_GOVERNOR
+  chat_web_current_source_num_position: FIRST
+  codex_work_source_order: RESOLVE_SURFACE_SPECIFIC_CURRENT_PROFILE
+  visible_num_leftmost: HARD_FAIL_REGENERATE
+  duplicate_general_renderer_inside_g17: PROHIBITED
+backup_runtime_contract:
+  physical_backup_unit: HATCHABLE_PROJECT_DATABASE_AUTHORITY
+  logical_project_ref_separate_backup_file: false
+  all_project_refs_in_same_physical_database_in_same_backup_file: true
+  separate_physical_hatchable_project_requires_separate_job: true
+  local_slots:
+  - 03:00 Etc/UTC
+  - 15:00 Etc/UTC
+  retention_days: 120
+  max_good_production_backups: 240
+  stage19_direct_graph_proof: PASS
+stage28_persistence_sweep:
+  registry_ref: INC_G17_STAGE28_FILE_DB_CANDIDATE_REGISTRY_V1
+  status: CURRENT_SWEEP_AND_DESIGN_PASS_CUTOVERS_OWNER_GATED
+  default_physical_database: INSTALLATION_DATABASE_REF_REQUIRED
+  per_workbook_physical_database: PROHIBITED_BY_DEFAULT
+  migrate_by_extension_only: PROHIBITED
+  human_document_keep_file_default: true
+  s4_candidate_general_github_detail: PROHIBITED
+  owner_approval_before_authority_cutover: REQUIRED
+  evidence_refs:
+  - references/stage28-account-wide-persistence-sweep-evidence.md
+  - references/stage28-target-persistence-designs.md
+  - source/references/stage28-file-db-candidate-registry.yaml
+  - source/tests/stage28-file-db-sweep-tests.md
+cross_surface_generation:
+  cross_surface_execution_delivery_ref: INC_G16_CROSS_SURFACE_EXECUTION_DELIVERY_V1
+  latest_g16_before_generation: REQUIRED
+  execution_ready_without_g16: BLOCKED
+  powershell_first_when_applicable: REQUIRED
+  governed_remote_publication_before_handoff: REQUIRED
+  transfer_mode: VERIFIED_REMOTE_LINK_OR_STABLE_REFERENCE_ONLY
+stage29_namespace_migration:
+  status: PASS
+  migration_id: NS-MIG-20260915-G16-G17-G18-G19-V2
+  canonical_path: skills/router/g17-data-governor/
+  stage19_remote_backup_proof: PASS
+  remaining_release_gates:
+  - G12_INDEPENDENT_VALIDATION
+  - G13_INDEPENDENT_CERTIFICATION
+  - G1_FINAL_PUBLICATION_READBACK
+stage3_portability:
+  installation_state_contract_ref: INC_G17_INSTALLATION_STATE_PERSISTENCE_V1
+  installation_state_contract_path: references/installation-state-persistence-contract-v1.yaml
+  project_data_registry_contract_ref: INC_G17_PROJECT_DATA_REGISTRY_V1
+  project_data_registry_contract_path: references/project-data-registry-contract-v1.yaml
+  bootstrap_existing_database_required: false
+  raw_secret_in_installation_state: prohibited
+  concurrency: CAS_WHEN_SUPPORTED_ELSE_SINGLE_WRITER
+  installation_identity_preserved_across_provider_migration: true
+  persistent_structured_data_project_ref_required: true
+  miscellaneous_project_ref: PRJ_MISC
+  one_default_shared_database: true
+  autonomous_second_database_or_provider: prohibited
+  cross_project_access_default: DENY
+  mutation_predicate_must_bind_project_ref: true
+  hard_gates:
+  - PROJECT_CONTEXT_RESOLVED
+  - SINGLE_DATABASE_POLICY_COMPILED
+  - PROJECT_SCOPE_ENFORCED
+  - PROJECT_REGISTRY_READBACK_VERIFIED
+release_acceptance_policy:
+  contract_ref: INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1
+  profile: AUTONOMOUS_EVIDENCE_BASED
+  precedence: SUPERSEDES_RELEASE_ONLY_EXTERNAL_EXECUTOR_GATES
+  available_tests: REQUIRED
+  failed_executed_tests: BLOCK_RELEASE
+  external_assurance: OPTIONAL_NONBLOCKING
+  real_publication_readback: REQUIRED
+  runtime_security_authorization: UNCHANGED
+version: 0.2.2
+publication_privacy_contract: INC_PUBLICIZATION_PRIVACY_GATE_V2
+public_release_requires_new_owner_consent: true

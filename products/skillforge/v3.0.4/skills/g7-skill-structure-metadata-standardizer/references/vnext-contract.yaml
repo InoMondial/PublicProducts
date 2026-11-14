@@ -1,0 +1,19 @@
+stable_id: O6-SKL-007
+visible_id: G7
+version: 3.3.0
+phase: next-release-stage2
+framework_membership_contract_ref: INC_SKILL_FRAMEWORK_MEMBERSHIP_V1
+governed_backlog_contract_ref: INC_GOVERNED_SKILL_BACKLOG_CONTRACT_V1
+universal_table_contract_ref: INC_UNIVERSAL_TABLE_REFERENCEABILITY_V1
+required_skillforge_builder_metadata:
+- builder_framework_ref
+- framework_membership
+- framework_registry_ref
+- backlog_topology
+- next_version_backlog_ref
+- backlog_owner_ref
+conditional_member_metadata:
+- framework_id
+- framework_name
+allowed_framework_membership: [MEMBER, CANDIDATE_MEMBER, EXTERNAL]
+allowed_backlog_topology: [CENTRAL_FRAMEWORK_BACKLOG, STANDALONE_SKILL_BACKLOG]

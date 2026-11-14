@@ -1,0 +1,52 @@
+schema_version: '1.0'
+contract_id: INC_SKILL_SETUP_CONTRACT_V1
+owner_skill: G7
+compiler_skill: G0
+purpose: Public/configurable Skill setup-schema and recommended-default contract
+public_skill_sections:
+  required: [Core, Contracts, Setup_Contract, Recommended_Defaults, Documentation]
+  conditional: [Adapters]
+parameter_identity:
+  persistent_key: setup_parameter_id
+  persistent_key_rule: STABLE_SEMANTIC
+  presentation_num_as_identity: PROHIBITED
+parameter_required_fields:
+  - setup_parameter_id
+  - value_type
+  - scope
+  - owner_skill
+  - consumers
+  - requirement_state
+  - required_when
+  - validation
+  - sensitivity
+  - auth_mode
+  - capability
+  - recommended_provider
+  - recommended_default
+  - alternatives
+  - documentation_refs
+  - migration_behavior
+  - compatibility
+requirement_states: [REQUIRED, OPTIONAL, CONDITIONAL]
+actual_customer_values:
+  public_core: PROHIBITED
+  allowed_authorities: [INSTALLATION_PROFILE, RESOURCE_MAP, CONNECTION_REGISTRY]
+recommended_defaults:
+  generic_provider_choice: ALLOWED_OVERRIDEABLE
+  generic_destination_folder_or_filename: ALLOWED_OVERRIDEABLE
+  inomondial_physical_path_url_id_tenant_account_secret: PROHIBITED
+aggregation:
+  same_setup_parameter_id_compatible_normalized_declarations: DEDUPLICATE
+  incompatible_duplicate: SETUP_PARAMETER_CONFLICT
+  incompatible_dimensions: [value_type, scope, owner_skill, auth_mode, capability, sensitivity, compatibility]
+versioning:
+  setup_schema_version_required: true
+  compatibility_impact_owner: G6
+  migration_owner: G20
+  incompatible_change: VERSION_AND_MIGRATION_REQUIRED
+acceptance:
+  all_external_configurable_parameters_exposed: true
+  zero_customer_specific_physical_values_required_in_public_core: true
+  defaults_overrideable: true
+  clean_room_generation_install_simulation: REQUIRED

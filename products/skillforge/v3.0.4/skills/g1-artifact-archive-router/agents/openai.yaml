@@ -1,0 +1,7 @@
+interface:
+  display_name: G1-Artifact Archive Router
+  short_description: G1-Artifact Archive Router 5.1.2-rc.1 — SkillForge governed artifact
+    egress with SharePoint-only durable document-class storage, GitHub pointer/source
+    separatio
+policy:
+  allow_implicit_invocation: true

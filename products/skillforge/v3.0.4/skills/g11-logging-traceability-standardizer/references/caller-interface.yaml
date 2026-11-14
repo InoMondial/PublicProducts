@@ -1,0 +1,185 @@
+schema: INC_G11_CALLER_INTERFACE_V1
+contract_id: INC_G11_CALLER_INTERFACE_V1
+owner_skill:
+  stable_id: O6-SKL-011
+  visible_id: G11
+version: 1.1.2
+status: ACTIVE_STAGE27_DB_CUTOVER
+purpose: Compact semantic logging handoff; G11 validates, redacts, normalizes, enriches and compiles factual telemetry before governed persistence without exposing physical database or legacy SharePoint mapping.
+caller_input:
+  required:
+  - producer_ref
+  - activity_id
+  - status
+  - summary
+  - is_test
+  optional:
+  - profile
+  - verification
+  - surface
+  - event_id
+  - event_type
+  - severity
+  - message_code
+  - artifact_ref
+  - source_ref
+  - component_role
+  - data_classification
+  - run_id
+  - root_run_id
+  - trace_id
+  - correlation_id
+  - parent_run_id
+  - run_type
+  - started_at
+  - ended_at
+  - timestamp
+  - spend_mode
+  - attempt_number
+  - environment_ref
+  - retention_class
+  - agent_id
+  - skill_id
+  - primary_skill_id
+  - executing_skill_id
+  - skill_version
+  - result_summary
+  - result_ref
+  - refs
+  - source_refs
+  - semantic_facts
+  - telemetry
+  - resource_telemetry
+  defaults:
+    profile: LIGHT
+    verification: ASYNC
+    run_type: RUNTIME
+    spend_mode: EFFICIENT
+    attempt_number: 1
+    component_role: SKILL
+    data_classification: INTERNAL
+    retention_class_by_profile:
+      LIGHT: STANDARD
+      STANDARD: STANDARD
+      DEEP: AUDIT
+    timestamp: G11_COMPILE_TIME_UTC_WHEN_CALLER_DOES_NOT_SUPPLY_A_FACTUAL_TIMESTAMP
+identity_precedence:
+  rule: TOP_LEVEL_CALLER_VALUE_THEN_REFS_THEN_SAFE_G11_DERIVATION
+  conflict_rule: CONFLICTING_REFS_AND_SOURCE_REFS_FAIL_VALIDATION
+  stable_child_ids: G11_DERIVES_FROM_RUN_ID_KIND_AND_ORDINAL_WHEN_CALLER_DOES_NOT_SUPPLY_ID
+record_selection:
+  event:
+    rule: REQUIRED_MINIMUM_OUTCOME
+    g11_derives: [event_id, run_id, sequence_number, timestamp, component_role, data_classification, retention_class, is_test]
+  action:
+    rule: ONLY_REAL_MATERIAL_ACTION_OR_STATE_TRANSITION
+    caller_substantive_minimum: [action_type, risk_level]
+    g11_derives_or_defaults: [action_id, run_id, sequence_number, timestamp, component_role, actor_ref, data_classification, attempt_number, result_status, is_test]
+  metric:
+    rule: ONLY_FACTUAL_MEASURED_ESTIMATED_OR_EXPLICITLY_UNAVAILABLE_RESOURCE_TELEMETRY
+    resource_telemetry_normalized_to_metric: true
+    g11_derives_or_defaults: [metric_id, run_id, timestamp, component_role, normalization_schema_version, token_accounting_check_status, is_test]
+    caller_must_classify_when_applicable: [usage_source, cost_source, attribution_method]
+  error:
+    rule: ONLY_ACTUAL_ERROR_FAILURE_OR_DEGRADATION
+    caller_substantive_minimum: [error_code, stage, severity, retry_count, resolution_status]
+    g11_derives: [error_id, run_id, sequence_number, timestamp, component_role, is_test]
+  approval:
+    rule: ONLY_ACTUAL_APPROVAL_REQUEST_DECISION_OR_STATE
+    caller_substantive_minimum: [action_summary, risk_level, requested_at, decision, approver_ref, scope_summary]
+    g11_derives: [approval_id, run_id, sequence_number, timestamp, component_role, is_test]
+telemetry:
+  semantic_status:
+  - MEASURED
+  - PARTIAL
+  - UNAVAILABLE
+  physical_metric_scope:
+  - MODEL_CALL
+  - TOOL_CALL
+  - RUN_AGGREGATE
+  - OTHER
+  physical_usage_source:
+  - MEASURED
+  - ESTIMATED
+  - UNAVAILABLE
+  physical_cost_source:
+  - PROVIDER_MEASURED
+  - CALCULATED
+  - ESTIMATED
+  - UNAVAILABLE
+  physical_attribution_method:
+  - DIRECT
+  - CHILD
+  - ALLOCATED
+  token_accounting_status:
+  - PASS
+  - MISMATCH
+  - NOT_CHECKED
+  token_rule: total_tokens equals input_tokens plus output_tokens when all three are factual; cache/reasoning token fields are breakdowns and are never added again.
+  cost_rule: cost_value requires an explicit non-UNAVAILABLE cost_source and three-letter uppercase cost_currency; absent cost stays UNAVAILABLE and is never converted to zero.
+  partial_rule: PARTIAL remains a semantic envelope status; physical per-dimension availability is represented with existing usage_source/cost_source fields and present measured values.
+caller_prohibited:
+- PHYSICAL_SHAREPOINT_LIST_NAMES
+- PHYSICAL_COLUMN_NAMES
+- GRAPH_OR_LIST_GUID_MAPPING
+- DIRECT_INC_LOG_STORE_MUTATION
+- MANUAL_WRITER_ENVELOPE_CONSTRUCTION
+- QUEUE_POLLING
+- WAITING_FOR_HOURLY_RECURRENCE
+- MICROSTEP_LOG_SPAM
+- FAKE_ERROR_APPROVAL_OR_METRIC
+- RAW_FULL_PROMPT_OR_RESPONSE
+- HIDDEN_REASONING
+- CREDENTIALS_OR_AUTHENTICATION_SECRETS
+g11_responsibilities:
+- validate_semantics
+- distinguish_credential_secrets_from_usage_token_counters
+- reject_or_redact_forbidden_payload
+- inspect_safe_provider_usage_json_for_embedded_secrets
+- normalize_profile_and_retention_class
+- normalize_run_type_spend_mode_component_role_and_data_classification
+- generate_real_UTC_compile_timestamp_when_required_timestamp_is_not_supplied
+- preserve_top_level_identity_values_before_refs_and_safe_derivation
+- preserve_or_derive_stable_child_business_ids
+- enforce_idempotency_identity
+- validate_existing_database_choice_values_without_changing_database_schema
+- validate_token_cost_latency_types_and_accounting
+- classify_token_accounting_as_PASS_MISMATCH_OR_NOT_CHECKED
+- select_factual_typed_records
+- support_multiple_action_metric_error_approval_records_when supplied
+- normalize_resource_telemetry_to_metric_records
+- preserve_all_run_event_action_metric_error_approval_contract_fields_when_supplied
+- compile_to_INC_G11_LOG_ENVELOPE_V1
+- persist_via_INC_G11_G17_DB_WRITE_ROUTE_V1
+- coordinate_persistence_verification_when_required
+- return_truthful_receipt
+writer_contract:
+  transport_envelope_ref: INC_G11_LOG_ENVELOPE_V1
+  persistence_route_ref: INC_G11_G17_DB_WRITE_ROUTE_V1
+  envelope_version: '1.1'
+  caller_must_not_construct_directly: true
+  internal_compiler_ref: G11_CALLER_TO_WRITER_COMPILER_V1
+  envelope_schema_ref: INC_G11_LOG_ENVELOPE_V1_SCHEMA
+receipts:
+  accepted: G11_ACCEPTED_FOR_PERSISTENCE
+  persisted: G11_PERSISTED_VERIFIED
+  pending: TRACE_PERSISTENCE_PENDING
+  degraded: TRACE_PERSISTENCE_DEGRADED
+  invalid: VALIDATION_FAILED
+verification:
+  ASYNC:
+    caller_behavior: DO_NOT_POLL_OR_WAIT
+    durable_pass_claim_allowed: false
+  REQUIRED:
+    caller_behavior: DELEGATE_VERIFICATION_TO_G11
+    durable_pass_claim_allowed_only_after: G11_PERSISTED_VERIFIED
+anti_duplication:
+  one_handoff_per_governed_activity: true
+  repeat_same_idempotency_identity: SUPPRESS_OR_REUSE
+
+stage27_compatibility:
+  caller_required_fields_changed: false
+  caller_optional_fields_removed: false
+  semantic_envelope_changed: false
+  physical_route_changed_only: true
+  legacy_route_ref: INC_G11_C7_WRITE_ROUTE_V1

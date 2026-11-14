@@ -1,0 +1,6 @@
+interface:
+  display_name: G5-Corporate IP & Copyright Standardizer
+  short_description: Govern ownership, provenance, licensing, copyright notice, attribution
+    and third-party rights for managed artifacts.
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,128 @@
+{
+  "allowed_hosts": [
+    "CHATGPT",
+    "CODEX",
+    "WORK_CLOUD",
+    "OTHER"
+  ],
+  "callback_policy": "NO_PUBLIC_SUBMISSION_WITHOUT_EXACT_CONSENT",
+  "default_feedback_mode": "OFF",
+  "default_permissions": "READ_ONLY",
+  "external_digest_env": "SKILLFORGE_EXTERNAL_PROFILE_SHA256",
+  "external_profile_env": "SKILLFORGE_EXTERNAL_PROFILE",
+  "host_verified_binding_required": true,
+  "private_parameters_schema": "config/private-parameters.schema.json",
+  "profile": "PUBLIC_SOURCE_GENERIC",
+  "public_release_authorized": true,
+  "schema_version": "1.0",
+  "secrets_in_distribution": "FORBIDDEN",
+  "services": {
+    "BACKUP": {
+      "description": "Private backup root and retention policy",
+      "kind": "BACKUP",
+      "parameters": [
+        "BACKUP_ROOT",
+        "BACKUP_TIMEZONE"
+      ],
+      "required_aliases": [
+        "INC_G1_BACKUP_ROOT"
+      ]
+    },
+    "DATABASE": {
+      "description": "Approved project data source; stable logical ID only",
+      "kind": "DATABASE",
+      "parameters": [
+        "DATABASE_PROVIDER",
+        "DATABASE_LOGICAL_RESOURCE_REF",
+        "DATABASE_PROJECT_REF",
+        "DATABASE_BACKUP_REF"
+      ],
+      "required_aliases": [
+        "INC_DATABASE_PROFILE"
+      ]
+    },
+    "GITHUB_PRIVATE": {
+      "description": "Private canonical source repository; never auto-publish publicly",
+      "kind": "GITHUB",
+      "parameters": [
+        "CANONICAL_REPOSITORY"
+      ],
+      "required_aliases": [
+        "INC_GITHUB_CANONICAL_REPO"
+      ]
+    },
+    "GOOGLE_CALENDAR": {
+      "description": "Google Calendar; read-only by default",
+      "kind": "GOOGLE_CALENDAR",
+      "parameters": [
+        "GOOGLE_CALENDAR_ID",
+        "CALENDAR_TIMEZONE"
+      ],
+      "required_aliases": [
+        "INC_GOOGLE_CALENDAR"
+      ]
+    },
+    "LOCAL_ONLY": {
+      "description": "Read-only skill use without external integration",
+      "kind": "LOCAL",
+      "parameters": [],
+      "required_aliases": []
+    },
+    "LOGGING": {
+      "description": "Configured private structured log store",
+      "kind": "LOG_STORE",
+      "parameters": [
+        "PRIVATE_STATE_REGISTRY_REF"
+      ],
+      "required_aliases": [
+        "INC_LOG_STORE"
+      ]
+    },
+    "MICROSOFT_CALENDAR": {
+      "description": "Microsoft 365 / Outlook calendar; read-only by default",
+      "kind": "MICROSOFT_GRAPH",
+      "parameters": [
+        "MS_GRAPH_CALENDAR_ID",
+        "MS_GRAPH_CALENDAR_OWNER_REF",
+        "CALENDAR_TIMEZONE"
+      ],
+      "required_aliases": [
+        "INC_MS_CALENDAR"
+      ]
+    },
+    "PUBLIC_FEEDBACK": {
+      "description": "Optional, per-submission owner-authorized privacy-scanned public issue; OFF by default",
+      "kind": "GITHUB_ISSUES",
+      "parameters": [
+        "PUBLIC_FEEDBACK_REPO_REF"
+      ],
+      "required_aliases": []
+    },
+    "SHAREPOINT": {
+      "description": "Chosen SharePoint site, drive and document folders",
+      "kind": "MICROSOFT_GRAPH",
+      "parameters": [
+        "SHAREPOINT_HOST",
+        "SHAREPOINT_SITE_ID",
+        "SHAREPOINT_DRIVE_ID",
+        "SHAREPOINT_FOLDER_ROOT"
+      ],
+      "required_aliases": [
+        "INC_SHAREPOINT_SITE",
+        "INC_SHAREPOINT_DOCUMENTS"
+      ]
+    },
+    "TEAMS": {
+      "description": "Team and optional notification channels",
+      "kind": "MICROSOFT_GRAPH",
+      "parameters": [
+        "TEAMS_TEAM_ID",
+        "G15_PRIORITY_CHANNELS"
+      ],
+      "required_aliases": [
+        "INC_TEAMS_TEAM"
+      ]
+    }
+  },
+  "version": "3.0.4"
+}

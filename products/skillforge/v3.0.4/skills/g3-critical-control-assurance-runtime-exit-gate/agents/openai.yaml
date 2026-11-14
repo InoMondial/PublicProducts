@@ -1,0 +1,7 @@
+interface:
+  display_name: G3-Critical Control Assurance & Runtime Exit Gate
+  short_description: SkillForge universal low-overhead runtime exit gate for governed
+    Skills, Agents, Chats, Work and managed activities, with receipt-bound logging
+    assurance and ex
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,12 @@
+schema_version: '1.0'
+contract_id: G1_ARTIFACT_LINEAGE_GRAPH_V1
+graph_type: directed_acyclic_graph
+node_required_fields: [id, type, transaction_id]
+edge_required_fields: [source, target, relation]
+required_reachability:
+  base: producer_output_to_github_artifact
+  sharepoint_when_required: github_artifact_to_sharepoint_backup
+  teams_when_required: github_artifact_to_teams_post
+no_dangling_edges: true
+no_cycles: true
+failure: LINEAGE_GRAPH_INVALID

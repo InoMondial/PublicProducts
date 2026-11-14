@@ -1,0 +1,8 @@
+schema_version: '1.0'
+policy_id: G1_CAPABILITY_PREFLIGHT_V1
+base_required: [github_read, github_write, git_push, pr_merge, remote_readback, binary_safe_transport, secret_scan, atomic_lock]
+conditional:
+  release: [release_write, release_asset_write, release_asset_readback]
+  p0_p1: [sharepoint_read, sharepoint_write, sharepoint_readback]
+  notification: [teams_post, teams_readback, teams_deeplink]
+failure: CAPABILITY_PREFLIGHT_FAILED

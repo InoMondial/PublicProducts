@@ -1,0 +1,173 @@
+schema: INC_GOVERNANCE_SKILL_CANDIDATE_V1
+stable_id: O6-SKL-007
+visible_id: G7
+display_name: G7-Skill Structure & Metadata Standardizer
+version: 3.5.2
+prior_version: 3.4.0
+lifecycle: production
+phase: v3-stage2-implemented
+functional_role: NORMAL
+builder_framework_ref: INC_SKILLFORGE
+framework_id: INC_SKILLFORGE
+framework_name: SkillForge
+framework_membership: MEMBER
+framework_registry_ref: INC_SKILL_NAMESPACE_REGISTRY
+framework_membership_contract_ref: INC_SKILL_FRAMEWORK_MEMBERSHIP_V1
+governed_backlog_contract_ref: INC_GOVERNED_SKILL_BACKLOG_CONTRACT_V1
+universal_table_contract_ref: INC_UNIVERSAL_TABLE_REFERENCEABILITY_V1
+remote_artifact_delivery_contract_ref: INC_REMOTE_ARTIFACT_DELIVERY_V2
+source_reference_registry_ref: INC_SOURCE_REFERENCE_REGISTRY
+skill_setup_contract_ref: INC_SKILL_SETUP_CONTRACT_V1
+structural_validation_contract_ref: INC_SKILL_SOURCE_PACKAGE_STRUCTURAL_VALIDATION_V1
+next_version_backlog_ref: INC_SKILLFORGE_UNIFIED_BACKLOG
+backlog_topology: CENTRAL_FRAMEWORK_BACKLOG
+backlog_owner_ref: G0
+dpga:
+  build_time: REQUIRED
+  runtime: CONDITIONAL
+  hard_gates:
+  - DPGA_COMPLETE
+  - GOVERNANCE_PROPAGATION_COMPLETE
+  - STRUCTURE_METADATA_VALID
+  - FRAMEWORK_MEMBERSHIP_VALID
+  - BACKLOG_TOPOLOGY_RESOLVED
+  - TABLE_REFERENCEABILITY_COMPILED
+  - ARTIFACT_EGRESS_PROFILE_COMPILED_WHEN_APPLICABLE
+  - GLOBAL_CRITICAL_CONTROLS_COMPILED
+  - GLOBAL_CRITICAL_CONTROLS_VERIFIED
+  - SKILL_SETUP_CONTRACT_VALID_WHEN_CONFIGURABLE
+  - SOURCE_PACKAGE_STRUCTURAL_VALIDATION_PASS
+runtime_condition: validates_or_compiles_skill_structure_or_output_profile
+framework_membership_policy:
+  contract_ref: INC_SKILL_FRAMEWORK_MEMBERSHIP_V1
+  builder_provenance_implies_membership: false
+  registry_truth_required: true
+  allowed_states:
+  - MEMBER
+  - CANDIDATE_MEMBER
+  - EXTERNAL
+backlog:
+  contract_ref: INC_GOVERNED_SKILL_BACKLOG_CONTRACT_V1
+  required_topologies:
+  - CENTRAL_FRAMEWORK_BACKLOG
+  - STANDALONE_SKILL_BACKLOG
+  unresolved_owner_failure: BACKLOG_OWNER_UNRESOLVED
+  user_direct_vs_system_discovered: required
+  system_discovered_self_modify_production: prohibited
+  record_types:
+  - INCIDENT
+  - PROBLEM
+  - CHANGE_REQUEST
+  - IMPROVEMENT
+  release_owner_numbered_review: required
+table_referenceability:
+  contract_ref: INC_UNIVERSAL_TABLE_REFERENCEABILITY_V1
+  human_readable_first_column: NUM#
+  stable_business_id_replacement: prohibited
+artifact_egress:
+  contract_ref: INC_REMOTE_ARTIFACT_DELIVERY_V2
+  physical_router_ref: G1
+  applicable_when: SKILL_CAN_GENERATE_FILE_DOCUMENT_OR_ARTIFACT
+  final_delivery: VERIFIED_REMOTE_LINK
+  windows_or_local_authority: PROHIBITED
+  temporary_remote_required: true
+skill_setup_contract:
+  contract_ref: INC_SKILL_SETUP_CONTRACT_V1
+  contract_path: references/skill-setup-contract-v1.yaml
+  stable_parameter_identity: setup_parameter_id
+  num_reference_as_persistent_id: prohibited
+  incompatible_duplicate_declaration: FAIL_CLOSED
+  public_core_customer_physical_values: prohibited
+  actual_value_authority:
+  - INSTALLATION_PROFILE
+  - RESOURCE_MAP
+  - CONNECTION_REGISTRY
+  compatibility_owner: G6
+  migration_owner: G20
+structural_validation:
+  contract_ref: INC_SKILL_SOURCE_PACKAGE_STRUCTURAL_VALIDATION_V1
+  contract_path: references/structural-validation-contract-v1.yaml
+  orchestrator_validator: G0/scripts/skill_structure_setup_gate.py
+  raw_byte_utf8: required
+  formats:
+  - YAML
+  - JSON
+  - TOML
+  - FRONTMATTER
+  - RELEASE_CONTROL
+  prefreeze_parse: required
+  post_materialization_parse: required
+  normalized_semantic_parity: required
+  fail_closed_on_literal_escape_artifact: true
+  g12_g13_exact_evidence: required
+source_references:
+  registry_ref: INC_SOURCE_REFERENCE_REGISTRY
+  full_registry_runtime_load_default: prohibited
+critical_control_assurance:
+  contract_ref: INC_CRITICAL_CONTROL_ASSURANCE_V1
+  build_time_gate: CRITICAL_CONTROLS_COMPILED
+  runtime_exit_gate: CRITICAL_CONTROLS_VERIFIED
+  controls:
+  - id: G7-CC-01
+    rule: Stable identity/version/lifecycle/role/complexity/owner metadata is present.
+    mandatory: true
+    evidence_required: true
+  - id: G7-CC-02
+    rule: Build-Time/Runtime applicability and resource/dependency refs are explicit.
+    mandatory: true
+    evidence_required: true
+  - id: G7-CC-03
+    rule: Runtime/installable package contains only justified files.
+    mandatory: true
+    evidence_required: true
+  - id: G7-CC-04
+    rule: Critical-control contract and runtime exit gate are exposed.
+    mandatory: true
+    evidence_required: true
+  - id: G7-CC-05
+    rule: Builder provenance and framework membership are independently resolved and
+      Registry-backed.
+    mandatory: true
+    evidence_required: true
+  - id: G7-CC-06
+    rule: Every Skill built/upgraded by SkillForge has one resolved central-framework
+      or standalone backlog reference/owner.
+    mandatory: true
+    evidence_required: true
+  - id: G7-CC-07
+    rule: Applicable human-readable table profiles compile first-column NUM# while
+      preserving stable IDs.
+    mandatory: true
+    evidence_required: true
+  - id: G7-CC-08
+    rule: Artifact-producing Skills compile INC_REMOTE_ARTIFACT_DELIVERY_V2 with G1
+      physical routing and verified remote-link completion.
+    mandatory: true
+    evidence_required: true
+  - id: G7-CC-09
+    rule: Configurable Skills compile INC_SKILL_SETUP_CONTRACT_V1 with semantic setup
+      IDs and no customer-specific physical values in public Core.
+    mandatory: true
+    evidence_required: true
+  - id: G7-CC-10
+    rule: Source and materialized package structured metadata pass strict UTF-8/parser
+      validation and normalized semantic parity before freeze.
+    mandatory: true
+    evidence_required: true
+global_critical_assurance:
+  contract_ref: INC_CRITICAL_CONTROL_ASSURANCE_V2
+  assurance_skill_ref: G3
+  implicit_inheritance: REQUIRED
+  runtime_exit_gate: GLOBAL_CRITICAL_CONTROLS_VERIFIED
+  full_provider_skill_load_default: prohibited
+release_acceptance_policy:
+  contract_ref: INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1
+  profile: AUTONOMOUS_EVIDENCE_BASED
+  precedence: SUPERSEDES_RELEASE_ONLY_EXTERNAL_EXECUTOR_GATES
+  available_tests: REQUIRED
+  failed_executed_tests: BLOCK_RELEASE
+  external_assurance: OPTIONAL_NONBLOCKING
+  real_publication_readback: REQUIRED
+  runtime_security_authorization: UNCHANGED
+publication_privacy_contract: INC_PUBLICIZATION_PRIVACY_GATE_V2
+public_release_requires_new_owner_consent: true

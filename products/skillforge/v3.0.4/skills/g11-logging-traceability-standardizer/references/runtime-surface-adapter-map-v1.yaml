@@ -1,0 +1,36 @@
+schema_version: '1.0'
+map_id: INC_G11_RUNTIME_SURFACE_ADAPTER_MAP_V1
+owner_skill: G11
+gateway_ref: INC_G11_RUNTIME_GATEWAY_V1
+principle: smallest_host_adapter_same_semantic_gateway
+surfaces:
+  CHAT:
+    boundary_ref: INC_GOVERNED_ACTIVITY_BOUNDARY_V1
+    adapter_behavior: compile_and_handoff_to_host_gateway
+  WORK:
+    boundary_ref: INC_GOVERNED_ACTIVITY_BOUNDARY_V1
+    adapter_behavior: compile_and_handoff_to_host_gateway
+  CODEX:
+    boundary_ref: INC_GOVERNED_ACTIVITY_BOUNDARY_V1
+    adapter_behavior: compile_and_handoff_to_host_gateway
+  AGENT:
+    boundary_ref: INC_GOVERNED_ACTIVITY_BOUNDARY_V1
+    adapter_behavior: compile_and_handoff_to_host_gateway
+  SKILL:
+    boundary_ref: INC_GOVERNED_ACTIVITY_BOUNDARY_V1
+    adapter_behavior: compile_and_handoff_to_host_gateway
+  ORCHESTRATOR:
+    boundary_ref: INC_GOVERNED_ACTIVITY_BOUNDARY_V1
+    adapter_behavior: aggregate_material_activity_then_gateway
+  SCHEDULED:
+    boundary_ref: INC_GOVERNED_ACTIVITY_BOUNDARY_V1
+    adapter_behavior: one_scheduled_execution_outcome_then_gateway
+  ERROR_HANDLER:
+    boundary_ref: INC_GOVERNED_ACTIVITY_BOUNDARY_V1
+    adapter_behavior: material_error_or_degraded_outcome_then_gateway
+rules:
+  duplicate_per_surface_compiler: prohibited
+  physical_sharepoint_mapping_in_adapter: prohibited
+  direct_list_write_in_adapter: prohibited
+  host_capability_unavailable_behavior: truthful_degraded_or_blocked_receipt
+  claim_live_host_adapter_without_live_evidence: prohibited

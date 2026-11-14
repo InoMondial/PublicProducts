@@ -1,0 +1,39 @@
+{
+  "artifact": "G3-Critical Control Assurance & Runtime Exit Gate",
+  "date": "2026-11-13",
+  "document_class_storage_contract_ref": "INC_G1_DOCUMENT_CLASS_STORAGE_V1",
+  "effective_release_gate": {
+    "entrypoint": "../g0-skill-architect-builder/scripts/release_closure_gate.py",
+    "historical_certificates": "PRESERVED_NOT_CURRENT_BLOCKERS",
+    "native_activation": "SEPARATE_OPTIONAL_ASSURANCE",
+    "profile": "AUTONOMOUS_EVIDENCE_BASED"
+  },
+  "framework": "SkillForge",
+  "framework_membership": "MEMBER",
+  "fresh_review": {
+    "independent_third_party": false,
+    "scope": "PRIVATE_3_0_3_PRIVACY_HARDENING"
+  },
+  "g16_bounded_exception_ref": "G16-NO-RUNTIME-LOGGING-001",
+  "global_assurance_contract_ref": "INC_CRITICAL_CONTROL_ASSURANCE_V2",
+  "historical_metadata_bundled": false,
+  "independent_certification_required_for_release": false,
+  "lifecycle": "production",
+  "logging_exception_registry_ref": "INC_LOGGING_ASSURANCE_EXCEPTION_REGISTRY_V1",
+  "logging_gateway_ref": "INC_G11_RUNTIME_GATEWAY_V1",
+  "phase": "PRIVATE_CORE_RELEASE",
+  "prior_version": "1.1.1-rc.1",
+  "privacy_responsibility": "Do not override a failed or unknown privacy control with an aggregate PASS.",
+  "private_history_ref": "PRIVATE_METADATA_1AA0A21E5C8E",
+  "private_state_in_runtime": "EXTERNAL_REFERENCES_ONLY",
+  "publication_mode": "PRIVATE_ONLY_UNTIL_NEW_EXACT_PUBLIC_CONSENT",
+  "publicization_contract": "INC_PUBLICIZATION_PRIVACY_GATE_V2",
+  "receipt_bound_logging_assurance": true,
+  "release_policy_profile": "AUTONOMOUS_EVIDENCE_BASED",
+  "release_policy_ref": "INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1",
+  "release_status": "RELEASE",
+  "retained_generic_contracts": [],
+  "stable_id": "G03-SKL-001",
+  "version": "1.1.2",
+  "visible_id": "G3"
+}

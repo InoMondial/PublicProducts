@@ -1,0 +1,11 @@
+# THIRD-PARTY NOTICES
+
+This distribution includes references to Python, PyYAML, Node.js, Microsoft,
+GitHub and other external systems. These referenced tools and services are not
+relicensed by this package; any separately installed dependency remains subject
+to its own license and terms. The project does not assert ownership of
+provider SDKs, public specifications or third-party intellectual property.
+
+The original per-skill notices remain part of the package. Public distribution
+has not been independently legally certified. Report suspected attribution
+or licensing omissions through the repository issue tracker.

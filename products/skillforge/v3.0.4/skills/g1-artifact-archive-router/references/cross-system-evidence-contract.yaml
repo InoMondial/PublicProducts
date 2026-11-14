@@ -1,0 +1,14 @@
+schema_version: '1.1'
+contract_id: G1_CROSS_SYSTEM_EVIDENCE_V1
+required_reference_shape: {clickable_https_url: required, stable_id: required, transaction_id: required, readback_state_PASS: required}
+approved_hosts:
+  github: [github.com]
+  sharepoint: [tenant.example.invalid]
+  teams: [teams.microsoft.com, teams.cloud.microsoft]
+systems:
+  github: [canonical_folder, commit, pull_request, tag, release, release_asset]
+  sharepoint: [folder_url, folder_id, file_url, item_id, site_id, drive_id, backup_root_id, ancestry_verified, readback_state]
+  teams: [team_id, channel_id, message_id, post_url, readback_state]
+finalization_sequence: [github_primary_and_pending_evidence, sharepoint_recovery_and_github_backlink, teams_notification_with_github_and_sharepoint_links, github_evidence_finalization_and_remote_readback]
+freshness_contract_ref: G1_EVIDENCE_FRESHNESS_V1
+sharepoint_lineage_required_files: [LINKS.md, machine_readable_github_provenance]

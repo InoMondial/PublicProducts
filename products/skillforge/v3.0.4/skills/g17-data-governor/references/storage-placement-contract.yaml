@@ -1,0 +1,44 @@
+contract_id: INC_G17_STORAGE_PLACEMENT_V1
+status: CANDIDATE_STAGE22
+decision_inputs:
+  - project_ref
+  - data_domain
+  - authority_owner
+  - mutability
+  - query_join_transaction_need
+  - human_editability
+  - versioned_source_need
+  - external_system_authority
+  - classification
+  - retention
+  - backup_restore_need
+placements:
+  DATABASE:
+    select_when:
+      - structured_mutable_system_of_record
+      - integrity_or_transaction_need
+      - recurring_query_join_or_aggregation
+  GITHUB:
+    select_when:
+      - versioned_code_policy_schema_migration_registry
+  GOVERNED_DOCUMENT_PROVIDER:
+    select_when:
+      - human_document_report_presentation_evidence_artifact
+    physical_router: G1
+  SPREADSHEET:
+    select_when:
+      - human_editable_report_import_export
+      - low_scale_structured_data_where_DB_not_justified
+  EXTERNAL_SYSTEM_REFERENCE:
+    select_when:
+      - connected_external_service_is_authoritative
+    full_mirror_default: false
+  EPHEMERAL:
+    select_when:
+      - temporary_processing_non_authoritative
+rules:
+  database_not_universal_store: true
+  ambiguous_material_decision_requires_owner_confirmation: true
+  sharepoint_or_document_provider_is_replaceable_via_G1_provider_registry: true
+  provider_change_must_not_change_consumer_semantics: true
+  new_data_structure_requires_requalification: true

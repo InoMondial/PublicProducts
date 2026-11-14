@@ -1,0 +1,7 @@
+interface:
+  display_name: G9-Token & Context Efficiency Standardizer
+  short_description: SkillForge provider-neutral resource, quota, credit, capacity
+    and FinOps policy governor with low-overhead truthful telemetry, zero-model collectors,
+    dual-prote
+policy:
+  allow_implicit_invocation: true

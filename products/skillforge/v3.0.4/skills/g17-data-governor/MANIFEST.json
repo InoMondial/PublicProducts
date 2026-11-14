@@ -1,0 +1,93 @@
+{
+  "adapters": {
+    "consumer_direct_provider_calls_forbidden": true,
+    "current_default": "HOST_RESOLVED",
+    "provider_neutral": true,
+    "visual_ui_for_db_or_file_access": "PROHIBITED_WHEN_MACHINE_ROUTE_AVAILABLE"
+  },
+  "canonical_backlog_ref": "INC_SKILLFORGE_UNIFIED_BACKLOG",
+  "canonical_path": "skills/router/g17-data-governor/",
+  "complexity_profile": "CRITICAL",
+  "cross_cutting_contracts": [
+    "INC_SKILLFORGE_RELEASE_TRAIN_V1",
+    "INC_RUNNER_INDEPENDENT_CI_V1"
+  ],
+  "date": "2026-11-13",
+  "display_name": "G17-Data Governor",
+  "effective_release_gate": {
+    "entrypoint": "../g0-skill-architect-builder/scripts/release_closure_gate.py",
+    "historical_certificates": "PRESERVED_NOT_CURRENT_BLOCKERS",
+    "native_activation": "SEPARATE_OPTIONAL_ASSURANCE",
+    "profile": "AUTONOMOUS_EVIDENCE_BASED"
+  },
+  "entrypoints": [
+    "SKILL.md",
+    "GOVERNANCE.yaml"
+  ],
+  "framework_id": "INC_SKILLFORGE",
+  "framework_membership": "MEMBER",
+  "fresh_review": {
+    "independent_third_party": false,
+    "scope": "PRIVATE_3_0_3_PRIVACY_HARDENING"
+  },
+  "functional_role": "NORMAL",
+  "future_release_blocks": [
+    "TEN_PROVIDER_PROFILE_GAPS_AND_BROADER_PROVIDER_CUTOVER"
+  ],
+  "historical_metadata_bundled": false,
+  "human_output": {
+    "governor_ref": "CHAT1-SKL-001",
+    "persian_chat_markdown_table_default": "PROHIBITED_UNLESS_EXACT_RENDERER_LIVE_VERIFIED",
+    "persian_table_semantic_key": "NUM#",
+    "persian_table_visible_label": "ردیف",
+    "stale_rule_override": "ANY_OLDER_NUM_FIRST_SOURCE_OR_G19_CHAT1_REFERENCE_IS_SUPERSEDED_BY_CURRENT_G18_RUNTIME_AUTHORITY",
+    "visible_governor": "G18"
+  },
+  "independent_certification_required_for_release": false,
+  "lifecycle": "production",
+  "name": "data-governor",
+  "operating_modes": [
+    "ECOSYSTEM_GOVERNED",
+    "STANDALONE_SERVICE"
+  ],
+  "prior_version": "0.2.1-rc.1",
+  "privacy_responsibility": "Resolve physical IDs, custody and data inventories only from external private state.",
+  "private_history_ref": "PRIVATE_METADATA_F69B6708152B",
+  "private_state_in_runtime": "EXTERNAL_REFERENCES_ONLY",
+  "publication_mode": "PRIVATE_ONLY_UNTIL_NEW_EXACT_PUBLIC_CONSENT",
+  "publicization_contract": "INC_PUBLICIZATION_PRIVACY_GATE_V2",
+  "release_blocks": [],
+  "release_policy_profile": "AUTONOMOUS_EVIDENCE_BASED",
+  "release_policy_ref": "INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1",
+  "release_status": "RELEASE",
+  "retained_generic_contracts": [
+    "INC_G11_G17_RESOURCE_FINOPS_WRITE_ROUTE_V1",
+    "INC_G17_KEY_LIFECYCLE_V1",
+    "INC_G17_MIGRATION_ROLLBACK_V1",
+    "INC_G8_SECRET_MIGRATION_V1",
+    "INC_G8_SECRET_PROVIDER_V1"
+  ],
+  "runtime_contracts": [
+    "INC_G17_DB_GATEWAY_V1",
+    "INC_G17_DB_NAMING_V1",
+    "INC_G17_QUERY_PERFORMANCE_V1",
+    "INC_G17_IDENTITY_ACCESS_SECRETS_V1",
+    "INC_G17_KEY_LIFECYCLE_V1",
+    "INC_G17_MIGRATION_ROLLBACK_V1",
+    "INC_G17_CROSS_SKILL_INTEGRATION_V1",
+    "INC_MACHINE_ROUTE_BEFORE_VISUAL_UI_V1",
+    "INC_G8_SECRET_PROVIDER_V1",
+    "INC_G8_SECRET_MIGRATION_V1",
+    "INC_G1_DOCUMENT_CLASS_STORAGE_V1",
+    "INC_G9_RESOURCE_FINOPS_CONTROL_PLANE_V1",
+    "INC_RESOURCE_ADAPTER_PROFILE",
+    "INC_PROVIDER_CAPABILITY_PROFILE",
+    "INC_PROVIDER_RESOURCE_PROFILE_REGISTRY_V1",
+    "INC_G17_INSTALLATION_STATE_PERSISTENCE_V1",
+    "INC_G17_PROJECT_DATA_REGISTRY_V1"
+  ],
+  "schema_version": "1.0",
+  "stable_id": "G17-SKL-002",
+  "version": "0.2.2",
+  "visible_id": "G17"
+}

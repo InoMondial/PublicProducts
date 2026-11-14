@@ -1,0 +1,75 @@
+{
+  "artifact": "G6-Versioning & Lifecycle Standardizer",
+  "carry_forward_semantics": {
+    "contract": "INC_SKILLFORGE_CARRY_FORWARD_MANIFEST_V1",
+    "post_certification_source_change": "INVALIDATE_AND_REVALIDATE",
+    "role": "VERSION_LIFECYCLE_SEMANTICS",
+    "stable_identity_change": "LINEAGE_REF_REQUIRED",
+    "unresolved": "RELEASE_BLOCK"
+  },
+  "change_scope": "INSTALLATION_CONFIGURATION_LIFECYCLE_PLUS_RELEASE_SCOPE_RUNTIME_ATTESTATION_AND_CARRY_FORWARD",
+  "contract_ref": "INC_RELEASE_SCOPE_LIFECYCLE_V1",
+  "cross_cutting_contracts": [
+    "INC_SKILLFORGE_RELEASE_TRAIN_V1",
+    "INC_RUNNER_INDEPENDENT_CI_V1",
+    "INC_SKILLFORGE_RUNTIME_VERSION_ATTESTATION_V1",
+    "INC_SKILLFORGE_CARRY_FORWARD_MANIFEST_V1",
+    "INC_G6_INSTALLATION_CONFIGURATION_LIFECYCLE_V1"
+  ],
+  "date": "2026-11-13",
+  "effective_release_gate": {
+    "entrypoint": "../g0-skill-architect-builder/scripts/release_closure_gate.py",
+    "historical_certificates": "PRESERVED_NOT_CURRENT_BLOCKERS",
+    "native_activation": "SEPARATE_OPTIONAL_ASSURANCE",
+    "profile": "AUTONOMOUS_EVIDENCE_BASED"
+  },
+  "final_package": "DEFERRED_TO_STAGE7",
+  "final_semver_decision": "DEFERRED_UNTIL_RELEASE_SCOPE_FREEZE",
+  "framework": "SkillForge",
+  "framework_membership": "MEMBER",
+  "fresh_review": {
+    "independent_third_party": false,
+    "scope": "PRIVATE_3_0_3_PRIVACY_HARDENING"
+  },
+  "historical_metadata_bundled": false,
+  "independent_certification_required_for_release": false,
+  "installation_configuration_lifecycle": {
+    "community_security_exception": "MUST_NOT_BE_DELAYED_BY_CHANNEL_LAG",
+    "compatibility_tuple": [
+      "source_version",
+      "package_version",
+      "setup_schema_version",
+      "profile_schema_version",
+      "edition_id"
+    ],
+    "contract": "INC_G6_INSTALLATION_CONFIGURATION_LIFECYCLE_V1",
+    "rollback_compatibility": "REQUIRED",
+    "setup_impact": [
+      "NONE",
+      "MINIMAL",
+      "REQUIRED"
+    ]
+  },
+  "lifecycle": "production",
+  "prior_version": "3.4.1-rc.1",
+  "privacy_responsibility": "Bind consent to exact version and bytes; invalidate stale grants on any change.",
+  "private_history_ref": "PRIVATE_METADATA_607161864F7B",
+  "private_state_in_runtime": "EXTERNAL_REFERENCES_ONLY",
+  "publication_mode": "PRIVATE_ONLY_UNTIL_NEW_EXACT_PUBLIC_CONSENT",
+  "publicization_contract": "INC_PUBLICIZATION_PRIVACY_GATE_V2",
+  "release_policy_profile": "AUTONOMOUS_EVIDENCE_BASED",
+  "release_policy_ref": "INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1",
+  "release_status": "RELEASE",
+  "retained_generic_contracts": [],
+  "runtime_version_attestation": {
+    "contract": "INC_SKILLFORGE_RUNTIME_VERSION_ATTESTATION_V1",
+    "digest_allow_list": "AUTHORITATIVE_WHEN_PRESENT",
+    "minimum_compare": "NUMERIC_SEMVER_CORE",
+    "role": "VERSION_COMPARISON_SEMANTICS",
+    "same_version_different_digest": "VERSION_CONFLICT",
+    "source_vs_installed_runtime": "DISTINCT_FACTS"
+  },
+  "stable_id": "O6-SKL-006",
+  "version": "3.4.2",
+  "visible_id": "G6"
+}

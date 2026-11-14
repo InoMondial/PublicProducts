@@ -1,0 +1,175 @@
+{
+  "artifact_contract_attestation": {
+    "active_contract_ref": "INC_REMOTE_ARTIFACT_DELIVERY_V2",
+    "compatibility_matrix_ref": "INC_G1_G18_ARTIFACT_DELIVERY_COMPATIBILITY_V2",
+    "failure": "ARTIFACT_CONTRACT_ATTESTATION_FAILED",
+    "id": "G1_ARTIFACT_DELIVERY_CONTRACT_ATTESTATION_V2",
+    "package_build_required": true,
+    "semantic_owner": "G1",
+    "startup_required": true
+  },
+  "artifact_delivery_contract_ref": "INC_REMOTE_ARTIFACT_DELIVERY_V2",
+  "artifact_delivery_validator": "scripts/validate_artifact_delivery.py",
+  "artifact_tool_route_gate": {
+    "contract": "INC_G18_ARTIFACT_TOOL_ROUTE_GATE_V2",
+    "direct_file_card_exception": false,
+    "pre_tool_validation": true,
+    "required_visibility": "INTERNAL_ANALYSIS_NON_SURFACING",
+    "tool_side_file_card_prohibited": true
+  },
+  "backlog_completeness_claim_gate": {
+    "canonical_postwrite_sha_required": true,
+    "contract": "INC_OWNER_CONVERSATION_BACKLOG_COVERAGE_V1",
+    "feedback_intake_contract": "INC_SKILLFORGE_FEEDBACK_INTAKE_V1",
+    "mirror_parity_required": true,
+    "tests": "tests/test_backlog_completeness_claim.py",
+    "unmapped_count_required": 0,
+    "validator": "scripts/validate_backlog_completeness_claim.py"
+  },
+  "bidi_collection_addendum_ref": "INC_BIDI_SEMANTIC_COLLECTION_LAYOUT_V1",
+  "bidi_layout_contract_ref": "INC_BIDI_LAYOUT_TYPOGRAPHY_V1",
+  "canonical_path": "skills/router/g18-human-conversation-output-governor/",
+  "conservative_turn_segmentation_ref": "INC_G18_CONSERVATIVE_TURN_SEGMENTATION_V1",
+  "cross_cutting_contracts": [
+    "INC_SKILLFORGE_RELEASE_TRAIN_V1",
+    "INC_RUNNER_INDEPENDENT_CI_V1"
+  ],
+  "current_version_fix_register": "references/current-version-fix-register.yaml",
+  "date": "2026-11-13",
+  "display_name": "G18-Human Conversation & Output Governor",
+  "dual_sequence_handoff": {
+    "contract": "INC_G16_HANDOFF_DUAL_SEQUENCE_V1",
+    "current_turn_S_receipt": "REQUIRED",
+    "g18_mutation": "PROHIBITED",
+    "material_M_receipt": "REQUIRED_WHEN_MATERIAL",
+    "visible_ref": "<handoff_id> | S:<interaction_seq> | M:<material_seq>"
+  },
+  "effective_release_gate": {
+    "entrypoint": "../g0-skill-architect-builder/scripts/release_closure_gate.py",
+    "historical_certificates": "PRESERVED_NOT_CURRENT_BLOCKERS",
+    "native_activation": "SEPARATE_OPTIONAL_ASSURANCE",
+    "profile": "AUTONOMOUS_EVIDENCE_BASED"
+  },
+  "execution_result_report": {
+    "contract": "INC_G16_DURABLE_EXECUTION_PROGRESS_V1",
+    "four_project_overview_rows_are_not_command_step_limit": true,
+    "missing_report_failure": "EXECUTION_RESULT_REPORT_INVALID",
+    "owner_explicit_table_request": "NARROW_WEIGHTED_STEP_TABLE_WITH_EVIDENCE_AND_RESUME",
+    "render_only_no_recompute": true,
+    "required_on": [
+      "COMPLETE",
+      "PARTIAL",
+      "BLOCKED",
+      "FAILED",
+      "FIRST_RESUME_AFTER_HOST_FAILURE"
+    ],
+    "runtime_rendering_profile": "references/g16-execution-report-rendering-v1.md",
+    "semantic_owner": "G16-SKL-001"
+  },
+  "execution_timeout_checkpoint_ref": "INC_EXECUTION_TIMEOUT_CHECKPOINT_V1",
+  "framework_membership": "MEMBER",
+  "fresh_review": {
+    "independent_third_party": false,
+    "scope": "PRIVATE_3_0_3_PRIVACY_HARDENING"
+  },
+  "future_release_blocks": [
+    "BROADER_SURFACE_VISUAL_VALIDATION_AND_NEXT_VERSION_BACKLOG"
+  ],
+  "governed_project_chat_response": {
+    "allowed_non_table_exceptions": [
+      "DIRECTIONAL_SEGMENT_TITLE",
+      "NUMBERED_TABLE_TITLE",
+      "ABSOLUTE_FINAL_HANDOFF_ALIAS"
+    ],
+    "body": "DIRECTIONAL_SEGMENT_TITLE_PLUS_SEQUENTIAL_NUMBERED_TABLES_BEFORE_TERMINAL_HANDOFF_LINE",
+    "contract": "INC_G18_GOVERNED_PROJECT_RESPONSE_GRAMMAR_V1",
+    "current_version_fix_register": "references/current-version-fix-register.yaml",
+    "grammar_validator": "scripts/project_response_grammar.py",
+    "handoff_line": "ALWAYS_ON_CLICKABLE_ALIAS_ONLY_CURRENT_VERIFIED_S_M",
+    "human_cross_reference": [
+      "جدول N، ردیف M",
+      "Table N, Row M"
+    ],
+    "no_mutation_scope_suppresses_footer": false,
+    "ordinary_prose_or_bullets": "PROHIBITED",
+    "table_serial_reset": "START_AT_1_EACH_ASSISTANT_FINAL_RESPONSE",
+    "table_title_ltr": "<ICON> **Table <N> — <LTR_TITLE>**",
+    "table_title_rtl": "<RLM><ICON> **جدول <N> — <RTL_TITLE>**",
+    "terminal_tables": [
+      "NUMBERED_G16_HANDOFF_CONTROL",
+      "NUMBERED_FOUR_ROW_PROJECT_SUMMARY"
+    ],
+    "validator": "scripts/validate_project_chat_footer.py"
+  },
+  "handoff_freshness_gate": {
+    "contract": "INC_G18_GOVERNED_PROJECT_CHAT_FOOTER_V4",
+    "g16_semantic_owner": true,
+    "id": "G18-0.1.32-HANDOFF-POSTCOMMIT-FRESHNESS",
+    "material_change_requires_committed_increment": true,
+    "postwrite_readback_required": true,
+    "render_postcommit_sequence_only": true
+  },
+  "historical_metadata_bundled": false,
+  "independent_certification_required_for_release": false,
+  "legacy_aliases": [
+    "CHAT1",
+    "CHAT1-GPT Chatting Standards"
+  ],
+  "legacy_path_mode": "REDIRECT_ONLY",
+  "lifecycle": "production",
+  "machine_route_before_visual_ui_ref": "INC_MACHINE_ROUTE_BEFORE_VISUAL_UI_V1",
+  "material_activity_logging_ref": "INC_MATERIAL_GOVERNED_ACTIVITY_LOGGING_V1",
+  "name": "human-conversation-output-governor",
+  "persian_chat_table_visual_order_contract_ref": "INC_G18_PERSIAN_CHAT_TABLE_VISUAL_ORDER_V1",
+  "persian_generated_prose_leading_token_ref": "INC_G18_PERSIAN_GENERATED_PROSE_LEADING_TOKEN_V1",
+  "prior_version": "0.1.46-rc.1",
+  "privacy_responsibility": "Separate coverage from clearance; never claim unknown settings/caches/copies are clean.",
+  "private_history_ref": "PRIVATE_METADATA_B33FC5C55D67",
+  "private_state_in_runtime": "EXTERNAL_REFERENCES_ONLY",
+  "project_chat_footer_contract": "references/governed-project-chat-footer-v4.md",
+  "project_chat_footer_validator": "scripts/validate_project_chat_footer.py",
+  "project_response_grammar_contract": "references/governed-project-response-grammar-v1.md",
+  "project_response_grammar_tests": "tests/test_project_response_grammar.py",
+  "project_response_grammar_validator": "scripts/project_response_grammar.py",
+  "project_segment_presentation": {
+    "contract": "INC_G18_PROJECT_SEGMENT_PRESENTATION_V3",
+    "max_ordinary_table_rows": 8,
+    "table_serials": "CONTIGUOUS_FROM_1_PER_RESPONSE",
+    "table_title_contract": "INC_G18_GOVERNED_PROJECT_RESPONSE_GRAMMAR_V1",
+    "table_title_immediate_adjacency": true,
+    "title_profile": "DIRECTIONAL_SEGMENT_TITLE_PLUS_NUMBERED_TABLE_TITLES",
+    "validator": "scripts/validate_project_segments.py"
+  },
+  "publication_mode": "PRIVATE_ONLY_UNTIL_NEW_EXACT_PUBLIC_CONSENT",
+  "publicization_contract": "INC_PUBLICIZATION_PRIVACY_GATE_V2",
+  "release_blocks": [],
+  "release_policy_profile": "AUTONOMOUS_EVIDENCE_BASED",
+  "release_policy_ref": "INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1",
+  "release_status": "RELEASE",
+  "retained_generic_contracts": [],
+  "rtl_table_all_cell_contract": "references/rtl-table-all-cell-hard-gate-v2.md",
+  "rtl_table_renderer_certification_registry_ref": "INC_G18_RTL_TABLE_RENDERER_REGRESSION_EVIDENCE_REGISTRY",
+  "rtl_table_source_order_contract": {
+    "Chat": "ROW_REFERENCE_FIRST_SOURCE_COLUMN_ABSOLUTE_OWNER_CONFIRMED_HARD_GATE",
+    "Codex": "ROW_REFERENCE_LAST_SOURCE_COLUMN_REVERSE_DESIRED_VISUAL_ORDER",
+    "Work": "VERIFIED_PROFILE_REQUIRED",
+    "regression_release_blocking": true,
+    "renderer_registry_can_override_source_position": false,
+    "universal_source_position_rule": "PROHIBITED",
+    "visible_invariant": "PERSIAN_ROW_REFERENCE_RIGHTMOST"
+  },
+  "runtime_version_attestation": {
+    "contract": "INC_SKILLFORGE_RUNTIME_VERSION_ATTESTATION_V1",
+    "installed_runtime_source_substitution": "PROHIBITED",
+    "material_success_requires_conforming_receipt": true,
+    "mutation_enforcement_owner": "G16",
+    "nonconforming_runtime_read_only_visible_blocker": true,
+    "render_only": true,
+    "semantic_owner": "G0"
+  },
+  "schema_version": "1.0",
+  "stable_id": "CHAT1-SKL-001",
+  "table_conformance_validator": "scripts/validate_table_conformance.py",
+  "version": "0.1.47",
+  "visible_id": "G18"
+}

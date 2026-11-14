@@ -1,0 +1,28 @@
+schema_version: '1.2'
+contract_id: INC_PROJECT_ARTIFACT_EGRESS_V1
+project_bound:
+  chat: ALL_DURABLE_GENERATED_FILES_REQUIRED
+  work: ALL_DURABLE_GENERATED_OR_MODIFIED_OUTPUTS_REQUIRED
+  codex: DURABLE_WORKSPACE_DELTA_REQUIRED
+  agent: ALL_DURABLE_OUTPUTS_REQUIRED
+  skill: ALL_DURABLE_OUTPUTS_REQUIRED
+classification_precedence:
+  final_or_user_deliverable_overrides_ephemeral_container: true
+  durable_type_in_ephemeral_container_without_disposition: REVIEW
+  explicit_ephemeral_requires_reason: true
+  final_deliverable_exclusion_requires_owner_disposition: true
+valid_exclusion_required_fields: [transaction_id, artifact_id, path, producer, exclusion_reason, observed_at, evidence]
+ledger:
+  required: true
+  zero_unaccounted: true
+  immutable_hash_chain: true
+  github_verified_requires: [remote_url, commit_sha, sha256]
+producer_exit_gate: PROJECT_ARTIFACT_EGRESS_COMPLETE
+
+document_class_storage:
+  contract_ref: INC_G1_DOCUMENT_CLASS_STORAGE_V1
+  durable_document_binary_canonical_storage: SHAREPOINT_ONLY
+  github_document_binary_current_normative_runtime: FORBIDDEN
+  github_pointer_metadata: ALLOWED_WITH_SHAREPOINT_REF_PROVENANCE_NO_BYTES
+  source_and_generator_code_in_github: ALLOWED
+  historical_git_evidence: PRESERVE

@@ -1,0 +1,231 @@
+schema: INC_GOVERNANCE_SKILL_CANDIDATE_V1
+stable_id: G01-SKL-001
+visible_id: G1
+display_name: G1-Artifact Archive Router
+version: 5.1.3
+prior_version: 5.1.0-candidate
+lifecycle: production
+functional_role: ROUTER
+strictness: S4
+builder_framework_ref: INC_SKILLFORGE
+framework_id: INC_SKILLFORGE
+framework_name: SkillForge
+framework_membership: MEMBER
+framework_registry_ref: INC_SKILL_NAMESPACE_REGISTRY
+next_version_backlog_ref: INC_SKILLFORGE_UNIFIED_BACKLOG
+canonical_active_path: skills/router/g1-artifact-archive-router/
+legacy_read_only_paths:
+- skills/router/g01-artifact-archive-router/
+remote_artifact_delivery:
+  contract_ref: INC_REMOTE_ARTIFACT_DELIVERY_V2
+  windows_governed_destination: FORBIDDEN
+  local_only_final_delivery: FORBIDDEN
+  inline_only_file_delivery: FORBIDDEN
+  remote_persistence_required: true
+  remote_readback_required: true
+  verified_link_required: true
+  temporary_remote_required: true
+  temporary_lifecycle_metadata_required: true
+  transient_transport_buffer:
+    authority: NONE
+    final_delivery: false
+    bounded: required
+    reconcile_or_remove_after_remote_persistence: required_when_supported
+document_class_storage:
+  contract_ref: INC_G1_DOCUMENT_CLASS_STORAGE_V1
+  canonical_storage: SHAREPOINT_ONLY
+  explicit_extensions:
+  - .doc
+  - .docx
+  - .xls
+  - .xlsx
+  - .xlsm
+  - .pdf
+  - .ppt
+  - .pptx
+  equivalent_human_business_report_binary: SHAREPOINT_ONLY
+  github_document_binary_current_normative_runtime: FORBIDDEN
+  github_pointer_metadata: ALLOWED_WITH_SHAREPOINT_REF_AND_PROVENANCE_NO_EMBEDDED_BYTES
+  github_source_generator_code: ALLOWED
+  sharepoint_write_readback_identity_link: REQUIRED
+  historical_git_evidence: PRESERVE
+  git_history_rewrite_or_force_purge: SEPARATE_OWNER_APPROVAL_REQUIRED
+  failure: G1_DOCUMENT_CLASS_GITHUB_STORAGE_FORBIDDEN
+artifact_contract_attestation:
+  id: G1_ARTIFACT_DELIVERY_CONTRACT_ATTESTATION_V2
+  active_contract_ref: INC_REMOTE_ARTIFACT_DELIVERY_V2
+  compatibility_matrix_ref: references/artifact-delivery-contract-compatibility-v2.json
+  validator: scripts/validate_artifact_contract_attestation.py
+  startup_required: true
+  package_build_required: true
+  historical_contracts_non_executable:
+  - INC_REMOTE_ARTIFACT_DELIVERY_V1
+  failure: ARTIFACT_CONTRACT_ATTESTATION_FAILED
+project_artifact_egress:
+  contract_ref: INC_PROJECT_ARTIFACT_EGRESS_V1
+  project_bound_durable_capture: REQUIRED
+  codex_workspace_delta: REQUIRED
+  zero_unaccounted: REQUIRED
+  producer_terminal_success_requires_egress_complete: true
+binary_publication:
+  contract_ref: G1_BINARY_PUBLICATION_V1
+  automated_binary_safe_transport_required: true
+  manifest_only_success: prohibited
+  remote_sha256_readback_required: true
+  office_byte_preservation_required: true
+  chatgpt_skill_install_zip_size_policy_owner: G14
+  chatgpt_skill_install_zip_policy_ref: G14_CHATGPT_SKILL_INSTALL_ZIP_LIMIT_V1
+  chatgpt_skill_install_zip_max_exclusive_bytes: 25000000
+  exact_final_size_evidence_required: true
+  oversize_or_missing_evidence_failure: INSTALLABLE_PACKAGE_SIZE_LIMIT_EXCEEDED
+security:
+  policy_ref: G1_SECURITY_GATE_V1
+  secret_scan_required: true
+  sensitive_transfer_gate_required: true
+transaction_assurance:
+  evidence_binding: REQUIRED
+  idempotency: REQUIRED
+  atomic_lineage_lock: REQUIRED
+  capability_preflight: REQUIRED
+  immutable_ledger_hash_chain: REQUIRED
+sharepoint:
+  contract_ref: G1_SHAREPOINT_DESTINATION_V1
+  backup_root_only: true
+  allowed_namespaces:
+  - Ecosystem
+  - Projects
+  - Shared
+  - _Control
+  p0_p1_required: true
+  latest_plus_one_previous: true
+  optimistic_concurrency: REQUIRED
+  registry_contract_ref: INC_SHAREPOINT_BACKUP_REGISTRY_V1
+  registry_mirror: registries/sharepoint-backup-registry.yaml
+  physical_destination_owner: G1_ARTIFACT_ARCHIVE_ROUTER
+  caller_destination_override: FORBIDDEN
+  caller_override_error: CALLER_SHAREPOINT_DESTINATION_OVERRIDE_FORBIDDEN
+  project_semantic_roots:
+  - Release
+  - Documentation
+  - Evidence
+  temporary_destination_resolution_owner: G1_ARTIFACT_ARCHIVE_ROUTER
+  nested_managed_binary_default: FORBIDDEN
+  nested_binary_exceptions:
+  - RELEASE_BUNDLE
+  - SELF_CONTAINED_DISASTER_RECOVERY
+  canonical_authority_conflict: CANONICAL_BACKUP_AUTHORITY_CONFLICT
+  version_authority_drift: VERSION_AUTHORITY_DRIFT
+recovery:
+  restore_drill_contract_ref: G1_RECOVERY_DRILL_V1
+  restore_proof_when_drill_required: REQUIRED
+deduplication:
+  policy_ref: G1_CONTENT_DEDUP_V1
+  content_identity: SHA256
+compatibility:
+  matrix_ref: G1_CONTRACT_COMPATIBILITY_V1
+  preflight: REQUIRED
+evidence:
+  contract_ref: G1_CROSS_SYSTEM_EVIDENCE_V1
+  clickable_url_and_stable_id_required: true
+  freshness_contract_ref: G1_EVIDENCE_FRESHNESS_V1
+  transaction_binding: REQUIRED
+lineage:
+  graph_contract_ref: G1_ARTIFACT_LINEAGE_GRAPH_V1
+  dag_required: true
+github_transaction:
+  latest_main_reconciliation: REQUIRED
+  all_changes_committed_and_pushed: REQUIRED
+  pr_merge_when_required: REQUIRED
+  main_remote_readback: REQUIRED
+  transaction_residue_zero: REQUIRED
+repository_protection:
+  audit_required: true
+  owner_approval_required_for_setting_change: true
+critical_control_assurance:
+  contract_ref: INC_CRITICAL_CONTROL_ASSURANCE_V1
+  runtime_exit_gate: CRITICAL_CONTROLS_VERIFIED
+  controls:
+  - id: G1-CC-01
+    rule: All durable project artifacts are accounted and remotely verified or validly
+      excluded.
+    mandatory: true
+    evidence_required: true
+  - id: G1-CC-02
+    rule: Required binaries pass exact remote size and SHA read-back.
+    mandatory: true
+    evidence_required: true
+  - id: G1-CC-03
+    rule: P0/P1 SharePoint backups stay beneath the exact pinned root.
+    mandatory: true
+    evidence_required: true
+  - id: G1-CC-04
+    rule: Cross-system links and stable IDs are verified and fresh.
+    mandatory: true
+    evidence_required: true
+  - id: G1-CC-05
+    rule: Git transaction is evidence-bound and closes with zero owned residue.
+    mandatory: true
+    evidence_required: true
+  - id: G1-CC-06
+    rule: Security and sensitive-transfer gates pass.
+    mandatory: true
+    evidence_required: true
+  - id: G1-CC-07
+    rule: Idempotency and lineage concurrency controls reconcile.
+    mandatory: true
+    evidence_required: true
+  - id: G1-CC-08
+    rule: Ledger hash chain and lineage DAG validate.
+    mandatory: true
+    evidence_required: true
+  - id: G1-CC-09
+    rule: Contract compatibility and capability preflight pass.
+    mandatory: true
+    evidence_required: true
+  - id: G1-CC-10
+    rule: Recovery restore proof exists when a drill is required.
+    mandatory: true
+    evidence_required: true
+  - id: G1-CC-11
+    rule: Before ChatGPT managed-Skill install ZIP publication verify exact-final
+      G14 size evidence and final_zip_size_bytes < 25000000.
+    mandatory: true
+    evidence_required: true
+  - id: G1-CC-12
+    rule: Generated user-deliverable artifacts are remotely persisted/read back and
+      delivered by verified canonical link; Windows/local/inline-only completion is
+      forbidden.
+    mandatory: true
+    evidence_required: true
+  - id: G1-CC-13
+    rule: Temporary generated artifacts use governed remote Temporary placement and
+      lifecycle cleanup metadata.
+    mandatory: true
+    evidence_required: true
+  - id: G1-CC-15
+    rule: Durable document-class binaries use SharePoint-only canonical storage and
+      current normative/runtime GitHub document-byte storage is forbidden.
+    mandatory: true
+    evidence_required: true
+  - id: G1-CC-16
+    rule: GitHub records for document-class artifacts are pointer/provenance only
+      with verified SharePoint reference and no embedded document bytes.
+    mandatory: true
+    evidence_required: true
+stage3_contract_assurance:
+  remote_only_delivery_owner: G1
+  g6_lifecycle_owner: REFERENCE_ONLY
+  g10_stable_reference_owner: REFERENCE_ONLY
+  g12_g13_validation: REQUIRED_BY_RISK
+  full_binary_package_validation: DEFERRED_TO_STAGE7
+release_acceptance_policy:
+  contract_ref: INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1
+  profile: AUTONOMOUS_EVIDENCE_BASED
+  precedence: SUPERSEDES_RELEASE_ONLY_EXTERNAL_EXECUTOR_GATES
+  available_tests: REQUIRED
+  failed_executed_tests: BLOCK_RELEASE
+  external_assurance: OPTIONAL_NONBLOCKING
+  real_publication_readback: REQUIRED
+  runtime_security_authorization: UNCHANGED
+publication_privacy_contract: INC_PUBLICIZATION_PRIVACY_GATE_V2
+public_release_requires_new_owner_consent: true

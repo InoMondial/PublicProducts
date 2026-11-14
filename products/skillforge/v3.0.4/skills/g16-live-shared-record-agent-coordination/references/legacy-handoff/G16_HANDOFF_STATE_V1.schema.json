@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:inomondial:skillforge:g16:handoff-state:1.0",
+  "title": "G16 Conversation Continuity Handoff State v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version","handoff_id","chat_id","chat_title","created_at","updated_at","state"],
+  "properties": {
+    "schema_version": {"const":"1.0"},
+    "handoff_id": {"type":"string","pattern":"^HOF-[A-F0-9]{16}$"},
+    "chat_id": {"type":"string","pattern":"^CH-[A-F0-9]{16}$"},
+    "chat_title": {"type":["string","null"],"minLength":1,"maxLength":180},
+    "created_at": {"type":"string","format":"date-time"},
+    "updated_at": {"type":"string","format":"date-time"},
+    "state": {"type":"object","minProperties":1,"additionalProperties":true,
+      "properties": {
+        "context_objective":{"type":"string"},"authoritative_summary":{"type":"string"},
+        "knowledge":{"type":"array","items":{"type":"string"}},
+        "user_requirements":{"type":"array","items":{"type":"string"}},
+        "decisions":{"type":"array","items":{"type":"object","required":["text"],"additionalProperties":true,"properties":{"text":{"type":"string"},"status":{"type":"string"}}}},
+        "current_state":{"type":"string"},
+        "artifacts_references":{"type":"array","items":{"oneOf":[{"type":"string"},{"type":"object","required":["ref"],"additionalProperties":true,"properties":{"ref":{"type":"string"},"description":{"type":"string"},"type":{"type":"string"}}}]}},
+        "constraints":{"type":"array","items":{"type":"string"}},
+        "open_items":{"type":"array","items":{"type":"string"}},
+        "next_continuation_point":{"type":"string"},
+        "terminology_ids":{"type":"object","additionalProperties":true}
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "artifact": "G8-Security Privacy & Permission Standardizer",
+  "build_time_only": [
+    "CHANGELOG.md",
+    "scripts/validate_secret_provider_contract.py",
+    "tests/test_secret_provider_contract.py",
+    "tests/test_secret_migration_plan.py",
+    "tests/test_feedback_security_contract.py"
+  ],
+  "date": "2026-11-13",
+  "default_azure_tier": "STANDARD",
+  "default_machine_secret_provider": "AZURE_KEY_VAULT",
+  "effective_release_gate": {
+    "entrypoint": "../g0-skill-architect-builder/scripts/release_closure_gate.py",
+    "historical_certificates": "PRESERVED_NOT_CURRENT_BLOCKERS",
+    "native_activation": "SEPARATE_OPTIONAL_ASSURANCE",
+    "profile": "AUTONOMOUS_EVIDENCE_BASED"
+  },
+  "external_bootstrap_exception": "BOOTSTRAP_EXTERNAL_WORKLOAD_CREDENTIAL",
+  "feedback_security_contract_path": "references/feedback-security-contract-v1.yaml",
+  "feedback_security_contract_ref": "INC_G8_FEEDBACK_SECURITY_V1",
+  "feedback_security_validator": "scripts/validate_feedback_security_contract.py",
+  "fresh_review": {
+    "independent_third_party": false,
+    "scope": "PRIVATE_3_0_3_PRIVACY_HARDENING"
+  },
+  "historical_metadata_bundled": false,
+  "independent_certification_required_for_release": false,
+  "lifecycle": "production",
+  "operational_files": [
+    "scripts/validate_secret_migration_plan.py",
+    "scripts/validate_feedback_security_contract.py"
+  ],
+  "phase": "PRIVATE_CORE_RELEASE",
+  "prior_version": "3.4.1-rc.1",
+  "privacy_responsibility": "Own content normalization, recursive inspection, risk classification and privacy decisions.",
+  "private_history_ref": "PRIVATE_METADATA_FC0E718D565A",
+  "private_state_in_runtime": "EXTERNAL_REFERENCES_ONLY",
+  "publication_mode": "PRIVATE_ONLY_UNTIL_NEW_EXACT_PUBLIC_CONSENT",
+  "publicization_contract": "INC_PUBLICIZATION_PRIVACY_GATE_V2",
+  "release_policy_profile": "AUTONOMOUS_EVIDENCE_BASED",
+  "release_policy_ref": "INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1",
+  "release_status": "RELEASE",
+  "retained_generic_contracts": [],
+  "runtime_files": [
+    "SKILL.md",
+    "GOVERNANCE.yaml",
+    "MANIFEST.json",
+    "NOTICE.md",
+    "references/vnext-contract.yaml",
+    "references/secret-provider-contract-v1.yaml",
+    "references/secret-migration-contract-v1.yaml",
+    "references/secret-migration-runbook-v1.md",
+    "references/secret-migration-manifest-template.yaml",
+    "references/feedback-security-contract-v1.yaml"
+  ],
+  "secret_migration_contract_path": "references/secret-migration-contract-v1.yaml",
+  "secret_migration_contract_ref": "INC_G8_SECRET_MIGRATION_V1",
+  "secret_migration_manifest_template": "references/secret-migration-manifest-template.yaml",
+  "secret_migration_readiness_validator": "scripts/validate_secret_migration_plan.py",
+  "secret_migration_runbook_path": "references/secret-migration-runbook-v1.md",
+  "secret_provider_contract_path": "references/secret-provider-contract-v1.yaml",
+  "secret_provider_contract_ref": "INC_G8_SECRET_PROVIDER_V1",
+  "stable_id": "O6-SKL-008",
+  "version": "3.4.2",
+  "visible_id": "G8"
+}

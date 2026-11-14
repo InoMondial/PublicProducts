@@ -1,0 +1,215 @@
+{
+  "canonical_path": "skills/router/g16-live-shared-record-agent-coordination/",
+  "contracts": [
+    "INC_G16_CROSS_SURFACE_EXECUTION_DELIVERY_V1",
+    "INC_G16_EXECUTION_PROFILE_RECOMMENDATION_V1",
+    "INC_G16_EXECUTION_SURFACE_RECOMMENDATION_V1",
+    "INC_EXECUTION_TIMEOUT_CHECKPOINT_V1",
+    "INC_MATERIAL_GOVERNED_ACTIVITY_LOGGING_V1",
+    "INC_MACHINE_ROUTE_BEFORE_VISUAL_UI_V1",
+    "INC_G16_DURABLE_EXECUTION_PROGRESS_V1",
+    "INC_G8_SECRET_PROVIDER_V1",
+    "INC_G8_SECRET_MIGRATION_V1",
+    "INC_G1_DOCUMENT_CLASS_STORAGE_V1",
+    "INC_G9_RESOURCE_FINOPS_CONTROL_PLANE_V1",
+    "INC_G16_GOVERNED_PROJECT_CHAT_RETURN_V2",
+    "INC_G16_HANDOFF_DUAL_SEQUENCE_V1",
+    "INC_G16_HANDOFF_TRANSACTIONAL_WRITER_V1",
+    "INC_G16_HANDOFF_TOPOLOGY_REGISTRY_V1",
+    "INC_CROSS_SURFACE_INTERACTION_LEDGER_V1",
+    "INC_SKILLFORGE_RUNTIME_VERSION_ATTESTATION_V1"
+  ],
+  "cross_cutting_contracts": [
+    "INC_SKILLFORGE_RELEASE_TRAIN_V1",
+    "INC_RUNNER_INDEPENDENT_CI_V1"
+  ],
+  "cross_surface_interaction_ledger": {
+    "append_only": true,
+    "contract": "INC_CROSS_SURFACE_INTERACTION_LEDGER_V1",
+    "contract_path": "references/cross-surface-interaction-ledger-v1.md",
+    "core": "scripts/interaction_ledger.py",
+    "counter_authority": "G16_TRANSACTIONAL_WRITER_ONLY",
+    "delta_retrieval": "NEWER_THAN_LAST_SEEN_S",
+    "duplicate_replay": "PROHIBITED",
+    "full_history_route": "ACTIVE_RELEASE_LEDGER_G11_G17",
+    "handoff_recent_index": "BOUNDED",
+    "hash_chain": true,
+    "lifecycle": [
+      "OPEN",
+      "INTERRUPTED",
+      "COMPLETED",
+      "BLOCKED",
+      "TRANSFERRED"
+    ],
+    "one_allocation_record_per_S": true,
+    "secret_replication": "PROHIBITED",
+    "tests": "tests/test_handoff_topology_and_interaction_ledger.py"
+  },
+  "date": "2026-11-13",
+  "display_name": "G16-Live Shared Record Agent Coordination",
+  "durable_execution": {
+    "applies_to": "GOVERNED_EXECUTION_COMMANDS_SINGLE_OR_MULTIPLE_EXECUTORS",
+    "backlog_refs": [
+      "SF-XCUT-015",
+      "SF-XCUT-013",
+      "SF-G16-003"
+    ],
+    "contract_path": "references/durable-execution-progress-v1.md",
+    "core": "scripts/execution_progress.py",
+    "enforcement_truth": "COOPERATIVE_PRE_ACTION_ONLY_UNLESS_A_VERIFIED_NATIVE_RUNNER_ENFORCES_MORE",
+    "intake_ref": "REFERENCE_SCOPE-G16-DURABLE-EXECUTION-AND-PROGRESS-20260918",
+    "invocation": "PRE_ACTION_GUARD_EVENT_REDUCER_AND_RESULT_REPORT",
+    "renderer_owner": "CHAT1-SKL-001",
+    "report_owner": "G16",
+    "source_core_sha256": "2ad1a21399010e4b83eb50ce4cdb3ba45be403f22f5eb28f3a297e7ba78de6f7",
+    "tests": "tests/test_execution_progress.py",
+    "tests_sha256": "6304a8d8e65dce11fad5e24120b7157498dfa6bc041e20c7b1b8e2b7e4f2edcf"
+  },
+  "effective_release_gate": {
+    "entrypoint": "../g0-skill-architect-builder/scripts/release_closure_gate.py",
+    "historical_certificates": "PRESERVED_NOT_CURRENT_BLOCKERS",
+    "native_activation": "SEPARATE_OPTIONAL_ASSURANCE",
+    "profile": "AUTONOMOUS_EVIDENCE_BASED"
+  },
+  "first_handoff_bootstrap": {
+    "bare_handoff_id_without_url": "IGNORE_AND_CREATE_NEW",
+    "continuation_authority": "EXPLICIT_HANDOFF_URL_IN_CURRENT_SURFACE_CONTEXT_ONLY",
+    "contract": "INC_G16_HANDOFF_TRANSACTIONAL_WRITER_V1",
+    "core": "scripts/handoff_bootstrap.py",
+    "duplicate_bound_handoff": "FAIL_CLOSED",
+    "existing_project_binding_without_url": "IGNORE_AND_CREATE_NEW",
+    "explicit_missing_reference": "FAIL_DO_NOT_REPLACE",
+    "explicit_missing_url": "FAIL_DO_NOT_REPLACE",
+    "first_external_turn": "S1_M0",
+    "first_material_checkpoint": "M1_BOUND_TO_S1",
+    "inferred_or_memory_continuity": "PROHIBITED",
+    "internal_seed": "S0_M0_NOT_TERMINAL_VISIBLE",
+    "multiple_discoverable_prior_handoffs_without_url": "IGNORE_AND_CREATE_NEW",
+    "no_prior_handoff": "CREATE_FIRST_CANONICAL_HANDOFF",
+    "profile": "FIRST_HANDOFF_BOOTSTRAP_V1",
+    "provider_write_unavailable": "DISTINCT_BLOCKER",
+    "tests": "tests/test_handoff_bootstrap.py"
+  },
+  "fresh_review": {
+    "independent_third_party": false,
+    "scope": "PRIVATE_3_0_3_PRIVACY_HARDENING"
+  },
+  "future_release_blocks": [
+    "PROVIDER_EXTENSION_AND_BROADER_SURFACE_VALIDATION"
+  ],
+  "governed_project_chat_return": {
+    "applies_to": "ACTIVE_G16_PROJECT_TRACKING_WITH_CANONICAL_HANDOFF_CONTEXT",
+    "contract": "INC_G16_GOVERNED_PROJECT_CHAT_RETURN_V2",
+    "contract_path": "references/governed-project-chat-return-state-v2.md",
+    "current_cycle_handoff_refresh": "REQUIRED",
+    "current_version_fix_register": "references/current-version-fix-register.yaml",
+    "interaction_seq_S": "MANDATORY_CURRENT_USER_TURN_RECEIPT",
+    "invented_progress": "PROHIBITED",
+    "material_seq_M": "MANDATORY_CURRENT_MATERIAL_CHECKPOINT_RECEIPT_WHEN_APPLICABLE",
+    "renderer_owner": "CHAT1-SKL-001",
+    "validator": "scripts/validate_governed_project_return.py",
+    "visible_ref_exact": "<handoff_id> | S:<interaction_seq> | M:<material_seq>"
+  },
+  "handoff_sequence_commit": {
+    "M_semantics": "EVERY_COMMITTED_SEMANTIC_MATERIAL_CHECKPOINT_EXACTLY_ONCE",
+    "S_semantics": "EVERY_ACCEPTED_EXTERNAL_USER_TURN_EXACTLY_ONCE",
+    "contract": "INC_G16_HANDOFF_DUAL_SEQUENCE_V1",
+    "g18_footer_uses": "CURRENT_TURN_S_AND_POSTCOMMIT_M",
+    "material_turn": "S_PLUS_ONE_AND_M_PLUS_ONE_PER_COMMITTED_CHECKPOINT",
+    "post_write_readback": "REQUIRED",
+    "read_only_turn": "S_PLUS_ONE_M_UNCHANGED"
+  },
+  "handoff_topology_registry": {
+    "active_ledger_per_release": "ZERO_OR_ONE",
+    "active_release_count": "ZERO_OR_ONE",
+    "canonical_handoff_count": "EXACTLY_ONE_PER_PROJECT",
+    "closed_release_closure_report": "EXACTLY_ONE_IMMUTABLE",
+    "contract": "INC_G16_HANDOFF_TOPOLOGY_REGISTRY_V1",
+    "contract_path": "references/handoff-topology-registry-v1.md",
+    "history_route": "G11_G17",
+    "per_checkpoint_handoff": "PROHIBITED",
+    "validator": "scripts/handoff_topology.py"
+  },
+  "handoff_transactional_writer": {
+    "ambiguous_outcome": "REMOTE_RECONCILE_BEFORE_RETRY",
+    "caller_supplied_next_M": "PROHIBITED",
+    "caller_supplied_next_S": "PROHIBITED",
+    "concurrency": "CAS_OR_VERIFIED_SINGLE_WRITER",
+    "contract": "INC_G16_HANDOFF_TRANSACTIONAL_WRITER_V1",
+    "contract_path": "references/handoff-transactional-writer-v1.md",
+    "core": "scripts/handoff_transaction.py",
+    "counter_authority": "WRITER_ONLY",
+    "first_handoff_bootstrap_profile": "FIRST_HANDOFF_BOOTSTRAP_V1",
+    "interaction_resume": "SAME_S_FOR_OPEN_INTERRUPTED_TRANSFERRED_SAME_TURN",
+    "limitations": "REFERENCE_SCOPE_SCOPE_PASS_PROVIDER_EXTENSION_AND_BROADER_SURFACE_VALIDATION_DEFERRED",
+    "material_binding": "EVERY_M_BOUND_TO_CURRENT_CAUSAL_S",
+    "postwrite_readback": "REQUIRED",
+    "prewrite_remote_readback": "REQUIRED",
+    "tests": "tests/test_handoff_transaction.py"
+  },
+  "historical_metadata_bundled": false,
+  "independent_certification_required_for_release": false,
+  "legacy_aliases": [
+    "G16-Conversation Continuity & Handoff"
+  ],
+  "lifecycle": "production",
+  "name": "live-shared-record-agent-coordination",
+  "preservation": {
+    "original_relative_path_base": "G16_SKILL_ROOT",
+    "previous_entrypoint": "references/coordination-baseline-v0.1.6.md",
+    "previous_entrypoint_git_blob": "PUBLIC_EXPORT_PRIVATE_PROVENANCE_REDACTED",
+    "second_executable_authority": false
+  },
+  "prior_version": "0.1.20-rc.1",
+  "privacy_responsibility": "Bind consent and observations to the current actor, target, artifact and interaction.",
+  "private_history_ref": "PRIVATE_METADATA_5561274A0E41",
+  "private_state_in_runtime": "EXTERNAL_REFERENCES_ONLY",
+  "publication_mode": "PRIVATE_ONLY_UNTIL_NEW_EXACT_PUBLIC_CONSENT",
+  "publicization_contract": "INC_PUBLICIZATION_PRIVACY_GATE_V2",
+  "release_blocks": [],
+  "release_orchestration": {
+    "compact_handoff_topology": true,
+    "contract": "INC_G16_RELEASE_ORCHESTRATION_WORK_LEASE_V1",
+    "g0_release_orchestrator": true,
+    "single_integration_writer": true
+  },
+  "release_policy_profile": "AUTONOMOUS_EVIDENCE_BASED",
+  "release_policy_ref": "INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1",
+  "release_status": "RELEASE",
+  "retained_generic_contracts": [
+    "INC_MACHINE_ROUTE_BEFORE_VISUAL_UI_V1"
+  ],
+  "runtime_version_attestation": {
+    "contract": "INC_SKILLFORGE_RUNTIME_VERSION_ATTESTATION_V1",
+    "enforcement_owner": "G16",
+    "fresh_on": [
+      "SIGN_IN_CHANGE",
+      "ACCOUNT_CHANGE",
+      "SESSION_CHANGE",
+      "SURFACE_CHANGE",
+      "PACKAGE_REFRESH",
+      "DIGEST_CHANGE"
+    ],
+    "material_mutation": "REQUIRES_CONFORMING_RUNTIME_RECEIPT",
+    "nonconforming_runtime": "READ_ONLY_ONLY",
+    "semantic_owner": "G0",
+    "stale_sequence_receipt_reuse": "PROHIBITED",
+    "version_owner": "G6"
+  },
+  "schema_version": "1.0",
+  "skillforge_feedback_intake": {
+    "authority_classes": [
+      "OWNER_MANDATE",
+      "USER_REQUEST",
+      "SYSTEM_EVIDENCE"
+    ],
+    "canonical_registration_claim_requires_readback": true,
+    "contract": "INC_SKILLFORGE_FEEDBACK_INTAKE_V1",
+    "core": "scripts/skillforge_feedback_intake.py",
+    "no_direct_write_status": "PENDING_CANONICAL_INGESTION",
+    "tests": "tests/test_skillforge_feedback_intake.py"
+  },
+  "stable_id": "G16-SKL-001",
+  "version": "0.1.21",
+  "visible_id": "G16"
+}

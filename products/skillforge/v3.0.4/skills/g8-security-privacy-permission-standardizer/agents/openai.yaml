@@ -1,0 +1,7 @@
+interface:
+  display_name: G8-Security Privacy & Permission Standardizer
+  short_description: Security, privacy and permission governance for managed Skills,
+    Agents and Work with S1-S4 floors, provider-neutral machine-secret handling, Azure
+    Key Vault def
+policy:
+  allow_implicit_invocation: true

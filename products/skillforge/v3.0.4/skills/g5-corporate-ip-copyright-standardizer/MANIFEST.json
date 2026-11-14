@@ -1,0 +1,33 @@
+{
+  "artifact": "G5-Corporate IP & Copyright Standardizer",
+  "date": "2026-11-13",
+  "effective_release_gate": {
+    "entrypoint": "../g0-skill-architect-builder/scripts/release_closure_gate.py",
+    "historical_certificates": "PRESERVED_NOT_CURRENT_BLOCKERS",
+    "native_activation": "SEPARATE_OPTIONAL_ASSURANCE",
+    "profile": "AUTONOMOUS_EVIDENCE_BASED"
+  },
+  "fresh_review": {
+    "independent_third_party": false,
+    "scope": "PRIVATE_3_0_3_PRIVACY_HARDENING"
+  },
+  "historical_metadata_bundled": false,
+  "independent_certification_required_for_release": false,
+  "lifecycle": "production",
+  "phase": "PRIVATE_CORE_RELEASE",
+  "prior_version": "3.2.1-rc.1",
+  "privacy_responsibility": "Bind approved identity fields and licensing to exact owner disclosure consent.",
+  "private_history_ref": "PRIVATE_METADATA_9A046C81CADD",
+  "private_state_in_runtime": "EXTERNAL_REFERENCES_ONLY",
+  "public_license_provenance_contract_ref": "INC_SKILLFORGE_PUBLIC_LICENSE_PROVENANCE_V1",
+  "publication_mode": "PRIVATE_ONLY_UNTIL_NEW_EXACT_PUBLIC_CONSENT",
+  "publicization_contract": "INC_PUBLICIZATION_PRIVACY_GATE_V2",
+  "release_policy_profile": "AUTONOMOUS_EVIDENCE_BASED",
+  "release_policy_ref": "INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1",
+  "release_status": "RELEASE",
+  "retained_generic_contracts": [],
+  "stable_id": "O6-SKL-005",
+  "tests": 17,
+  "version": "3.2.2",
+  "visible_id": "G5"
+}

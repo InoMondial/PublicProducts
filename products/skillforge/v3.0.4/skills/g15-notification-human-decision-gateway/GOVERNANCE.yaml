@@ -1,0 +1,108 @@
+schema: INC_GOVERNANCE_SKILL_CANDIDATE_V1
+stable_id: G15-SKL-001
+visible_id: G15
+display_name: G15-Notification & Human Decision Gateway
+version: 4.4.2
+prior_version: 4.3.1
+lifecycle: production
+project: skill-ecosystem-vnext
+phase: next-release-stage4
+functional_role: ROUTER
+builder_framework_ref: INC_SKILLFORGE
+framework_id: INC_SKILLFORGE
+framework_name: SkillForge
+framework_membership: MEMBER
+framework_registry_ref: INC_SKILL_NAMESPACE_REGISTRY
+next_version_backlog_ref: INC_SKILLFORGE_UNIFIED_BACKLOG
+universal_table_contract_ref: INC_UNIVERSAL_TABLE_REFERENCEABILITY_V1
+dpga:
+  build_time: REQUIRED
+  runtime: REQUIRED
+  hard_gates:
+  - DPGA_COMPLETE
+  - GOVERNANCE_PROPAGATION_COMPLETE
+  - UTF8_RTL_CONTRACT_PASS
+renderer:
+  teams_native_html_required: true
+  markdown_fallback: prohibited
+  post_send_readback_required: true
+utf8_rtl:
+  encoding: UTF-8
+  persian_html_lang: fa
+  persian_html_dir: rtl
+  mixed_script_bidi_isolation: required_when_applicable
+  machine_identifier_bidi_contamination: prohibited
+  post_send_roundtrip_validation: required
+  failure: UTF8_RTL_RENDERING_FAILED
+routing:
+  default: TEAMS_PRIORITY_ROUTE
+  explicit_user_override_required_for_noncanonical_destination: true
+  test_channel_production_use: prohibited
+external_source_gate:
+  source_ref: G15_EXTERNAL_CHANGE_REQUEST
+  status: BLOCKED_SOURCE_REQUIRED
+  authorized_multichannel_completion_delta_implemented: false
+archive_policy:
+  canonical_deploy_zip_required: true
+  github_on_accepted_version: true
+  sharepoint_p1_on_accepted_version: true
+critical_control_assurance:
+  contract_ref: INC_CRITICAL_CONTROL_ASSURANCE_V1
+  runtime_exit_gate: CRITICAL_CONTROLS_VERIFIED
+  controls:
+  - id: G15-CC-01
+    rule: Production priority maps to correct route and test traffic remains isolated.
+    mandatory: true
+    evidence_required: true
+  - id: G15-CC-02
+    rule: Production Teams report uses canonical target-native rendering and no raw
+      Markdown fallback.
+    mandatory: true
+    evidence_required: true
+  - id: G15-CC-03
+    rule: Required post-send read-back and same-thread trace are complete.
+    mandatory: true
+    evidence_required: true
+  - id: G15-CC-04
+    rule: Approval and decision surfaces are truthful and required confirmation is
+      satisfied.
+    mandatory: true
+    evidence_required: true
+  - id: G15-CC-05
+    rule: Production Teams transport is not bypassed by direct producer write.
+    mandatory: true
+    evidence_required: true
+  - id: G15-CC-06
+    rule: Meaningful owner reply processing filters owner/system/duplicates and closes
+      same-thread loop.
+    mandatory: true
+    evidence_required: true
+  - id: G15-CC-07
+    rule: Noncanonical destination has current attributable explicit user authorization.
+    mandatory: true
+    evidence_required: true
+  - id: G15-CC-08
+    rule: Missing route/render evidence blocks terminal success even when send API
+      succeeds.
+    mandatory: true
+    evidence_required: true
+  - id: G15-CC-09
+    rule: Outbound text is UTF-8 and applicable Persian presentation is deterministic
+      RTL without BiDi contamination of machine identifiers.
+    mandatory: true
+    evidence_required: true
+  - id: G15-CC-10
+    rule: Post-send read-back verifies encoding and direction integrity before SENT_COMPLETE.
+    mandatory: true
+    evidence_required: true
+release_acceptance_policy:
+  contract_ref: INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1
+  profile: AUTONOMOUS_EVIDENCE_BASED
+  precedence: SUPERSEDES_RELEASE_ONLY_EXTERNAL_EXECUTOR_GATES
+  available_tests: REQUIRED
+  failed_executed_tests: BLOCK_RELEASE
+  external_assurance: OPTIONAL_NONBLOCKING
+  real_publication_readback: REQUIRED
+  runtime_security_authorization: UNCHANGED
+publication_privacy_contract: INC_PUBLICIZATION_PRIVACY_GATE_V2
+public_release_requires_new_owner_consent: true

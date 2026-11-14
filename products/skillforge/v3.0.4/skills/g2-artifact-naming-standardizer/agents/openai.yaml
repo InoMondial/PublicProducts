@@ -1,0 +1,7 @@
+interface:
+  display_name: G2-Artifact Naming Standardizer
+  short_description: Canonical naming governance for managed artifacts, files, Skills,
+    versions, evidence and deployment packages, including truthful framework display
+    identity.
+policy:
+  allow_implicit_invocation: true

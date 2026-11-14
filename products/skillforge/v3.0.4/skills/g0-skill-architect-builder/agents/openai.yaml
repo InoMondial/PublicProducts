@@ -1,0 +1,7 @@
+interface:
+  display_name: G0-Skill Architect / Builder
+  short_description: Root SkillForge governance Builder for creating, upgrading, migrating,
+    splitting, merging and standardizing managed Skills/artifacts. Qualify first,
+    resolve tru
+policy:
+  allow_implicit_invocation: true

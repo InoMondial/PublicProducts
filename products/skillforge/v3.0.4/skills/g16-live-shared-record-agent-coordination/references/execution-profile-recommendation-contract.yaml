@@ -1,0 +1,284 @@
+schema_version: "1.0"
+contract_id: INC_G16_EXECUTION_PROFILE_RECOMMENDATION_V1
+owner_skill: G16-SKL-001
+optimization_owner_ref: O6-SKL-009
+human_renderer_ref: CHAT1-SKL-001
+status: STAGE30_CANDIDATE
+
+purpose: >
+  Compute the minimum sufficient ChatGPT model and reasoning-effort profile for
+  every execution-ready cross-surface work order while preserving correctness,
+  evidence, safety and resource efficiency. The result is advisory only: G16
+  never changes the active model or reasoning effort. Actual model/effort
+  selection remains a human owner/operator action.
+
+scope:
+  applies_to:
+    - CHAT_TO_WORK
+    - CHAT_TO_CODEX
+    - WORK_TO_CODEX
+    - CODEX_TO_WORK
+    - AGENT_TO_AGENT
+    - MANAGER_TO_WORKER
+    - CROSS_ENVIRONMENT_EXECUTION
+  excluded:
+    - purely local single-surface conversational replies with no delegated execution
+    - deterministic non-LLM tool calls that require no model choice
+
+selection_authority:
+  mode: USER_ADVISORY_ONLY
+  actual_selector: HUMAN_OWNER_OR_OPERATOR
+  g16_may_change_model: false
+  g16_may_change_reasoning_effort: false
+  g16_may_trigger_programmatic_model_routing: false
+  rule: >
+    G16 may calculate, display and persist a recommendation/floor only. It MUST NOT
+    click, call, invoke, configure, route, re-route, switch or otherwise mutate the
+    active ChatGPT model or reasoning-effort setting, even when the host exposes a
+    programmatic or UI mechanism that could do so. If a different profile is
+    recommended, the user/operator decides whether to select it.
+
+availability_resolution:
+  rule: RESOLVE_TARGET_SURFACE_INVENTORY_READ_ONLY_FIRST
+  verification_route_order:
+    - HOST_NATIVE_METADATA_OR_TOOL_SCHEMA
+    - ACCOUNT_USAGE_OR_SETTINGS_METADATA_READ_ONLY
+    - SURFACE_MODEL_PICKER_READ_ONLY
+  ui_verification_rules:
+    - DO_NOT_USE_UI_WHEN_HIGHER_PRIORITY_METADATA_IS_SUFFICIENT
+    - READ_ONLY_MODEL_PICKER_INSPECTION_ONLY
+    - NEVER_TEMPORARILY_CHANGE_MODEL_TO_TEST_AVAILABILITY
+    - NEVER_TEMPORARILY_CHANGE_REASONING_EFFORT_TO_TEST_AVAILABILITY
+    - IF_READ_ONLY_VERIFICATION_IS_NOT_POSSIBLE_MARK_AVAILABILITY_UNVERIFIED
+    - NEVER_SEND_A_MESSAGE_SOLELY_TO_PROVE_MODEL_AVAILABILITY
+  required:
+    - target_surface
+    - exposed_model_names
+    - exposed_reasoning_effort_labels
+  availability_states:
+    - VERIFIED
+    - UNVERIFIED
+  hard_rules:
+    - NEVER_INVENT_MODEL_AVAILABILITY
+    - NEVER_INVENT_REASONING_EFFORT_LABELS
+    - USE_EXACT_HOST_EXPOSED_NAMES_IN_FINAL_RECOMMENDATION
+    - IF_RECOMMENDED_PROFILE_UNAVAILABLE_RECOMMEND_SMALLEST_STRONGER_VERIFIED_PROFILE
+    - NEVER_SILENTLY_DOWNGRADE_BELOW_FLOOR
+    - NEVER_MUTATE_MODEL_OR_REASONING_EFFORT_SELECTION
+    - NEVER_TRIGGER_PROGRAMMATIC_MODEL_ROUTING
+    - USER_SELECTION_REQUIRED_FOR_ANY_PROFILE_CHANGE
+
+current_reference_snapshot_2026_09_16:
+  note: >
+    Informational snapshot only. Runtime inventory resolution overrides this list.
+  work_codex_plus:
+    model_families:
+      - GPT-5.6 Luna
+      - GPT-5.6 Terra
+      - GPT-5.6 Sol
+      - GPT-6 Astra
+    gpt_5_6_max_reasoning_supported: true
+
+scoring:
+  input_scale: "0..4 per factor"
+  formula: "score_0_100 = round(sum(weight_percent * factor_level / 4))"
+  factors:
+    semantic_complexity:
+      weight_percent: 14
+      meaning: "number and coupling of concepts, constraints and transformations"
+    ambiguity_novelty:
+      weight_percent: 12
+      meaning: "unclear requirements, unfamiliar domain or missing precedent"
+    reasoning_depth:
+      weight_percent: 14
+      meaning: "multi-step inference, planning, tradeoff analysis or proof burden"
+    change_blast_radius:
+      weight_percent: 10
+      meaning: "scope of files, systems, users, environments or irreversible effects"
+    tool_orchestration:
+      weight_percent: 10
+      meaning: "number/coupling of tools, agents, APIs, browsers or execution surfaces"
+    context_dependency_load:
+      weight_percent: 8
+      meaning: "amount of cross-file/cross-system state that must stay consistent"
+    verification_burden:
+      weight_percent: 8
+      meaning: "test depth, evidence, reconciliation, read-back or certification burden"
+    consequence_irreversibility:
+      weight_percent: 12
+      meaning: "security, production, financial, privacy, destructive or release consequence"
+    long_horizon_recovery:
+      weight_percent: 6
+      meaning: "long-running execution, recovery, checkpoints, retries or rollback reasoning"
+    surface_brittleness:
+      weight_percent: 6
+      meaning: "UI/browser/multimodal/session instability and environment-specific fragility"
+
+complexity_classes:
+  - { min: 0, max: 20, class: ROUTINE }
+  - { min: 21, max: 47, class: STANDARD }
+  - { min: 48, max: 73, class: COMPLEX }
+  - { min: 74, max: 96, class: CRITICAL }
+  - { min: 97, max: 100, class: FRONTIER }
+
+baseline_ladder:
+  - score_min: 0
+    score_max: 20
+    preferred_model: GPT-5.6 Luna
+    preferred_effort: MEDIUM
+  - score_min: 21
+    score_max: 34
+    preferred_model: GPT-5.6 Luna
+    preferred_effort: HIGH
+  - score_min: 35
+    score_max: 47
+    preferred_model: GPT-5.6 Luna
+    preferred_effort: MAX
+  - score_min: 48
+    score_max: 60
+    preferred_model: GPT-5.6 Terra
+    preferred_effort: HIGH
+  - score_min: 61
+    score_max: 73
+    preferred_model: GPT-5.6 Terra
+    preferred_effort: MAX
+  - score_min: 74
+    score_max: 86
+    preferred_model: GPT-5.6 Sol
+    preferred_effort: HIGH
+  - score_min: 87
+    score_max: 96
+    preferred_model: GPT-5.6 Sol
+    preferred_effort: MAX
+  - score_min: 97
+    score_max: 100
+    preferred_model: GPT-6 Astra
+    preferred_effort: HIGH_OR_MAX
+    condition: FRONTIER_OVERRIDE_AND_VERIFIED_AVAILABILITY
+    fallback_if_condition_false: GPT-5.6 Sol / MAX
+
+hard_floors:
+  - trigger: PRODUCTION_DATA_MIGRATION_OR_CUTOVER
+    minimum: GPT-5.6 Sol / HIGH
+  - trigger: HIGH_IMPACT_DESTRUCTIVE_CHANGE
+    minimum: GPT-5.6 Sol / HIGH
+  - trigger: SECURITY_IDENTITY_KEY_OR_PERMISSION_BOUNDARY
+    minimum: GPT-5.6 Sol / HIGH
+  - trigger: INDEPENDENT_G12_G13_RELEASE_CERTIFICATION
+    minimum: GPT-5.6 Sol / HIGH
+  - trigger: REPEATED_LOWER_TIER_FAILURE_WITH_UNRESOLVED_COMPLEXITY
+    minimum: GPT-5.6 Sol / MAX
+  - trigger: MULTI_SYSTEM_NOVEL_FRONTIER_PLUS_SOL_MAX_FAILURE
+    minimum: GPT-6 Astra / HIGH
+    condition: VERIFIED_AVAILABILITY
+
+frontier_override:
+  required_for_astra_recommendation: true
+  trigger_any:
+    - SOL_MAX_ATTEMPT_FAILED_WITH_EVIDENCE
+    - NOVEL_UNFAMILIAR_MULTI_SYSTEM_REASONING_WITH_HIGH_CONSEQUENCE
+    - INDEPENDENT_VALIDATOR_FINDS_UNRESOLVED_SYSTEMIC_DEFECT_AFTER_SOL_LEVEL_REMEDIATION
+  rule: >
+    Astra is not the default for a high numeric score alone. At least one frontier
+    trigger and verified target-surface availability are required before Astra may
+    be recommended. G16 never applies the recommendation itself.
+
+effort_resolution:
+  rule: >
+    Preferred effort labels are ordinal intents. Map MEDIUM/HIGH/MAX to the exact
+    labels actually exposed by the target surface. If MAX is not exposed, recommend
+    the strongest verified effort label and mark the substitution. Do not change the
+    active effort setting.
+  no_fake_labels: true
+
+recommendation_algorithm:
+  steps:
+    - resolve target-surface model/effort inventory using read-only evidence only
+    - score all ten factors from evidence and persist the complete factor_levels_0_4 vector
+    - map score to baseline ladder
+    - apply hard floors
+    - apply frontier override only when justified
+    - recommend the lowest verified model/effort at or above the resulting floor
+    - emit why_not_lower and why_not_higher
+    - emit escalation_triggers
+    - record USER_ADVISORY_ONLY and USER_SELECTION_REQUIRED_FOR_CHANGE
+  tie_breaker: >
+    Prefer the lower-cost/lower-usage verified profile when two profiles are
+    expected to satisfy the same correctness and evidence floor.
+
+output_contract:
+  required_fields:
+    - contract
+    - target_surface
+    - availability_state
+    - model
+    - reasoning_effort
+    - minimum_floor
+    - selection_authority
+    - factor_levels_0_4
+    - score_0_100
+    - complexity_class
+    - confidence
+    - why_not_lower
+    - why_not_higher
+    - escalation_triggers
+  selection_authority_value: USER
+  factor_vector_rule: >
+    Every score must be independently reproducible from the exact ten 0..4 factor
+    levels and the versioned weights in this contract. A score without its factor
+    vector is invalid and must not be presented as audited/reproducible.
+  confidence_values:
+    - LOW
+    - MEDIUM
+    - HIGH
+  confidence_rule: >
+    Confidence reflects evidence quality for the classification, not probability of
+    success. Do not fabricate numeric success probabilities.
+
+below_floor_policy:
+  noncritical: BELOW_RECOMMENDED_FLOOR_RISK
+  critical: BLOCKED_BELOW_CRITICAL_MODEL_FLOOR_PENDING_USER_SELECTION
+  critical_triggers:
+    - PRODUCTION_DATA_MIGRATION_OR_CUTOVER
+    - HIGH_IMPACT_DESTRUCTIVE_CHANGE
+    - SECURITY_IDENTITY_KEY_OR_PERMISSION_BOUNDARY
+    - INDEPENDENT_G12_G13_RELEASE_CERTIFICATION
+  rule: >
+    If the actual host profile is known and is below a critical floor, G16 may block
+    the governed critical action and ask the user/operator to select a sufficient
+    profile. G16 must not change the profile itself.
+
+above_floor_policy:
+  rule: >
+    If the user/operator selects a stronger execution profile, report it as
+    ABOVE_RECOMMENDED_FLOOR. Do not claim material gain unless an escalation trigger
+    supports the stronger profile. G16 never upgrades the profile itself.
+
+human_visibility:
+  required: true
+  renderer: G18
+  minimum_visible_fields:
+    - model
+    - reasoning_effort
+    - minimum_floor
+    - selection_authority
+    - why_not_lower
+    - why_not_higher
+    - availability_state
+  user_action_rule: >
+    When the recommendation differs from the active/known profile, explicitly state
+    that the user/operator must make the selection; do not imply that the system has
+    switched or will switch automatically.
+
+telemetry:
+  owner: G11
+  fields_when_exposed:
+    - recommended_model
+    - recommended_effort
+    - actual_model
+    - actual_effort
+    - score_0_100
+    - below_or_above_floor
+    - routing_enforcement_state
+  routing_enforcement_state_for_g16: USER_ADVISORY_ONLY
+  measurement_rule: "MEASURED | ESTIMATED | UNAVAILABLE; never fabricate actual host state"

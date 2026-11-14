@@ -1,0 +1,181 @@
+schema: INC_GOVERNANCE_SKILL_CANDIDATE_V1
+stable_id: O6-SKL-009
+visible_id: G9
+display_name: G9-Token & Context Efficiency Standardizer
+version: 5.4.2
+prior_version: 5.3.0
+lifecycle: production
+phase: stage30-provider-neutral-resource-finops-control-plane
+builder_framework_ref: INC_SKILLFORGE
+framework_id: INC_SKILLFORGE
+framework_name: SkillForge
+framework_membership: MEMBER
+framework_registry_ref: INC_SKILL_NAMESPACE_REGISTRY
+next_version_backlog_ref: INC_SKILLFORGE_UNIFIED_BACKLOG
+backlog_intake_event_contract_ref: INC_BACKLOG_INTAKE_EVENT_V1
+dpga:
+  build_time: REQUIRED
+  runtime: REQUIRED
+  hard_gates:
+  - DPGA_COMPLETE
+  - GOVERNANCE_PROPAGATION_COMPLETE
+  - RESOURCE_PROFILE_COMPILED
+telemetry:
+  actual_usage_status:
+  - MEASURED
+  - PARTIAL
+  - UNAVAILABLE
+  estimate_status:
+  - AVAILABLE
+  - UNAVAILABLE
+  per_dimension_provenance:
+  - MEASURED
+  - ESTIMATED
+  - UNAVAILABLE
+  measured_may_be_replaced_by_estimate: false
+  dimensions_when_exposed:
+  - model_profile
+  - usage_counters
+  - context
+  - tool_calls
+  - tool_result_size
+  - retries
+  - loops
+  - subagents
+  - tests
+  - evaluators
+  - external_writes
+  - latency
+  - provider_cost
+  - quota_reset_forecast
+  parallel_resource_database: prohibited
+  target_ref: INC_LOG_STORE
+resource_finops_control_plane:
+  contract_ref: INC_G9_RESOURCE_FINOPS_CONTROL_PLANE_V1
+  adapter_profile_ref: INC_RESOURCE_ADAPTER_PROFILE
+  provider_capability_profile_ref: INC_PROVIDER_CAPABILITY_PROFILE
+  provider_registry_ref: INC_PROVIDER_RESOURCE_PROFILE_REGISTRY_V1
+  policy_owner: G9
+  semantic_normalization_owner: G11
+  persistence_adapter_owner: G17
+  alert_decision_owner: G15
+  activation_route_authority: INC_MACHINE_ROUTE_BEFORE_VISUAL_UI_V1
+  parallel_g9_database: prohibited
+  routine_collector_model_calls: 0
+  fast_ui_polling: prohibited
+  paid_change_owner_approval: required
+  paid_change_cost_benefit_disclosure: required
+  live_schema_migration_in_A10: false
+  provider_activation_in_A10: false
+  provider_registry_baseline:
+    profiles: 11
+    implemented: 1
+    gap_blocks_production: 10
+    current_implemented_adapter: INC_G17_ADAPTER_HATCHABLE_V1
+  decision_truth:
+  - MEASURED
+  - VALIDATED_ESTIMATE
+  - UNKNOWN
+  quota_delta_to_token_fact_without_authoritative_conversion: prohibited
+  invented_provider_formula: prohibited
+reforecast:
+  polling_microsteps: prohibited
+  material_change_only: true
+learning:
+  contract_ref: INC_BACKLOG_INTAKE_EVENT_V1
+  system_discovered_resource_improvement: allowed
+  self_modify_production: prohibited
+  recursive_g0_runtime_load: prohibited
+external_source_gate:
+  source_ref: G9_EXTERNAL_CHANGE_REQUEST
+  status: BLOCKED_SOURCE_REQUIRED
+  weekly_useful_surplus_reserve_specific_delta_implemented: false
+critical_control_assurance:
+  contract_ref: INC_CRITICAL_CONTROL_ASSURANCE_V1
+  runtime_exit_gate: CRITICAL_CONTROLS_VERIFIED
+  controls:
+  - id: G9-CC-01
+    rule: Deterministic and metadata checks precede heavier work where sufficient.
+    mandatory: true
+    evidence_required: false
+  - id: G9-CC-02
+    rule: Resource Class remains independent from artifact complexity and security.
+    mandatory: true
+    evidence_required: true
+  - id: G9-CC-03
+    rule: Required quality security approval release testing and evidence are never
+      optimized away.
+    mandatory: true
+    evidence_required: false
+  - id: G9-CC-04
+    rule: Unavailable actual resource telemetry is never fabricated or replaced by
+      estimates.
+    mandatory: true
+    evidence_required: true
+  - id: G9-CC-05
+    rule: Material future resource improvements may emit governed SYSTEM_DISCOVERED
+      intake but never self-modify Production or recursively load G0.
+    mandatory: true
+    evidence_required: true
+  - id: G9-CC-06
+    rule: Source-specific reserve behavior is not claimed while G9_EXTERNAL_CHANGE_REQUEST
+      is blocked.
+    mandatory: true
+    evidence_required: true
+  - id: G9-CC-07
+    rule: Material data/query work applies INC_G9_G17_DATA_RESOURCE_OPTIMIZATION_V1
+      before token micro-optimization.
+    mandatory: true
+    evidence_required: true
+  - id: G9-CC-08
+    rule: Production provider/service resolves a G17-owned resource/capability profile
+      and avoids direct consumer binding.
+    mandatory: true
+    evidence_required: true
+  - id: G9-CC-09
+    rule: Routine collectors use zero model calls and broad five-minute browser/UI
+      polling is prohibited.
+    mandatory: true
+    evidence_required: true
+  - id: G9-CC-10
+    rule: Provider resource truth is MEASURED VALIDATED_ESTIMATE or UNKNOWN and quota
+      deltas are not fabricated as tokens.
+    mandatory: true
+    evidence_required: true
+  - id: G9-CC-11
+    rule: Paid provider changes require owner approval cost-benefit disclosure and
+      G16 activation routing.
+    mandatory: true
+    evidence_required: true
+  - id: G9-CC-12
+    rule: G11 normalizes G17 persists G15 delivers alerts and no parallel G9 database
+      exists.
+    mandatory: true
+    evidence_required: true
+compiled_runtime_regression:
+  contract_ref: INC_G9_COMPILED_RUNTIME_REGRESSION_V1
+  normal_runtime_profile: MINIMUM_SUFFICIENT_COMPILED
+  g19_activation: PACKAGING_DISTRIBUTION_BUILD_INTENT_ONLY
+  g20_activation: SETUP_INSTALL_UPGRADE_HEALTH_REPAIR_INTENT_ONLY
+  recursive_governance_toolchain_load: prohibited
+  equivalent_workload_comparison: required
+  mandatory_control_floor:
+  - security
+  - approval
+  - logging
+  - continuity
+  - failure
+  - evidence
+  measured_delta_preferred: true
+  proxy_delta_label: ESTIMATED
+release_acceptance_policy:
+  contract_ref: INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1
+  profile: AUTONOMOUS_EVIDENCE_BASED
+  precedence: SUPERSEDES_RELEASE_ONLY_EXTERNAL_EXECUTOR_GATES
+  available_tests: REQUIRED
+  failed_executed_tests: BLOCK_RELEASE
+  external_assurance: OPTIONAL_NONBLOCKING
+  real_publication_readback: REQUIRED
+  runtime_security_authorization: UNCHANGED
+publication_privacy_contract: INC_PUBLICIZATION_PRIVACY_GATE_V2
+public_release_requires_new_owner_consent: true

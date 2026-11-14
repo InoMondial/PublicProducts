@@ -1,0 +1,36 @@
+schema_version: "1.0"
+contract_id: INC_G17_INSTALLATION_STATE_PERSISTENCE_V1
+owner_skill: G17
+purpose: Provider-neutral durable bootstrap/setup state without requiring a pre-existing database.
+bootstrap:
+  existing_database_required: false
+  persistence_must_be_creatable_or_authorizable_before_dependency_setup: true
+state_fields:
+  required:
+    - installation_id
+    - environment_ref
+    - account_or_tenant_ref
+    - edition_id
+    - package_sha256
+    - setup_schema_version
+    - logical_resource_bindings
+    - auth_reference_state
+    - migration_checkpoint
+  raw_secret_material: prohibited
+  stable_secret_or_auth_refs_only: true
+concurrency:
+  cas_when_provider_supports_it: required
+  fallback_when_cas_unavailable: SINGLE_WRITER
+migration:
+  preserve_installation_id: true
+  postwrite_readback: required
+  reconciliation: required
+  rollback: required
+isolation:
+  customer_installations: DENY_CROSS_INSTALLATION_BY_DEFAULT
+failure_states:
+  - BOOTSTRAP_STATE_UNAVAILABLE
+  - INSTALLATION_STATE_STALE_WRITE
+  - RAW_SECRET_IN_INSTALLATION_STATE
+  - INSTALLATION_ISOLATION_VIOLATION
+  - INSTALLATION_STATE_MIGRATION_UNVERIFIED

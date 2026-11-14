@@ -1,0 +1,49 @@
+{
+  "decision_request": {
+    "title": "Approve simulated CAD 75 software purchase?",
+    "body": "Non-production example only.",
+    "message_type": "DECISION_REQUEST",
+    "notification_class": "g15.example.purchase",
+    "decision_category": "PURCHASE",
+    "question_en": "Approve simulated CAD 75 software purchase?",
+    "question_fa": "آیا خرید آزمایشی نرم‌افزار به مبلغ ۷۵ دلار کانادا تأیید می‌شود؟",
+    "decision_options": [
+      {"code": "1", "label_en": "Approve", "label_fa": "تأیید"},
+      {"code": "2", "label_en": "Reject", "label_fa": "رد"}
+    ],
+    "amount": 75,
+    "currency": "CAD",
+    "supporting_details": {
+      "item": "Example software license",
+      "quantity": "1",
+      "unit_price": "CAD 75",
+      "total": "CAD 75",
+      "platform": "Example vendor",
+      "analysis": "Simulation only; verify vendor, scope, renewal and cancellation terms before a real purchase."
+    },
+    "source_links": [
+      {"label": "Example source", "url": "https://example.com/product"}
+    ],
+    "test_mode": true
+  },
+  "report": {
+    "title": "G15 v3 package validation completed",
+    "body": "Validation completed for the example package.",
+    "message_type": "REPORT",
+    "language": "en",
+    "outcome": "All example checks passed.",
+    "report_items": [
+      {
+        "item": "Package",
+        "summary": "Validated",
+        "impact": "Ready for review",
+        "next_step": "Open the exact evidence object",
+        "open": "https://example.com/evidence"
+      }
+    ],
+    "source_links": [
+      {"label": "Exact evidence", "url": "https://example.com/evidence"}
+    ],
+    "test_mode": true
+  }
+}

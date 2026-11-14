@@ -1,0 +1,71 @@
+artifact:
+  canonical_name: G15-Notification_Human_Decision_Gateway
+  technical_name: g15-notification-human-decision-gateway
+  stable_id: G15-SKL-001
+  version: 4.3.1
+  lifecycle: candidate
+  artifact_kind: SKILL
+  functional_role: ROUTER
+  complexity_profile: FULL
+  security_strictness: S4
+  test_profile: T4
+  owner: INOMondial Inc.
+  primary_transport: Microsoft Teams
+  canonical_reporting_standard: references/G15-teams-reporting-standard.md
+  reply_runtime_architecture: references/G15-reply-monitoring-runtime-architecture-decision.md
+  current_visual_surface: TEAMS_NATIVE_THREAD_POST
+  current_reply_discovery: CENTRAL_SCHEDULER_DISPATCHER_TIMER
+  dedicated_g15_timer: prohibited
+  g15_specific_power_automate_timer_selected: false
+  preferred_future_realtime: MICROSOFT_GRAPH_CHANGE_NOTIFICATIONS_PLUS_LIGHTWEIGHT_RECEIVER
+  single_writer_required: true
+  producer_contract: INC_NOTIFICATION_EVENT_V1
+  owner_reply_closed_loop_required: true
+  outbound_message_ledger_required: true
+  reply_message_id_idempotency_required: true
+  source_validation:
+    python_compile: PASS
+    source_validator: PASS
+    historical_compatible_regression: PASS_87_OF_87
+    mandatory_route_style_regression: PASS_15_OF_15
+    historical_v43_compat_entrypoint: PASS_15_OF_15
+    single_writer_guard: PASS
+    independent_single_writer_workflow: PASS
+  source_validation_evidence:
+    validation_run: PUBLIC_REDACTED_RUN
+    independent_single_writer_run: PUBLIC_REDACTED_RUN
+    validated_commit: PUBLIC_EXPORT_PRIVATE_PROVENANCE_REDACTED
+  live_teams_acceptance:
+    status: PENDING_V431_ACCEPTANCE
+    test_channel_ref: INC_G15_TEST_CHANNEL
+    failure_class_fixture: CHATGPT_USAGE_FLAT_REPORT_AND_ROUTE_BYPASS
+  version_authority:
+    previous_accepted_tag: artifact/G15-SKL-001/v4.3.0
+    previous_accepted_bytes_immutable: true
+    correction_reason: mandatory routing/rendering rules existed declaratively but were not fully enforced as executable admission gates
+    semver_decision: PATCH
+    corrected_version: 4.3.1
+  v431_mandatory_enforcement:
+    default_priority_route: REQUIRED
+    producer_route_override: PROHIBITED
+    user_explicit_route_override: AUTHORIZED_ONLY
+    override_authorization: OUT_OF_BAND_RUNTIME_USER_ATTRIBUTION
+    test_route: ACTUAL_TRANSPORT_TESTS_ONLY
+    canonical_renderer_id: G15_TEAMS_NATIVE_V1
+    transport_content_field: html_content
+    flat_plain_fallback: PROHIBITED
+    markdown_fallback: PROHIBITED
+    ad_hoc_template: PROHIBITED
+    actual_route_readback: REQUIRED
+    route_or_render_failure_blocks_send: true
+    route_or_render_failure_blocks_terminal_success: true
+  package_authority:
+    mode: DEPLOY_RECEIPT_AND_BYTE_IDENTITY
+    package_yaml: deploy/PACKAGE.yaml
+    sha256_record: deploy/SHA256SUMS.txt
+    validation_receipt: deploy/G15-RELEASE-VALIDATION.md
+    clean_extract_required: true
+    status: REBUILD_REQUIRED_AFTER_FINAL_SOURCE_FREEZE
+  release_status: pending_immutable_v4.3.1_release
+  preservation_status: pending_g1_g01_v4.3.1_closure
+  chatgpt_install_status: pending

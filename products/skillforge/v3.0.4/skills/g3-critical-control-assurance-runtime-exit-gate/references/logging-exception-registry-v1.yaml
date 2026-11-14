@@ -1,0 +1,31 @@
+schema_version: '1.0'
+registry_id: INC_LOGGING_ASSURANCE_EXCEPTION_REGISTRY_V1
+owner_skill: G3
+rules:
+  implicit_exception: prohibited
+  missing_capability_implies_exception: false
+  exception_scope_must_be_explicit: true
+  exception_may_bypass_security_or_failure_logging: false
+  exception_may_widen_to_other_skills: false
+exceptions:
+- exception_id: G16-NO-RUNTIME-LOGGING-001
+  subject_ref: G16_CONVERSATION_CONTINUITY_HANDOFF
+  status: CANDIDATE_BOUNDED_EXCEPTION
+  applies_only_to:
+    lifecycle: ORDINARY_RUNTIME
+    operations: [PERSIST_CURRENT, RESUME_EXPLICIT]
+  does_not_apply_to:
+  - BUILD
+  - TEST
+  - VALIDATION
+  - EVALUATION
+  - RELEASE
+  - MIGRATION
+  - SECURITY_INCIDENT
+  - MATERIAL_FAILURE
+  - EXPLICIT_AUDIT
+  behavior:
+    logging_assurance_state: EXCEPTION_NA_WITH_REASON
+    receipt_required_for_exception_branch: false
+    reason_ref: G16_NO_RUNTIME_G11_DESIGN
+  promotion_dependency: final_G16_and_G3_independent_acceptance

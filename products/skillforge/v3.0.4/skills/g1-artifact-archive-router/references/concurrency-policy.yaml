@@ -1,0 +1,8 @@
+schema_version: '1.0'
+policy_id: G1_LINEAGE_CONCURRENCY_V1
+lock_scope: canonical_artifact_lineage
+atomic_provider_required: true
+lock_fields: [lineage, owner, token, acquired_at, expires_at]
+stale_recovery_requires_compare_and_set: true
+release_requires_matching_token: true
+failure: LINEAGE_LOCK_CONFLICT

@@ -1,0 +1,40 @@
+contract_id: INC_SKILLFORGE_SKILL_GENERATION_LINEAGE_V1
+owner: G0
+framework_ref: INC_SKILLFORGE
+status: STAGE30_CANDIDATE_HARD_GATE
+scope: SkillForge-built components that can generate Skills
+triggers:
+  - CREATE_SKILL
+  - MATERIAL_REBUILD_SKILL
+  - FORK_SKILL
+  - SPLIT_SKILL
+  - MERGE_SKILLS
+  - GENERATE_SKILL_FROM_TEMPLATE
+  - CONVERT_ARTIFACT_TO_SKILL
+  - IMPORT_EXTERNAL_SKILL_AS_GOVERNED_OUTPUT
+hard_rules:
+  direct_non_g0_skill_generation: PROHIBITED
+  generated_skill_builder: G0
+  generated_skill_builder_stable_ref: O6-SKL-003
+  existing_skill_interaction_without_generation: ALLOWED
+  applies_to_result_membership:
+    - MEMBER
+    - CANDIDATE_MEMBER
+    - EXTERNAL
+  unresolved_g0_or_skillforge_behavior: BLOCK
+  failure_code: BLOCKED_NON_SKILLFORGE_SKILL_GENERATION
+runtime_profile:
+  compile_for_skill_generation_capable_children: REQUIRED
+  recursive_full_g0_load_when_no_generation_intent: PROHIBITED
+  invoke_g0_only_when_generation_triggered: REQUIRED
+  builder_provenance_required: INC_SKILLFORGE
+  framework_membership_must_remain_truthful: true
+release_tests:
+  direct_child_generation_is_blocked: REQUIRED
+  routed_g0_generation_is_allowed: REQUIRED
+  existing_skill_interaction_does_not_trigger: REQUIRED
+  external_result_built_by_g0_is_allowed: REQUIRED
+  g0_unavailable_fails_closed: REQUIRED
+independent_validation:
+  G12: REQUIRED
+  G13: REQUIRED

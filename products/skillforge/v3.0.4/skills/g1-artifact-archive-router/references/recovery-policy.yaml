@@ -1,0 +1,6 @@
+schema_version: '1.0'
+policy_id: G1_RECOVERY_DRILL_V1
+required_bundle_members: [RECOVERY.md, metadata/MANIFEST.sha256, metadata/github-provenance.yaml]
+state_sequence: [BACKUP_CREATED, BACKUP_HASH_VERIFIED, BACKUP_RESTORE_TESTED, RESTORED_PAYLOAD_HASH_VERIFIED, RECOVERY_PROVEN]
+clean_extract_required: true
+all_manifest_hashes_required: true

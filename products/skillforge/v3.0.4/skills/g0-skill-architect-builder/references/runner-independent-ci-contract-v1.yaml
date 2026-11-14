@@ -1,0 +1,27 @@
+contract: INC_RUNNER_INDEPENDENT_CI_V1
+version: 1.0
+required_attestation_fields: [source_tree_sha256, pipeline_version, executor_surface, steps, result, output_artifact_digest]
+executor_policy:
+  github_hosted_runner_required: false
+  local_codex: FIRST_CLASS
+steps: [PARSE_JSON_YAML, SKILL_ENTRYPOINT_CHECK, VERSION_CONSISTENCY, TARGETED_REGRESSION_TESTS, EXHAUSTIVE_PAIRWISE_GATE, PREVIOUS_VERSION_CARRY_FORWARD_GATE, PACKAGE_VALIDATION, PACKAGE_INTEGRITY, ATTESTATION]
+pairwise_gate:
+  contract_ref: INC_SKILLFORGE_EXHAUSTIVE_PAIRWISE_GATE_V1
+  members_input: required
+  frozen_matrix_input: required
+  release_ready_validation: required
+  expected_member_count: 19
+  expected_directed_relationship_count: 342
+  expected_unique_unordered_pair_count: 171
+  missing_or_blocked_matrix: CI_FAIL
+
+carry_forward_gate:
+  contract_ref: INC_SKILLFORGE_CARRY_FORWARD_MANIFEST_V1
+  previous_snapshot_input: required
+  current_snapshot_input: required
+  manifest_input: required
+  release_ready_validation: required
+  unresolved_count_required: 0
+  g12_same_digest_required: true
+  g13_same_digest_required: true
+  missing_or_unresolved_manifest: CI_FAIL

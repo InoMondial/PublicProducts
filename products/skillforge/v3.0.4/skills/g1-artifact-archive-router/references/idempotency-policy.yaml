@@ -1,0 +1,7 @@
+schema_version: '1.0'
+policy_id: G1_IDEMPOTENCY_V1
+key_inputs: [project_id, operation, canonical_route, sorted_artifact_path_sha256]
+completed_key_behavior: RETURN_PRIOR_VERIFIED_RESULT
+in_progress_other_owner: IDEMPOTENCY_IN_PROGRESS_CONFLICT
+retry_failed_attempt: AUDITABLE_RETRY_ALLOWED
+no_duplicate_pr_release_backup_notification: true

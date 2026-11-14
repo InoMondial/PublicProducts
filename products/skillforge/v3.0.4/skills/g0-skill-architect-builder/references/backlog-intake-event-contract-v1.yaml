@@ -1,0 +1,43 @@
+schema_version: '1.1'
+contract_id: INC_BACKLOG_INTAKE_EVENT_V1
+owner_skill: G0
+metadata_compiler: G7
+logging_observability_owner: G11
+universal_skillforge_extension_ref: INC_SKILLFORGE_FEEDBACK_INTAKE_V1
+purpose: bounded runtime/build-time proposal transport for future-version learning without recursive G0 load or autonomous production mutation
+required_fields:
+- intake_id
+- backlog_ref
+- backlog_owner_ref
+- origin
+- discovered_phase
+- record_type
+- title
+- observed_condition
+- proposed_change
+- affected_skills
+- impact
+- urgency
+- suggested_priority
+- source_refs
+- evidence_refs
+- confidence
+- occurrence_count
+allowed_authority_class: [OWNER_MANDATE, USER_REQUEST, SYSTEM_EVIDENCE]
+allowed_discovered_phase: [BUILD_TIME, RUNTIME, TEST, RELEASE, OPERATIONS, OTHER]
+allowed_record_type: [INCIDENT, PROBLEM, CHANGE_REQUEST, IMPROVEMENT]
+rules:
+  system_discovered_self_modify_production: prohibited
+  ordinary_runtime_recursive_g0_load: prohibited
+  direct_canonical_backlog_write_by_child: prohibited_unless_explicitly_authorized_adapter
+  no_direct_write_behavior: RETURN_OR_PERSIST_TRUTHFUL_BACKLOG_INTAKE
+  no_direct_write_receipt_status: PENDING_CANONICAL_INGESTION
+  canonical_registration_claim_requires_readback: true
+  origin_priority_override: prohibited
+  owner_priority_override_requires_reason: true
+  same_priority_authority_precedence: [OWNER_MANDATE, USER_REQUEST, SYSTEM_EVIDENCE]
+  system_to_owner_duplicate_behavior: AGGREGATE_PRESERVE_SYSTEM_EVIDENCE_PROMOTE_OWNER_AUTHORITY
+  dedupe_owner: backlog_owner
+  duplicate_occurrence_behavior: CORRELATE_AND_AGGREGATE
+  current_critical_failure_handling_not_replaced_by_backlog: true
+  g11_event_logging_when_applicable: required

@@ -1,0 +1,19 @@
+schema_version: '2.0'
+contract_id: INC_SKILLFORGE_PUBLIC_RELEASE_ACCEPTANCE_V1
+implementation_contract: INC_PUBLICIZATION_PRIVACY_GATE_V2
+owner_skill: G12
+status: ACTIVE
+pre_release_required:
+- complete_byte_inventory
+- recursive_archive_review
+- semantic_file_allowlist
+- exact_field_disclosure_consent
+- actual_target_visibility
+- all_remote_surfaces_reviewed
+hard_blocks:
+- ANY_PRIVATE_FINDING
+- ANY_UNREADABLE_OR_UNKNOWN_SURFACE
+- MISSING_OR_STALE_CONSENT
+- ACTUAL_TARGET_MISMATCH
+external_reviewer_or_runner_required: false
+private_release_is_not_public_permission: true

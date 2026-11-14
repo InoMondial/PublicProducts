@@ -1,0 +1,16 @@
+schema_version: '1.0'
+profile_id: INOMONDIAL_PERSONAL_RESEARCH_SOURCE_AVAILABLE_V1
+rights_holders:
+- Alireza Ansari
+- INOMondial Inc.
+license_file: LICENSE
+license_type: CUSTOM_SOURCE_AVAILABLE_NOT_OSI_OPEN_SOURCE
+free_uses:
+- PERSONAL_NONCOMMERCIAL
+- NONCOMMERCIAL_EDUCATION_AND_RESEARCH
+commercial_use: REQUIRES_PRIOR_EXPRESS_WRITTEN_PERMISSION_FROM_INOMONDIAL_INC
+commercial_contact: INOMondial Inc. through verified official channels
+source_of_truth: PUBLIC_DERIVATIVE_RELEASE_SOURCE
+third_party_rights: PRESERVED_NO_BLANKET_OWNERSHIP_CLAIM
+public_release_scope: PUBLIC_SOURCE_AVAILABLE_3_0_4_PUBLIC_1
+public_publication_authorized: true

@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "distribution": "REFERENCE_ONLY_NO_PRIVATE_VALUES",
+  "state_ref": "PRIVATE_STATE_B9069BBA1447",
+  "state": "UNBOUND",
+  "load_policy": "EXPLICIT_EXTERNAL_PROFILE_AND_HOST_AUTHORIZATION",
+  "public_export": "PROHIBITED_FOR_RESOLVED_PRIVATE_STATE"
+}

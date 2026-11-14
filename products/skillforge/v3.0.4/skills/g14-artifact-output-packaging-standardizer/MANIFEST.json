@@ -1,0 +1,42 @@
+{
+  "artifact": "G14-Artifact Output & Packaging Standardizer",
+  "date": "2026-11-13",
+  "effective_release_gate": {
+    "entrypoint": "../g0-skill-architect-builder/scripts/release_closure_gate.py",
+    "historical_certificates": "PRESERVED_NOT_CURRENT_BLOCKERS",
+    "native_activation": "SEPARATE_OPTIONAL_ASSURANCE",
+    "profile": "AUTONOMOUS_EVIDENCE_BASED"
+  },
+  "fresh_review": {
+    "independent_third_party": false,
+    "scope": "PRIVATE_3_0_3_PRIVACY_HARDENING"
+  },
+  "g1_document_class_storage_contract_ref": "INC_G1_DOCUMENT_CLASS_STORAGE_V1",
+  "historical_metadata_bundled": false,
+  "independent_certification_required_for_release": false,
+  "lifecycle": "production",
+  "phase": "PRIVATE_CORE_RELEASE",
+  "prior_version": "3.3.1-rc.1",
+  "privacy_responsibility": "Inspect final archives recursively, including names/comments/extra metadata.",
+  "private_history_ref": "PRIVATE_METADATA_D01C7A66ED05",
+  "private_state_in_runtime": "EXTERNAL_REFERENCES_ONLY",
+  "public_distribution": {
+    "acceptance_contract_ref": "INC_SKILLFORGE_PUBLIC_RELEASE_ACCEPTANCE_V1",
+    "export_policy_ref": "INC_SKILLFORGE_PUBLIC_EXPORT_POLICY_V1",
+    "legal_surfaces_preserved": "REQUIRED",
+    "private_history_or_overlay": "HARD_BLOCK",
+    "rights_contract_ref": "INC_SKILLFORGE_PUBLIC_LICENSE_PROVENANCE_V1"
+  },
+  "publication_mode": "PRIVATE_ONLY_UNTIL_NEW_EXACT_PUBLIC_CONSENT",
+  "publicization_contract": "INC_PUBLICIZATION_PRIVACY_GATE_V2",
+  "release_policy_profile": "AUTONOMOUS_EVIDENCE_BASED",
+  "release_policy_ref": "INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1",
+  "release_status": "RELEASE",
+  "retained_generic_contracts": [],
+  "skill_install_zip_max_exclusive_bytes": 25000000,
+  "skill_install_zip_size_gate": "ENFORCED",
+  "stable_id": "O6-SKL-014",
+  "tests": 18,
+  "version": "3.3.2",
+  "visible_id": "G14"
+}

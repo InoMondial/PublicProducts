@@ -1,0 +1,46 @@
+schema: INC_PROVIDER_CAPABILITY_PROFILE
+schema_version: '1.0'
+owner_location: G17_PROVIDER_PROFILE_REGISTRY
+control_plane_ref: INC_G9_RESOURCE_FINOPS_CONTROL_PLANE_V1
+minimum_fields:
+  - provider_ref
+  - service_refs
+  - adapter_ref
+  - adapter_version
+  - adapter_file_ref
+  - capability_profile_version
+  - account_plan_license_profile
+  - connection_methods
+  - authentication_modes_without_secret_values
+  - authoritative_source_refs_and_checked_at
+  - capability_inventory
+  - availability_and_incremental_cost_class
+  - activation_method
+  - activation_automation_status
+  - required_permissions_roles
+  - owner_skill
+  - protection_layer_assignment
+  - recommendation_priority
+  - owner_approval_required
+  - activation_status
+  - verification_method
+  - rollback_disable_method
+  - expiry_review_date
+capability_domains:
+  - COST_AND_BUDGET
+  - QUOTA_AND_CAPACITY
+  - OBSERVABILITY_AND_LOGGING
+  - ALERTING_AND_INCIDENT
+  - SCHEDULING_AND_AUTOMATION
+  - DATA_PROTECTION
+  - SECURITY_AND_ACCESS
+  - RELIABILITY_AND_RESILIENCE
+  - LIFECYCLE_AND_GOVERNANCE
+  - SUPPORT_AND_SERVICE
+availability: [INCLUDED_FREE, INCLUDED_LIMITED, PAID_ADDON, SEPARATE_PLAN, UNKNOWN, NOT_AVAILABLE]
+activation_status: [NOT_REVIEWED, RECOMMENDED, APPROVED, ACTIVE, VERIFIED, REJECTED, NOT_APPLICABLE]
+protection_layer: [L1, L2, BOTH, NONE]
+paid_activation:
+  explicit_owner_approval: REQUIRED
+  cost_benefit_disclosure: REQUIRED
+activation_route_authority: INC_MACHINE_ROUTE_BEFORE_VISUAL_UI_V1

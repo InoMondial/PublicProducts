@@ -1,0 +1,19 @@
+schema_version: '1.0'
+contract_id: INC_G11_MISSING_LOG_COVERAGE_AUDITOR_V1
+owner_skill: G11
+inputs:
+  authoritative_execution_refs: required_when_measurable
+  observed_gateway_receipts: required
+outputs:
+  expected_count: integer_or_unavailable
+  receipt_count: integer
+  missing_execution_refs: list
+  coverage_status: MEASURED | PARTIAL | NOT_MEASURABLE
+  coverage_pct: number_or_omitted
+rules:
+  fabricate_denominator: prohibited
+  denominator_unavailable: NOT_MEASURABLE
+  known_missing_mandatory_log: GOVERNANCE_DEFECT
+  alert_per_missing_row: prohibited
+  aggregate_diagnostic_summary: preferred
+  false_100_percent_without_authoritative_denominator: prohibited

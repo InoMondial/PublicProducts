@@ -1,0 +1,7 @@
+interface:
+  display_name: G10-Dependency & Stable Reference Standardizer
+  short_description: SkillForge dependency, source-registry and stable-reference governance
+    for managed artifacts, separating Build-Time, Runtime, reference-only and evidence-only
+    e
+policy:
+  allow_implicit_invocation: true

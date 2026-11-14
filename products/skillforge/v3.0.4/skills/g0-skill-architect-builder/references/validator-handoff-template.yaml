@@ -1,0 +1,29 @@
+schema_ref: INC_VALIDATOR_HANDOFF_V1
+candidate_ref: <candidate-ref>
+builder_ref: O6-SKL-003@3.0.0
+required:
+  authoritative_source_decision: <ref>
+  requirements_traceability: <ref>
+  build_assurance: <ref>
+  runtime_propagation_matrix: <ref>
+  bt_test_results: <ref>
+  rt_test_results: <ref>
+  security_result: <ref>
+  dependency_result: <ref>
+  package_manifest: <ref>
+  git_candidate_ref: <ref-or-pending>
+  open_findings: <ref>
+validator_rules:
+  independent_from_builder: true
+  builder_self_approval: prohibited
+  hard_gates:
+  - SECURITY_S4
+  - DPGA_COMPLETE
+  - GOVERNANCE_PROPAGATION_COMPLETE
+  - MANDATORY_TESTS_PASS
+  allowed_verdicts:
+  - PASS_CANDIDATE
+  - CONDITIONAL_REWORK
+  - FAILED
+  - BLOCKED
+  - NOT_VERIFIED_EXTERNAL

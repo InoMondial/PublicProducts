@@ -1,0 +1,41 @@
+schema_version: '1.0'
+contract_id: INC_SKILLFORGE_PUBLIC_LICENSE_PROVENANCE_V1
+owner_skill: G5
+status: CANDIDATE_V3_STAGE8
+legal_review_boundary: NOT_LEGAL_ADVICE_RELEASE_TIME_COUNSEL_REVIEW_WHEN_REQUIRED
+rights_profiles:
+  CORPORATE_PROPRIETARY:
+    default_for_skillforge_core: true
+    rule: ALL_RIGHTS_RESERVED_UNLESS_EXPLICITLY_LICENSED
+  COMMUNITY_PERSONAL_SOURCE_AVAILABLE:
+    id: INOMONDIAL_COMMUNITY_PERSONAL_SOURCE_AVAILABLE_V1
+    osi_open_source: false
+    permitted_use: PERSONAL_NONCOMMERCIAL_LIFE_PRODUCTIVITY_ONLY
+    commercial_or_organizational_use: WRITTEN_COMMERCIAL_LICENSE_REQUIRED
+  OSI_OPEN_SOURCE:
+    default_for_skillforge_core: false
+    allowed_only_when: EXPLICIT_COMPONENT_RIGHTS_AND_LICENSE_VERIFIED
+ownership:
+  blanket_company_ownership: prohibited
+  corporate_claim_requires: EMPLOYMENT_ASSIGNMENT_OR_OTHER_VALID_BASIS
+  external_user_customer_public_domain_content: PRESERVE_ACTUAL_RIGHTS_AND_PROVENANCE
+moral_rights:
+  canada_rule: NOT_ASSIGNABLE_MAY_BE_WAIVED_IN_WHOLE_OR_PART
+  assignment_alone_is_waiver: false
+  written_waiver_required_when_relied_upon: true
+contributions:
+  dco_1_1: TRUE_OPEN_SOURCE_INBOUND_EQUALS_OUTBOUND_ONLY
+  cla_or_assignment_relicensing_grant: REQUIRED_WHEN_COMMERCIAL_SOURCE_AVAILABLE_MODEL_NEEDS_RELICENSING
+trademark:
+  claim_registration_without_verified_approval: prohibited
+  use_tm_or_registered_symbol_without_verified_approval: prohibited
+required_distribution_surfaces:
+  - LICENSE
+  - NOTICE
+  - THIRD_PARTY_NOTICES
+  - TRADEMARKS
+  - CONTRIBUTING.md
+  - SECURITY.md
+  - RIGHTS_PROFILE.yaml
+source_refs:
+  - https://laws-lois.justice.gc.ca/eng/acts/C-42/page-3.html

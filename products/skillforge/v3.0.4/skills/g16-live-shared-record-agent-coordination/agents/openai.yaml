@@ -1,0 +1,7 @@
+interface:
+  display_name: G16-Live Shared Record Agent Coordination
+  short_description: Govern durable execution and progress reporting for executable
+    Handoffs and inter-agent work orders, including one executor; coordinate multiple
+    Chat, Work, Cod
+policy:
+  allow_implicit_invocation: true

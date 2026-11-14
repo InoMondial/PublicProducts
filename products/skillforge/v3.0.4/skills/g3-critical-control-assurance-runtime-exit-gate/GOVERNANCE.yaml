@@ -1,0 +1,88 @@
+schema: INC_GOVERNANCE_SKILL_CANDIDATE_V1
+stable_id: G03-SKL-001
+visible_id: G3
+display_name: G3-Critical Control Assurance & Runtime Exit Gate
+version: 1.1.2
+prior_version: 1.0.0
+lifecycle: production
+project: skill-ecosystem-vnext
+phase: next-release-stage4
+functional_role: QUALITY
+complexity_profile: LITE
+strictness: S4
+builder_framework_ref: INC_SKILLFORGE
+framework_id: INC_SKILLFORGE
+framework_name: SkillForge
+framework_membership: MEMBER
+framework_registry_ref: INC_SKILL_NAMESPACE_REGISTRY
+next_version_backlog_ref: INC_SKILLFORGE_UNIFIED_BACKLOG
+contracts:
+  global_assurance: INC_CRITICAL_CONTROL_ASSURANCE_V2
+  logging_gateway: INC_G11_RUNTIME_GATEWAY_V1
+  logging_exception_registry: INC_LOGGING_ASSURANCE_EXCEPTION_REGISTRY_V1
+providers:
+  archive: G1
+  security: G8
+  optimization: G9
+  logging: G11
+  notification: G15
+validators:
+- G12
+- G13
+hard_gates:
+- GLOBAL_CRITICAL_CONTROLS_COMPILED
+- GLOBAL_CRITICAL_CONTROLS_VERIFIED
+runtime:
+  scope: ALL_GOVERNED_ACTIVITIES
+  implicit_inheritance: true
+  compact_kernel_only: true
+  recursive_g3_invocation: prohibited
+  full_provider_skill_load_default: prohibited
+  provider_detail_load: JIT_ON_MATERIAL_BRANCH_FAILURE_OR_EVIDENCE_NEED
+logging:
+  target: INC_LOG_STORE
+  generic_metadata_is_receipt_evidence: false
+  receipt_binding_required:
+  - activity_id
+  - run_id
+  - envelope_id
+  enqueue_acceptance_minimum_when_policy_allows: G11_ACCEPTED_FOR_PERSISTENCE
+  durable_verification_state: G11_PERSISTED_VERIFIED
+  missing_or_degraded_receipt_terminal_success: prohibited
+  exception_registry_ref: INC_LOGGING_ASSURANCE_EXCEPTION_REGISTRY_V1
+  implicit_exception: prohibited
+  g16_bounded_exception_ref: G16-NO-RUNTIME-LOGGING-001
+optimization:
+  check_every_activity: true
+  deterministic_first: true
+  minimum_sufficient_resources: true
+  mandatory_controls_not_optimizable_away: true
+notification:
+  applicability_classification_required: true
+  send_every_activity: false
+  native_renderer_required_when_sent: true
+  markdown_plaintext_fallback: prohibited
+archive:
+  applicability_classification_required: true
+  provider: G1
+  remote_artifact_link_evidence_when_applicable: required
+critical_control_assurance:
+  contract_ref: INC_CRITICAL_CONTROL_ASSURANCE_V2
+  global_controls:
+  - G3-GC-01
+  - G3-GC-02
+  - G3-GC-03
+  - G3-GC-04
+  - G3-GC-05
+  - G3-GC-06
+release_acceptance_policy:
+  contract_ref: INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1
+  profile: AUTONOMOUS_EVIDENCE_BASED
+  precedence: SUPERSEDES_RELEASE_ONLY_EXTERNAL_EXECUTOR_GATES
+  available_tests: REQUIRED
+  failed_executed_tests: BLOCK_RELEASE
+  external_assurance: OPTIONAL_NONBLOCKING
+  real_publication_readback: REQUIRED
+  runtime_security_authorization: UNCHANGED
+publication_privacy_contract: INC_PUBLICIZATION_PRIVACY_GATE_V2
+public_release_requires_new_owner_consent: true

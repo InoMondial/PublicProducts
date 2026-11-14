@@ -1,0 +1,25 @@
+schema: INC_G6_INSTALLATION_CONFIGURATION_LIFECYCLE_V1
+owner: G6
+status: candidate
+backlog_ref: SF-G6-002
+compatibility_tuple:
+  required: [source_version, package_version, setup_schema_version, profile_schema_version, edition_id]
+setup_impact:
+  enum: [NONE, MINIMAL, REQUIRED]
+  NONE: no setup interaction; preserve compatible bindings
+  MINIMAL: request only newly required configuration
+  REQUIRED: guided migration with rollback target and compatibility readback
+upgrade_rules:
+  repeated_setup_on_noop: prohibited
+  preserve_compatible_bindings: required
+  incompatible_transition: fail_closed_until_guided_migration
+rollback:
+  package_profile_schema_mutual_compatibility: required
+  stale_secret_exposure: prohibited
+release_channels:
+  one_canonical_core_lineage: required
+  community_lag: allowed_by_governed_release_policy
+  approved_critical_security_remediation_bypass_lag: required
+certification:
+  bind_exact_artifact_hashes: required
+  carry_forward_after_rebuild_without_revalidation: prohibited

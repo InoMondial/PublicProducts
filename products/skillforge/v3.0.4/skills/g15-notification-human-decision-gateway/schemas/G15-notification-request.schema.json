@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/g15-notification-request-v4.3.1.json",
+  "title": "G15 Notification Request v4.3.1",
+  "type": "object",
+  "required": ["title", "body"],
+  "properties": {
+    "title": {"type": "string", "minLength": 1},
+    "body": {"type": "string", "minLength": 1},
+    "message_type": {"type": "string", "enum": ["MESSAGE", "REPORT", "FAILURE", "DECISION_REQUEST", "APPROVAL", "ACKNOWLEDGMENT", "CHOICE", "QUICK_CONFIRM", "FORM"]},
+    "message_category": {"type": "string", "enum": ["GENERAL_NOTIFICATION", "GITHUB_PUBLISH", "DOCUMENT_PUBLISH", "ARTIFACT_RELEASE", "BACKUP", "TEST_VALIDATION", "PROJECT_MILESTONE", "SYSTEM_INCIDENT", "WORKFLOW_STATUS", "TASK_COMPLETION", "AUDIT", "SYNC", "REGISTRY_UPDATE", "PRIORITY_UPDATE", "CONTRACT_COMMITMENT", "DATA_DELETION", "DEPLOYMENT_CHANGE", "EXTERNAL_COMMUNICATION", "FINANCIAL_TRANSACTION", "GENERAL_INSTRUCTION", "LEGAL_APPROVAL", "LOGIN_AUTHORIZATION", "PAYMENT", "PURCHASE", "REFUND", "SALE", "SECURITY_AUTHORIZATION", "SYSTEM_RECOVERY", "TRADE_ORDER", "TRANSFER", "WORKFLOW_DECISION"]},
+    "notification_class": {"type": "string", "minLength": 1},
+    "source_skill": {"type": "string"},
+    "event_type": {"type": "string"},
+    "must_notify": {"type": "boolean"},
+    "priority": {"type": "string"},
+    "test_mode": {"type": "boolean"},
+    "transport_test": {"type": "boolean"},
+    "destination_override_ref": {"type": "string", "minLength": 1},
+    "destination_override_display_name": {"type": "string", "minLength": 1},
+    "destination_override_reason": {"type": "string", "minLength": 1},
+    "ecosystem_level": {"type": "boolean"},
+    "project_id": {"type": "string", "minLength": 1},
+    "project_name": {"type": "string", "minLength": 1},
+    "project_name_fa": {"type": "string", "minLength": 1},
+    "project_stage": {"type": "string", "minLength": 1},
+    "project_progress_percent": {"type": "integer", "minimum": 0, "maximum": 100},
+    "keywords_en": {
+      "oneOf": [
+        {"type": "string", "minLength": 1},
+        {"type": "array", "minItems": 1, "maxItems": 5, "items": {"type": "string", "minLength": 1}}
+      ]
+    },
+    "keywords_fa": {
+      "oneOf": [
+        {"type": "string", "minLength": 1},
+        {"type": "array", "minItems": 1, "maxItems": 5, "items": {"type": "string", "minLength": 1}}
+      ]
+    },
+    "decision_id": {"type": "string", "pattern": "^G15-DQ-[0-9a-fA-F-]{36}$"},
+    "report_id": {"type": "string", "pattern": "^G15-RPT-[0-9a-fA-F-]{36}$"},
+    "decision_category": {"type": "string", "enum": ["CONTRACT_COMMITMENT", "DATA_DELETION", "DEPLOYMENT_CHANGE", "EXTERNAL_COMMUNICATION", "FINANCIAL_TRANSACTION", "GENERAL_INSTRUCTION", "LEGAL_APPROVAL", "LOGIN_AUTHORIZATION", "PAYMENT", "PURCHASE", "REFUND", "SALE", "SECURITY_AUTHORIZATION", "SYSTEM_RECOVERY", "TRADE_ORDER", "TRANSFER", "WORKFLOW_DECISION"]},
+    "decision_options": {
+      "type": "array", "minItems": 2, "maxItems": 9,
+      "items": {
+        "type": "object",
+        "required": ["label_en", "label_fa"],
+        "properties": {
+          "code": {"type": "string", "pattern": "^[A-Za-z0-9]{1,3}$"},
+          "label_en": {"type": "string", "minLength": 1},
+          "label_fa": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "amount": {"type": ["number", "string"]},
+    "currency": {"type": "string"},
+    "serious_legal_impact": {"type": "boolean"},
+    "high_consequence": {"type": "boolean"},
+    "financial_transaction": {"type": "boolean"},
+    "purchase_or_sale": {"type": "boolean"},
+    "system_waiting_for_user": {"type": "boolean"},
+    "blocking": {"type": "boolean"},
+    "critical_issue": {"type": "boolean"},
+    "system_crash": {"type": "boolean"},
+    "workflow_blocked": {"type": "boolean"},
+    "process_stopped": {"type": "boolean"},
+    "serious_error": {"type": "boolean"},
+    "service_outage": {"type": "boolean"},
+    "data_integrity_risk": {"type": "boolean"},
+    "degraded_service": {"type": "boolean"},
+    "recoverable_error": {"type": "boolean"},
+    "action_required": {"type": "boolean"},
+    "must_read": {"type": "boolean"},
+    "routine_report": {"type": "boolean"},
+    "activity_confirmation": {"type": "boolean"},
+    "report_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["item", "summary", "impact", "next_step"],
+        "properties": {
+          "item": {"type": "string"},
+          "summary": {"type": "string"},
+          "impact": {"type": "string"},
+          "next_step": {"type": "string"},
+          "open": {"type": "string"}
+        }
+      }
+    },
+    "source_links": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {"type": "string"},
+          {"type": "object", "required": ["url"], "properties": {"label": {"type": "string"}, "url": {"type": "string"}}}
+        ]
+      }
+    },
+    "language": {"type": "string", "enum": ["en", "fa"]},
+    "dispatch_id": {"type": "string"},
+    "source_work_id": {"type": "string"},
+    "dedupe_key": {"type": "string"},
+    "question_en": {"type": "string", "minLength": 1},
+    "question_fa": {"type": "string", "minLength": 1},
+    "supporting_details": {
+      "oneOf": [
+        {"type": "string", "minLength": 1},
+        {"type": "object"},
+        {"type": "array", "items": {"oneOf": [{"type": "string"}, {"type": "object"}]}}
+      ]
+    },
+    "attachment_or_support_file_url": {"type": "string", "format": "uri"},
+    "outcome": {"type": "string"}
+  },
+  "additionalProperties": true,
+  "allOf": [
+    {
+      "if": {"properties": {"message_type": {"const": "DECISION_REQUEST"}}, "required": ["message_type"]},
+      "then": {"required": ["decision_category", "decision_options", "question_fa"]}
+    }
+  ],
+  "$comment": "G15 v4.3.1: canonical priority routing and canonical Teams-native rendering are mandatory. A producer may request a destination override, but authorization is an out-of-band runtime fact attributable to an explicit user request and MUST NOT be self-asserted in INC_NOTIFICATION_EVENT_V1."
+}

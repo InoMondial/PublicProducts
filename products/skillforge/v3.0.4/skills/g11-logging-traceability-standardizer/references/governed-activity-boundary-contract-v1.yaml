@@ -1,0 +1,21 @@
+schema_version: '1.0'
+contract_id: INC_GOVERNED_ACTIVITY_BOUNDARY_V1
+owner_skill: G11
+surfaces: [CHAT, WORK, CODEX, AGENT, SKILL, ORCHESTRATOR, SCHEDULED, ERROR_HANDLER]
+default_granularity: ONE_MATERIAL_ACTIVITY_OUTCOME
+rules:
+  every_microstep_log: prohibited
+  aggregate_without_omission: required
+  activity_id_required: true
+  producer_ref_required: true
+  surface_required: true
+  final_outcome_event_when_logging_applicable: required
+  known_mandatory_omission_is_defect: true
+  denominator_unavailable_behavior: NOT_MEASURABLE
+  child_activity_logging: CONDITIONAL_ON_MATERIAL_BOUNDARY
+examples:
+- boundary: one governed Chat action that materially changes external state
+- boundary: one Work/Agent task outcome
+- boundary: one scheduled execution outcome
+- boundary: one release/publication transaction
+- boundary: one material failure/degraded outcome

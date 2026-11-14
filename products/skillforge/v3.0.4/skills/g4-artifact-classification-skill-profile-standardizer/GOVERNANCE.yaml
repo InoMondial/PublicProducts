@@ -1,0 +1,57 @@
+schema: INC_GOVERNANCE_SKILL_CANDIDATE_V1
+stable_id: O6-SKL-004
+visible_id: G4
+display_name: G4-Artifact Classification & Skill Profile Standardizer
+version: 3.1.2
+lifecycle: production
+phase: 6
+functional_role: NORMAL
+dpga:
+  build_time: REQUIRED
+  runtime: CONDITIONAL
+  hard_gates:
+  - DPGA_COMPLETE
+  - GOVERNANCE_PROPAGATION_COMPLETE
+  - CLASSIFICATION_PROFILE_COMPILED
+runtime_condition: material_classification_change
+critical_control_assurance:
+  contract_ref: INC_CRITICAL_CONTROL_ASSURANCE_V1
+  build_time_gate: CRITICAL_CONTROLS_COMPILED
+  runtime_exit_gate: CRITICAL_CONTROLS_VERIFIED
+  self_exit_check: REQUIRED_WHEN_RUNTIME_APPLICABLE
+  independent_double_check: CONDITIONAL_MATERIAL_RISK
+  controls:
+  - id: G4-CC-01
+    rule: Artifact type, lifecycle, sensitivity/security, complexity and resource
+      class are not conflated.
+    mandatory: true
+    runtime_condition: WHEN_RELEVANT_TO_CURRENT_ACTIVITY
+    evidence_required: false
+  - id: G4-CC-02
+    rule: Only the minimum sufficient governance module set is compiled with explicit
+      applicability/N/A rationale.
+    mandatory: true
+    runtime_condition: WHEN_RELEVANT_TO_CURRENT_ACTIVITY
+    evidence_required: true
+  - id: G4-CC-03
+    rule: Runtime reclassification occurs only on a material classification change.
+    mandatory: true
+    runtime_condition: WHEN_RELEVANT_TO_CURRENT_ACTIVITY
+    evidence_required: false
+  - id: G4-CC-04
+    rule: Unresolved material risk is not underclassified for convenience or resource
+      savings.
+    mandatory: true
+    runtime_condition: WHEN_RELEVANT_TO_CURRENT_ACTIVITY
+    evidence_required: false
+release_acceptance_policy:
+  contract_ref: INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1
+  profile: AUTONOMOUS_EVIDENCE_BASED
+  precedence: SUPERSEDES_RELEASE_ONLY_EXTERNAL_EXECUTOR_GATES
+  available_tests: REQUIRED
+  failed_executed_tests: BLOCK_RELEASE
+  external_assurance: OPTIONAL_NONBLOCKING
+  real_publication_readback: REQUIRED
+  runtime_security_authorization: UNCHANGED
+publication_privacy_contract: INC_PUBLICIZATION_PRIVACY_GATE_V2
+public_release_requires_new_owner_consent: true

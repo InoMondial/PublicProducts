@@ -1,0 +1,237 @@
+schema_version: "1.0"
+contract_id: INC_G16_EXECUTION_SURFACE_RECOMMENDATION_V1
+owner_skill: G16-SKL-001
+human_renderer_ref: CHAT1-SKL-001
+status: STAGE30_CANDIDATE
+
+purpose: >
+  For every execution-ready Handoff or cross-surface work order, determine which
+  execution surfaces are technically suitable, which one is preferred, which
+  surfaces are conditional or ineligible, and which capabilities force a specific
+  surface. This recommendation is separate from the model/reasoning recommendation.
+  The human owner/operator chooses which eligible surface to activate unless a
+  previously authorized orchestration path already names the target worker.
+
+selection_authority:
+  mode: USER_ADVISORY_BY_DEFAULT
+  owner_explicit_surface_selection:
+    allowed: true
+    rule: >
+      An explicit owner choice of an eligible surface overrides the default preference
+      ranking for that mission, but never overrides a hard capability requirement,
+      independence gate, security gate, or owner-only destructive/financial/license gate.
+      After explicit selection, do not keep asking the owner to reconfirm that same surface.
+  actual_selector: HUMAN_OWNER_OR_OPERATOR
+  automatic_cross_surface_activation: false
+  rule: >
+    G16 may compute and persist surface suitability and may address an already
+    owner-authorized worker/surface, but it MUST NOT silently open, switch, consume
+    a limited premium Chat allowance, or launch another execution surface merely
+    because it is preferred.
+
+surface_options:
+  - id: CODEX_WINDOWS_LOCAL
+    surface_family: CODEX
+    description: Windows Codex with verified local shell/repository access.
+  - id: WORK_CLOUD
+    surface_family: WORK
+    description: ChatGPT Work running in the cloud with connected apps/files and cloud task continuity when available.
+  - id: CHAT_BUSINESS_PRO
+    surface_family: CHAT
+    description: >
+      Ordinary Chat using the limited Business Standard Pro-profile allowance
+      (for example GPT-5.6 Sol Pro or GPT-6 Pro when currently exposed).
+  - id: CHAT_STANDARD
+    surface_family: CHAT
+    description: Ordinary Chat using a standard non-Pro Chat profile.
+
+current_reference_snapshot_2026_09_17:
+  informational_only: true
+  runtime_verification_overrides_snapshot: true
+  business_standard_chat_pro_allowance:
+    included_messages: 15
+    period: MONTH
+    shared_across:
+      - GPT-6 Pro
+      - GPT-5.6 Sol Pro
+    note: >
+      This allowance applies to Chat. Work and Codex use separate allowances.
+      Do not spend the limited Pro Chat allowance for routine work when a lower
+      sufficient execution option exists.
+  capability_summary:
+    CODEX_WINDOWS_LOCAL:
+      repository_native_edit_build_test: STRONG
+      local_windows_shell_powershell: STRONG_WHEN_VERIFIED
+      local_install_smoke: STRONG
+      connected_app_access: CONDITIONAL_VERIFY
+      long_running_cloud_continuation: NOT_ASSUMED
+    WORK_CLOUD:
+      long_running_multistep_cloud: STRONG
+      connected_apps_files: STRONG_WHEN_CONNECTED
+      cloud_browser: STRONG_WHEN_ENABLED
+      direct_local_windows_shell: NOT_AVAILABLE_UNLESS_SEPARATELY_VERIFIED
+      local_install_smoke: NOT_SUITABLE
+    CHAT_BUSINESS_PRO:
+      high_reasoning_bounded_review: STRONG
+      connected_tools: CONDITIONAL_VERIFY
+      direct_local_shell: NOT_AVAILABLE
+      long_autonomous_batch: NOT_PREFERRED
+      scarce_allowance: true
+    CHAT_STANDARD:
+      bounded_reasoning_and_review: SUITABLE
+      connected_tools: CONDITIONAL_VERIFY
+      direct_local_shell: NOT_AVAILABLE
+      long_autonomous_batch: NOT_PREFERRED
+
+suitability_states:
+  - REQUIRED
+  - PREFERRED
+  - ELIGIBLE
+  - CONDITIONAL
+  - NOT_ELIGIBLE
+
+capability_factors:
+  - REPOSITORY_NATIVE_EDIT_BUILD_TEST
+  - LOCAL_WINDOWS_SHELL_POWERSHELL
+  - LOCAL_INSTALL_OR_UPDATE_SMOKE
+  - LONG_RUNNING_CLOUD_CONTINUATION
+  - CONNECTED_APPS_FILES
+  - CLOUD_BROWSER
+  - STRUCTURED_API_CONNECTOR_MUTATION
+  - HIGH_REASONING_INDEPENDENT_REVIEW
+  - MULTI_SURFACE_COORDINATION
+  - HUMAN_OWNER_INTERACTION
+  - DURABLE_CHECKPOINT_READBACK
+  - INDEPENDENT_VALIDATOR_SEPARATION
+
+local_machine_execution:
+  id: LOCAL_CODEX_EXECUTION_WITH_APPEND_ONLY_EVIDENCE
+  rule: >
+    GitHub Actions, hosted runners and remote CI are optional integrations and MUST NOT
+    be prerequisites for SkillForge build, test, package or install-smoke evidence.
+    When a machine route is needed, use a verified local Codex executor with deterministic
+    inputs, environment capture, append-only report and read-back. Exact Windows state,
+    PowerShell or local install tests require CODEX_WINDOWS_LOCAL for that unit.
+  report_contract: projects/skill-ecosystem-vnext/plugins/skillforge-private/runbooks/LOCAL_CODEX_WINDOWS_EXECUTION_AND_REPORT.md
+
+hard_surface_rules:
+  - trigger: LOCAL_WINDOWS_POWERSHELL_OR_LOCAL_INSTALL_SMOKE_REQUIRED
+    result: CODEX_WINDOWS_LOCAL_REQUIRED
+  - trigger: LONG_RUNNING_MULTI_SYSTEM_CONNECTED_APP_ORCHESTRATION_WITHOUT_LOCAL_SHELL_REQUIREMENT
+    result: WORK_CLOUD_PREFERRED
+  - trigger: REPOSITORY_CODE_BUILD_TEST_WITH_LOCAL_COMMANDS
+    result: CODEX_WINDOWS_LOCAL_PREFERRED_OR_REQUIRED
+  - trigger: INDEPENDENT_HIGH_REASONING_REVIEW_WITHOUT_SHELL_AND_ALL_EVIDENCE_ACCESSIBLE
+    result: CHAT_BUSINESS_PRO_ELIGIBLE_PREFERRED_WHEN_SCARCE_ALLOWANCE_JUSTIFIED
+  - trigger: BOUNDED_READ_ONLY_OR_SMALL_CONNECTED_TOOL_UNIT
+    result: CHAT_STANDARD_ELIGIBLE
+  - trigger: REQUIRED_CAPABILITY_NOT_VERIFIED_ON_SURFACE
+    result: SURFACE_NOT_ELIGIBLE_FOR_THAT_UNIT
+  - trigger: SCARCE_PRO_CHAT_ALLOWANCE_NOT_MATERIALLY_BENEFICIAL
+    result: DO_NOT_PREFER_CHAT_BUSINESS_PRO
+  - trigger: OWNER_EXPLICITLY_SELECTED_CHAT_BUSINESS_PRO_AND_REQUIRED_CONNECTORS_AND_LOCAL_EXECUTION_ROUTE_VERIFIED
+    result: CHAT_BUSINESS_PRO_MAY_COORDINATE_PARENT_MISSION_WITH_INTERNAL_ATOMIC_CHECKPOINTS
+  - trigger: EXACT_LOCAL_MACHINE_STATE_REQUIRED
+    result: CODEX_WINDOWS_LOCAL_REQUIRED_FOR_THAT_UNIT_ONLY
+
+mandatory_surface_requirement:
+  hard_gate: true
+  purpose: >
+    Detect system/OS/local-environment requirements before a Handoff or work order
+    is declared execution-ready. If a required capability exists only on a specific
+    verified surface, that surface becomes mandatory for that unit.
+  capability_examples:
+    - WINDOWS_POWERSHELL_LOCAL
+    - LOCAL_WINDOWS_FILESYSTEM
+    - LOCAL_WINDOWS_INSTALLED_APPLICATION
+    - LOCAL_BROWSER_PROFILE_OR_CERTIFICATE
+    - WSL_OR_LOCAL_SHELL_STATE
+    - LOCAL_INSTALL_OR_UPDATE_SMOKE
+    - DESKTOP_ONLY_APP_OR_COM_AUTOMATION
+  rules:
+    - derive hard capabilities before recommending a surface
+    - if equivalent governed remote runner can produce the exact required evidence, local surface is not mandatory
+    - if no equivalent route exists, mark exactly one or more mandatory surfaces
+    - an execution-ready instruction MUST NOT be labeled runnable on an incompatible surface
+    - if current surface is incompatible, generate a transfer-ready Handoff for the required surface instead of pretending execution can complete locally
+    - do not ask the owner to try an incompatible surface first
+  human_notice:
+    required_when_mandatory_surface_exists: true
+    machine_flag: MANDATORY_EXECUTION_SURFACE
+    persian_rendering_rule: >
+      Start with Persian text, then show the icon and exact surface name; for example:
+      "سطح اجرای الزامی: 🖥️⚠️ Codex Windows — دلیل: PowerShell محلی ویندوز لازم است."
+    english_rendering_rule: >
+      "Required execution surface: 🖥️⚠️ Codex Windows — reason: local Windows PowerShell is required."
+  blocking:
+    incompatible_current_surface_result: BLOCKED_REQUIRED_EXECUTION_SURFACE_MISMATCH
+    below_surface_requirement_must_not_be_marked_execution_ready: true
+
+algorithm:
+  steps:
+    - derive required capabilities from the exact work unit
+    - read-only verify currently available surfaces and capabilities; never invent availability
+    - classify all four standard options using REQUIRED/PREFERRED/ELIGIBLE/CONDITIONAL/NOT_ELIGIBLE
+    - select one preferred option only when evidence supports it
+    - list every eligible alternative
+    - list any unit-specific surface requirement
+    - explain why ineligible/conditional options cannot safely execute the unit
+    - pair the chosen/eligible surface set with INC_G16_EXECUTION_PROFILE_RECOMMENDATION_V1
+    - persist continuity and resume rules
+  optimization_rule: >
+    Prefer the least scarce and least expensive eligible surface that can satisfy
+    the work unit with required correctness, evidence and continuity. Do not spend
+    Business Standard Pro Chat messages merely because they are available.
+
+output_contract:
+  required_fields:
+    - contract
+    - selection_authority
+    - preferred_surface
+    - eligible_surfaces
+    - surface_assessments
+    - required_capabilities
+    - unit_specific_surface_requirements
+    - mandatory_surfaces
+    - mandatory_surface_reason_codes
+    - current_surface_compatibility
+    - continuity_mode
+    - why_preferred
+    - why_not_others
+    - capability_verification_state
+  selection_authority_value: USER
+  capability_verification_states:
+    - VERIFIED
+    - PARTIAL
+    - UNVERIFIED
+
+handoff_rule:
+  required: true
+  rule: >
+    Every execution-ready Handoff and cross-surface work order MUST carry both
+    recommended_execution_surfaces and recommended_execution_profile. A Handoff
+    that names only a model/effort but omits eligible execution surfaces is not
+    execution-ready.
+  visible_human_summary_required: true
+
+continuity:
+  rule: >
+    If quota, five-hour allowance, timeout, model allowance, or surface failure
+    interrupts execution, the worker must persist a durable checkpoint and RESUME_FROM
+    token before stopping. Any eligible replacement surface may resume only after
+    re-reading the canonical Handoff/shared work file and reconciling remote state.
+  blind_replay: prohibited
+
+independence:
+  rule: >
+    Where G12/G13 or another contract requires independence, surface suitability
+    does not waive actor/evidence separation. Do not let the same actor self-certify
+    merely because the same surface is technically capable.
+
+failure_codes:
+  - EXECUTION_SURFACE_RECOMMENDATION_MISSING
+  - REQUIRED_SURFACE_CAPABILITY_UNVERIFIED
+  - INELIGIBLE_SURFACE_SELECTED
+  - SCARCE_CHAT_PRO_ALLOWANCE_WASTED_WITHOUT_JUSTIFICATION
+  - LOCAL_SHELL_REQUIREMENT_ROUTED_TO_CLOUD_CHAT_OR_WORK
+  - RESUME_WITHOUT_REMOTE_STATE_RECONCILIATION

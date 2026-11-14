@@ -1,0 +1,44 @@
+version: 4.3.1
+references:
+  INC_G15_PRIORITY_HIGH_CHANNEL:
+    kind: teams-channel
+    logical_purpose: production HIGH notifications
+    default_display_hint: Example Team / PARAM_HIGH_CHANNEL_NAME
+  INC_G15_PRIORITY_MED_CHANNEL:
+    kind: teams-channel
+    logical_purpose: production MED notifications
+    default_display_hint: Example Team / PARAM_MED_CHANNEL_NAME
+  INC_G15_PRIORITY_LOW_CHANNEL:
+    kind: teams-channel
+    logical_purpose: production LOW notifications
+    default_display_hint: Example Team / PARAM_LOW_CHANNEL_NAME
+  INC_G15_TEST_CHANNEL:
+    kind: teams-channel
+    logical_purpose: development and acceptance transport tests only
+    default_display_hint: PARAM_TEST_CHANNEL_NAME
+  INC_G15_PRIORITY_RULE_STORE:
+    kind: durable-policy-store
+    logical_purpose: per-notification-class priority feedback
+  INC_LOG_STORE:
+    kind: canonical-telemetry-store
+    logical_purpose: minimum-sufficient cross-ecosystem logging
+
+mandatory_delivery_rules:
+  default_priority_destination_mandatory: true
+  high_default_ref: INC_G15_PRIORITY_HIGH_CHANNEL
+  med_default_ref: INC_G15_PRIORITY_MED_CHANNEL
+  low_default_ref: INC_G15_PRIORITY_LOW_CHANNEL
+  test_default_ref: INC_G15_TEST_CHANNEL
+  user_explicit_destination_override_only: true
+  producer_destination_override_prohibited: true
+  destination_override_authorization_out_of_band: true
+  test_channel_for_actual_transport_tests_only: true
+  unresolved_default_destination: ROUTE_RESOLUTION_FAILED
+  route_mismatch_blocks_completion: true
+
+rules:
+  - Resolve live IDs/URLs outside the versioned Skill.
+  - Do not hard-code tenant IDs, channel IDs, SharePoint list IDs, credentials, or tokens in the package.
+  - If a reference cannot be resolved, return an explicit blocker/degraded status instead of guessing.
+  - A Work, Agent, Skill, scheduler, project, or producer cannot replace the canonical priority destination because another channel appears contextually relevant.
+  - A different destination is valid only when the user explicitly requested it and G15 holds attributable runtime authorization for that override.

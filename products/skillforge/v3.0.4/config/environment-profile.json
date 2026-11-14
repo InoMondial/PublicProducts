@@ -1,0 +1,15 @@
+{
+  "acceptance_mode": "SIMULATION_ONLY",
+  "authorization_source": "HOST_CONNECTOR_CURRENT_READBACK_REQUIRED",
+  "credentials_embedded": false,
+  "environment_id": "UNBOUND",
+  "external_profile_required": true,
+  "profile_id": "SKILLFORGE_UNBOUND",
+  "profile_version": "3.0.4",
+  "references": {},
+  "required_aliases": [],
+  "schema_version": "1.0",
+  "selected_services": [],
+  "setup_status": "UNINITIALIZED",
+  "state": "UNBOUND"
+}

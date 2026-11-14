@@ -1,0 +1,201 @@
+schema: INC_PROVIDER_RESOURCE_PROFILE_REGISTRY_V1
+schema_version: '1.0'
+control_plane_ref: INC_G9_RESOURCE_FINOPS_CONTROL_PLANE_V1
+owner: G17_WITH_G9_POLICY
+status: GENERIC_CAPABILITY_BASELINE_HOST_DISCOVERY_REQUIRED
+profiles:
+- provider_service_ref: OPENAI_CHATGPT
+  adapter_state: GAP_NOT_IMPLEMENTED_BLOCKS_PRODUCTION
+  activation_status: CURRENT_HOST_EVIDENCE_REQUIRED
+  production_disposition: BLOCKED_UNTIL_ADAPTER_AND_PROFILE_RESOLVE
+  activation_route_authority: INC_MACHINE_ROUTE_BEFORE_VISUAL_UI_V1
+  collector_model_calls: 0
+  consumer_direct_provider_binding: FORBIDDEN
+  paid_change_policy: EXPLICIT_OWNER_APPROVAL_REQUIRED
+  decision_grade_scope:
+  - shared_quota_reset_credit
+  - local_codex_exact_usage
+  - workspace_billing_when_authoritative
+  preferred_acquisition:
+  - A0_INLINE
+  - A1_PUSH
+  - A2_FAST_POLL
+  - A5_BILLING_EVENT
+  - A6_ON_CHANGE
+- provider_service_ref: OPENAI_API
+  adapter_state: GAP_NOT_IMPLEMENTED_BLOCKS_PRODUCTION
+  activation_status: CURRENT_HOST_EVIDENCE_REQUIRED
+  production_disposition: BLOCKED_UNTIL_ADAPTER_AND_PROFILE_RESOLVE
+  activation_route_authority: INC_MACHINE_ROUTE_BEFORE_VISUAL_UI_V1
+  collector_model_calls: 0
+  consumer_direct_provider_binding: FORBIDDEN
+  paid_change_policy: EXPLICIT_OWNER_APPROVAL_REQUIRED
+  decision_grade_scope:
+  - request_usage
+  - rate_limit
+  - hourly_usage_reconcile
+  - daily_cost
+  preferred_acquisition:
+  - A0_INLINE
+  - A3_OPS_POLL
+  - A4_DAILY_RECONCILE
+  - A6_ON_CHANGE
+- provider_service_ref: AZURE
+  adapter_state: GAP_NOT_IMPLEMENTED_BLOCKS_PRODUCTION
+  activation_status: CURRENT_HOST_EVIDENCE_REQUIRED
+  production_disposition: BLOCKED_UNTIL_ADAPTER_AND_PROFILE_RESOLVE
+  activation_route_authority: INC_MACHINE_ROUTE_BEFORE_VISUAL_UI_V1
+  collector_model_calls: 0
+  consumer_direct_provider_binding: FORBIDDEN
+  paid_change_policy: EXPLICIT_OWNER_APPROVAL_REQUIRED
+  decision_grade_scope:
+  - cost_budget_free_grant
+  - operational_quota
+  - provider_alerts
+  - allocation_tags
+  preferred_acquisition:
+  - A1_PUSH
+  - A2_FAST_POLL
+  - A3_OPS_POLL
+  - A4_DAILY_RECONCILE
+  - A6_ON_CHANGE
+- provider_service_ref: HATCHABLE
+  adapter_state: IMPLEMENTED
+  adapter_ref: INC_G17_ADAPTER_HATCHABLE_V1
+  adapter_file_ref: skills/router/g17-data-governor/adapters/hatchable/adapter-profile.yaml
+  activation_status: CURRENT_HOST_EVIDENCE_REQUIRED
+  production_disposition: HOST_PROFILE_RESOLUTION_REQUIRED
+  activation_route_authority: INC_MACHINE_ROUTE_BEFORE_VISUAL_UI_V1
+  collector_model_calls: 0
+  consumer_direct_provider_binding: FORBIDDEN
+  paid_change_policy: EXPLICIT_OWNER_APPROVAL_REQUIRED
+  decision_grade_scope:
+  - project_health
+  - function_runtime
+  - db_table_count
+  - storage_capacity
+  - concurrency
+  - backup_egress
+  preferred_acquisition:
+  - A0_INLINE
+  - A1_PUSH
+  - A4_DAILY_RECONCILE
+  - A6_ON_CHANGE
+  - A7_UI_FALLBACK
+- provider_service_ref: MICROSOFT_GRAPH_M365
+  adapter_state: GAP_NOT_IMPLEMENTED_BLOCKS_PRODUCTION
+  activation_status: CURRENT_HOST_EVIDENCE_REQUIRED
+  production_disposition: BLOCKED_UNTIL_ADAPTER_AND_PROFILE_RESOLVE
+  activation_route_authority: INC_MACHINE_ROUTE_BEFORE_VISUAL_UI_V1
+  collector_model_calls: 0
+  consumer_direct_provider_binding: FORBIDDEN
+  paid_change_policy: EXPLICIT_OWNER_APPROVAL_REQUIRED
+  decision_grade_scope:
+  - request_throttle
+  - sharepoint_storage
+  - auth_permission_health
+  - license_headroom
+  preferred_acquisition:
+  - A0_INLINE
+  - A4_DAILY_RECONCILE
+  - A6_ON_CHANGE
+- provider_service_ref: POWER_AUTOMATE
+  adapter_state: GAP_NOT_IMPLEMENTED_BLOCKS_PRODUCTION
+  activation_status: CURRENT_HOST_EVIDENCE_REQUIRED
+  production_disposition: BLOCKED_UNTIL_ADAPTER_AND_PROFILE_RESOLVE
+  activation_route_authority: INC_MACHINE_ROUTE_BEFORE_VISUAL_UI_V1
+  collector_model_calls: 0
+  consumer_direct_provider_binding: FORBIDDEN
+  paid_change_policy: EXPLICIT_OWNER_APPROVAL_REQUIRED
+  decision_grade_scope:
+  - flow_health
+  - run_failure
+  - throttle
+  - license_request_limit
+  preferred_acquisition:
+  - A0_INLINE
+  - A1_PUSH
+  - A3_OPS_POLL
+  - A4_DAILY_RECONCILE
+- provider_service_ref: GITHUB
+  adapter_state: GAP_NOT_IMPLEMENTED_BLOCKS_PRODUCTION
+  activation_status: CURRENT_HOST_EVIDENCE_REQUIRED
+  production_disposition: BLOCKED_UNTIL_ADAPTER_AND_PROFILE_RESOLVE
+  activation_route_authority: INC_MACHINE_ROUTE_BEFORE_VISUAL_UI_V1
+  collector_model_calls: 0
+  consumer_direct_provider_binding: FORBIDDEN
+  paid_change_policy: EXPLICIT_OWNER_APPROVAL_REQUIRED
+  decision_grade_scope:
+  - rate_limit_headers
+  - secondary_limit
+  - actions_usage_if_material
+  - workflow_failure
+  preferred_acquisition:
+  - A0_INLINE
+  - A1_PUSH
+  - A4_DAILY_RECONCILE
+  - A6_ON_CHANGE
+- provider_service_ref: TRELLO
+  adapter_state: GAP_NOT_IMPLEMENTED_BLOCKS_PRODUCTION
+  activation_status: CURRENT_HOST_EVIDENCE_REQUIRED
+  production_disposition: BLOCKED_UNTIL_ADAPTER_AND_PROFILE_RESOLVE
+  activation_route_authority: INC_MACHINE_ROUTE_BEFORE_VISUAL_UI_V1
+  collector_model_calls: 0
+  consumer_direct_provider_binding: FORBIDDEN
+  paid_change_policy: EXPLICIT_OWNER_APPROVAL_REQUIRED
+  decision_grade_scope:
+  - webhook_health
+  - api_throttle
+  - governed_board_limit
+  preferred_acquisition:
+  - A0_INLINE
+  - A1_PUSH
+  - A3_OPS_POLL
+- provider_service_ref: MCP_SERVERS
+  adapter_state: GAP_NOT_IMPLEMENTED_BLOCKS_PRODUCTION
+  activation_status: CURRENT_HOST_EVIDENCE_REQUIRED
+  production_disposition: BLOCKED_UNTIL_ADAPTER_AND_PROFILE_RESOLVE
+  activation_route_authority: INC_MACHINE_ROUTE_BEFORE_VISUAL_UI_V1
+  collector_model_calls: 0
+  consumer_direct_provider_binding: FORBIDDEN
+  paid_change_policy: EXPLICIT_OWNER_APPROVAL_REQUIRED
+  decision_grade_scope:
+  - tool_invocation
+  - latency
+  - error_retry
+  - queue_concurrency
+  - underlying_provider_link
+  preferred_acquisition:
+  - A0_INLINE
+  - A1_PUSH
+- provider_service_ref: PLUGINS_CONNECTORS
+  adapter_state: GAP_NOT_IMPLEMENTED_BLOCKS_PRODUCTION
+  activation_status: CURRENT_HOST_EVIDENCE_REQUIRED
+  production_disposition: BLOCKED_UNTIL_ADAPTER_AND_PROFILE_RESOLVE
+  activation_route_authority: INC_MACHINE_ROUTE_BEFORE_VISUAL_UI_V1
+  collector_model_calls: 0
+  consumer_direct_provider_binding: FORBIDDEN
+  paid_change_policy: EXPLICIT_OWNER_APPROVAL_REQUIRED
+  decision_grade_scope:
+  - action_identity
+  - invocation_latency_error_retry
+  - underlying_provider_link
+  preferred_acquisition:
+  - A0_INLINE
+  - A1_PUSH
+- provider_service_ref: WINDOWS_HOSTS
+  adapter_state: GAP_NOT_IMPLEMENTED_BLOCKS_PRODUCTION
+  activation_status: CURRENT_HOST_EVIDENCE_REQUIRED
+  production_disposition: BLOCKED_UNTIL_ADAPTER_AND_PROFILE_RESOLVE
+  activation_route_authority: INC_MACHINE_ROUTE_BEFORE_VISUAL_UI_V1
+  collector_model_calls: 0
+  consumer_direct_provider_binding: FORBIDDEN
+  paid_change_policy: EXPLICIT_OWNER_APPROVAL_REQUIRED
+  decision_grade_scope:
+  - collector_health
+  - local_codex_exact_usage
+  - process_failure
+  - decision_useful_capacity
+  preferred_acquisition:
+  - A0_INLINE
+  - A1_PUSH

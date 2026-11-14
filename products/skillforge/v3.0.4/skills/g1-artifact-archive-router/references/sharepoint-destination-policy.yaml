@@ -1,0 +1,56 @@
+schema_version: '1.3'
+policy_id: G1_SHAREPOINT_DESTINATION_V1
+team: {name: Example Team, id: 00000000-0000-0000-0000-000000000000}
+channel: {name: Example Governance Records, id: 'PARAM_CHANNEL_ID'}
+sharepoint:
+  hostname: tenant.example.invalid
+  site_path: /sites/ExampleSite
+  site_id: 00000000-0000-0000-0000-000000000000
+  library: Documents
+  drive_id: EXAMPLE_DRIVE_ID
+  channel_folder_id: EXAMPLE_ITEM_ID
+  backup_root_name: PARAM_BACKUP_ROOT
+  backup_root_id: EXAMPLE_ITEM_ID
+allowed_namespaces: [Ecosystem, Projects, Shared, _Control]
+forbidden_sibling_examples: [Dispatcher, c7-g11, Daily Prompts]
+allow_other_site: false
+allow_other_drive: false
+allow_other_channel_folder: false
+allow_backup_outside_root: false
+exact_destination_ids_required: true
+post_write_ancestry_readback_required: true
+optimistic_concurrency:
+  pre_mutation_snapshot_required: true
+  prefer_etag_or_ctag: true
+  fallback_deterministic_snapshot_digest: true
+  reread_before_each_destructive_mutation: true
+  conflict_state: SHAREPOINT_CONCURRENCY_CONFLICT
+retention: {current: 1, previous_max: 1}
+
+registry_authority:
+  contract_ref: INC_SHAREPOINT_BACKUP_REGISTRY_V1
+  canonical_registry: registries/sharepoint-backup-registry.yaml
+  sharepoint_registry: _Control/SHAREPOINT_BACKUP_REGISTRY.yaml
+  physical_destination_owner: G1_ARTIFACT_ARCHIVE_ROUTER
+  caller_destination_override: FORBIDDEN
+  caller_override_error: CALLER_SHAREPOINT_DESTINATION_OVERRIDE_FORBIDDEN
+project_lineages:
+  semantic_roots: [Release, Documentation, Evidence]
+  caller_path_selection: FORBIDDEN
+nested_managed_artifacts:
+  default: FORBIDDEN
+  failure: NESTED_MANAGED_ARTIFACT_DUPLICATION
+  exceptions: [RELEASE_BUNDLE, SELF_CONTAINED_DISASTER_RECOVERY]
+authority_reconciliation:
+  canonical_lineage_count: 1
+  conflict_state: CANONICAL_BACKUP_AUTHORITY_CONFLICT
+  version_drift_state: VERSION_AUTHORITY_DRIFT
+  github_sharepoint_version_and_hash_readback: REQUIRED
+
+document_class_storage:
+  contract_ref: INC_G1_DOCUMENT_CLASS_STORAGE_V1
+  durable_document_binary_canonical_storage: SHAREPOINT_ONLY
+  project_documentation_route: Projects/<project>/Documentation
+  evidence_document_route: Projects/<project>/Evidence
+  write_readback_identity_verified_link: REQUIRED
+  github_pointer_backlink: REQUIRED_WHEN_GITHUB_RECORD_EXISTS

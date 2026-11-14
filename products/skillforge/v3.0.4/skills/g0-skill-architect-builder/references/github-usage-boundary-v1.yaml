@@ -1,0 +1,67 @@
+schema_version: '1.0'
+contract_id: INC_GITHUB_USAGE_BOUNDARY_V1
+owner_skill: G0
+status: CANDIDATE_V3_S212
+default_profile: SOURCE_COORDINATION_ONLY
+applies_to:
+  - SKILLFORGE_SELF
+  - SKILLFORGE_BUILT_SKILL
+  - SKILLFORGE_MATERIALLY_UPGRADED_SKILL
+default_capabilities:
+  source_versioning: ALLOWED
+  commit_sha_and_diff: ALLOWED
+  branch_and_pull_request_coordination: ALLOWED
+  repository_readback_and_provenance: ALLOWED
+  issue_tracking: CONDITIONAL_ON_BACKLOG_POLICY
+  github_connector_runtime: REFERENCE_ONLY_UNLESS_INTRINSIC
+default_non_requirements:
+  github_actions_workflow: NOT_REQUIRED
+  github_hosted_runner: NOT_REQUIRED
+  github_self_hosted_runner: NOT_REQUIRED
+  required_status_check: NOT_REQUIRED
+  workflow_artifact: NOT_REQUIRED
+  github_release_object: NOT_REQUIRED
+  github_release_asset: NOT_REQUIRED
+  github_environment: NOT_REQUIRED
+  github_actions_secret_store: NOT_REQUIRED
+  github_as_agent_runtime: PROHIBITED_ASSUMPTION
+  github_as_mutable_business_state: PROHIBITED_BY_DEFAULT
+activation:
+  allowed_reasons:
+    - EXPLICIT_USER_INSTRUCTION
+    - INTRINSIC_SKILL_REQUIREMENT
+    - EXPLICIT_DISTRIBUTION_PROFILE
+  requirement: EXPLICIT_APPLICABILITY_WITH_TEST_SCOPE
+  implicit_from_source_repository_presence: PROHIBITED
+actions:
+  semantics: MACHINE_ORCHESTRATION
+  job_requires_runner: true
+  semantic_agent_reasoning_provided: false
+  core_skillforge_release_dependency: false
+  optional_adapter_failure_blocks_core_release: false
+release_identity:
+  canonical_basis:
+    - RELEASE_MANIFEST
+    - SOURCE_COMMIT_OR_TREE_DIGEST
+    - PACKAGE_DIGEST
+    - REQUIRED_G12_CERTIFICATION
+    - REQUIRED_G13_CERTIFICATION
+    - GOVERNED_REMOTE_READBACK
+  github_release_object: OPTIONAL_DISTRIBUTION_CHANNEL
+  github_tag: OPTIONAL_UNLESS_EXPLICIT_PROFILE_REQUIRES
+  github_release_asset: OPTIONAL_UNLESS_EXPLICIT_PROFILE_REQUIRES
+public_distribution:
+  public_surface_gate: REQUIRED_ONLY_WHEN_DISTRIBUTION_VISIBILITY_PUBLIC
+  private_or_internal_distribution: N_A_WITH_REASON
+runtime_boundary:
+  source_on_github_implies_runtime_dependency: false
+  github_connector_default_runtime_applicability: REFERENCE_ONLY_OR_N_A
+  actions_runner_default_runtime_applicability: N_A
+failure_isolation:
+  optional_github_capability_failure: BLOCK_ONLY_THAT_CAPABILITY_OR_DISTRIBUTION_TARGET
+  core_release_block: ONLY_IF_EXPLICITLY_APPLICABLE_OR_SECURITY_INTEGRITY_SOURCE_TRUTH_AFFECTED
+descendant_propagation:
+  compile_reference: true
+  copy_full_policy_body: false
+  default_profile: SOURCE_COORDINATION_ONLY
+  user_override_requires_explicit_scope: true

@@ -1,0 +1,35 @@
+schema_version: "1.0"
+contract_id: INC_G17_PROJECT_DATA_REGISTRY_V1
+owner_skill: G17
+purpose: Mandatory project identity, one-default-database policy and provider-neutral project registry.
+project_context:
+  project_ref_required_for_persistent_structured_data: true
+  miscellaneous_project_ref: PRJ_MISC
+  misc_requires_one_of: [workload_ref, domain_ref]
+database_policy:
+  default_shared_database_count: 1
+  isolation_model: SCHEMA_OR_LOGICAL_NAMESPACE_PER_PROJECT
+  autonomous_second_database_or_provider: prohibited
+  alternate_provider_requires_explicit_owner_override_for_named_project_or_skill: true
+project_data_registry:
+  required_fields:
+    - project_ref
+    - project_name
+    - workloads_or_domains
+    - schema_namespace
+    - provider_adapter_ref
+    - physical_database_ref
+    - security_class
+    - cost_center_ref
+    - backup_retention_profile
+    - lifecycle_state
+  stable_project_ref_across_provider_switch: true
+security:
+  cross_project_access_default: DENY
+  mutation_predicate_must_bind_project_ref: true
+  cross_project_semantic_id_collision: FAIL_CLOSED_ZERO_MUTATION
+hard_gates:
+  - PROJECT_CONTEXT_RESOLVED
+  - SINGLE_DATABASE_POLICY_COMPILED
+  - PROJECT_SCOPE_ENFORCED
+  - PROJECT_REGISTRY_READBACK_VERIFIED

@@ -1,0 +1,7 @@
+schema_version: '1.0'
+policy_id: G1_CONTENT_DEDUP_V1
+content_identity: SHA256
+same_canonical_path_same_sha: NOOP_VERIFIED
+same_sha_different_path: CAN_REUSE_CONTENT_BUT_CANONICAL_PATH_REQUIRED
+never_skip_canonical_route: true
+never_weaken_retention_or_evidence: true

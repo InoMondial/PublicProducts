@@ -1,0 +1,220 @@
+schema_version: "1.0"
+contract_id: INC_G16_CROSS_SURFACE_EXECUTION_DELIVERY_V1
+owner_target: G16
+status: OWNER_APPROVED_HARD_RULE_2026_09_16
+source_handoff_id: HOF-PUBLIC-EXAMPLE
+scope:
+  - Chat
+  - Work_Local
+  - Work_Cloud
+  - Codex_Local
+  - Agents
+  - Officers
+  - Skills
+  - cross_surface_prompts
+  - work_orders
+  - handoffs
+  - generated_reports
+  - generated_command_files
+  - generated_execution_files
+
+execution_surface_recommendation:
+  hard_gate: true
+  contract_ref: INC_G16_EXECUTION_SURFACE_RECOMMENDATION_V1
+  applies_to_handoffs: true
+  applies_to_work_orders: true
+  pair_with_model_profile_recommendation: true
+  selection_authority: USER
+  no_silent_surface_switch: true
+  quota_resume_requires_checkpoint: true
+
+governance_activation:
+  hard_gate: true
+  rule: ANY_SKILL_OR_SURFACE_GENERATING_AN_INSTRUCTION_PROMPT_WORK_ORDER_HANDOFF_REPORT_OR_EXECUTION_ARTIFACT_FOR_ANOTHER_SURFACE_MUST_APPLY_LATEST_G16_BEFORE_GENERATION
+  missing_g16_result: BLOCKED_G16_NOT_APPLIED
+  receiver_must_resolve_latest_g16: true
+  stale_visible_number_is_not_sufficient: true
+  g16_stable_resolution_required: true
+
+machine_first_visual_ui_last:
+  hard_gate: true
+  purpose: >
+    Prefer deterministic machine-readable construction and deployment over visual
+    interaction. When a target system can accept a textual/declarative artifact,
+    script, package, template, source file, API payload or importable definition,
+    generate that representation first, validate it, then insert/deploy/activate it
+    through the highest available machine route. Visual UI is last resort only.
+  pre_execution_artifact_preference:
+    priority: 0
+    methods:
+      - DECLARATIVE_OR_TEXT_DEFINITION
+      - CODE_OR_SCRIPT_GENERATION
+      - IMPORTABLE_PACKAGE_OR_TEMPLATE
+      - STRUCTURED_API_PAYLOAD
+    rule: >
+      If the same target state can be represented as text/code/config/package,
+      create and validate that representation before any UI construction.
+  machine_execution_ladder:
+    - priority: 1
+      method: POWERSHELL_OR_NATIVE_SCRIPTING
+    - priority: 2
+      method: OFFICIAL_API_OR_SDK
+    - priority: 3
+      method: OFFICIAL_CLI_OR_IN_APP_COMMAND
+    - priority: 4
+      method: CONNECTED_PLUGIN_OR_STRUCTURED_TOOL
+    - priority: 5
+      method: STRUCTURED_BROWSER_AUTOMATION
+    - priority: 6
+      method: VISUAL_UI_COMPUTER_USE
+  visual_ui_fragment_isolation:
+    hard_required: true
+    rule: >
+      If a visual-only fragment is genuinely unavoidable, use UI only for the
+      minimum irreducible fragment. Do not migrate the surrounding workflow into UI.
+      Immediately return to the highest available machine route for every step before
+      and after that fragment.
+    ui_scope_expansion_without_new_evidence: PROHIBITED
+    ui_before_machine_route_exhaustion: PROHIBITED
+    return_to_machine_route_after_ui_fragment: REQUIRED
+    post_ui_state_readback_via_machine_route_when_available: REQUIRED
+    fallback_reason_required_per_ui_fragment: true
+    allowed_reason_codes:
+      - AUTH_INTERACTIVE_ONLY
+      - CAPTCHA_OR_HUMAN_CHALLENGE
+      - VISUAL_ONLY_PARAMETER_NOT_EXPOSED_BY_API_CLI_SCRIPT
+      - UI_ONLY_OPERATION_VERIFIED
+      - SERVICE_BLOCKS_AUTOMATION_FOR_THIS_FRAGMENT
+      - CURRENT_MACHINE_ROUTE_DEFECT_PROVEN_FOR_THIS_FRAGMENT
+  examples:
+    power_automate:
+      preferred: >
+        Generate/patch flow definition/package/config as text where supported,
+        validate it, import/deploy/enable with PowerShell/API/CLI/connector,
+        read back status/runs through machine routes, and use UI only for a
+        proven UI-only parameter or interactive authorization fragment.
+      prohibited: >
+        Building the entire flow click-by-click merely because the designer UI exists.
+    website_ui:
+      preferred: >
+        Generate source code/templates/styles/config, deploy via Git/API/CLI or
+        supported platform tooling, run automated tests, and use visual UI only
+        for irreducible visual inspection or a UI-only setting; return immediately
+        to code/API/CLI afterward.
+      prohibited: >
+        Recreating machine-representable source/config through repetitive browser clicking.
+  efficiency:
+    objective: REDUCE_VISUAL_STEPS_SCREENSHOTS_RETRIES_AND_TOKEN_OVERHEAD
+    exact_savings_claim_without_telemetry: PROHIBITED
+    telemetry_when_exposed:
+      - selected_method_priority
+      - machine_action_count
+      - visual_ui_action_count
+      - screenshot_or_frame_count
+      - retry_count
+      - input_output_token_usage
+      - elapsed_time
+    analysis_owner_refs: [G9, G11]
+
+powershell_first:
+  hard_gate: true
+  capability_probe_required: true
+  windows_preferred_runtime: pwsh
+  execution_ladder:
+    - priority: 1
+      method: POWERSHELL
+    - priority: 2
+      method: OFFICIAL_API
+    - priority: 3
+      method: OFFICIAL_CLI
+    - priority: 4
+      method: STRUCTURED_BROWSER_OR_CONNECTED_TOOL
+    - priority: 5
+      method: VISUAL_UI_COMPUTER_USE
+  codex_windows:
+    direct_shell_probe: REQUIRED
+    powershell_first_when_available: HARD_REQUIRED
+    browser_before_powershell: PROHIBITED
+  work_local_windows:
+    powershell_first_when_direct_shell_verified: REQUIRED
+    computer_use_terminal_is_not_direct_shell: true
+  work_cloud:
+    direct_powershell_assumption: PROHIBITED_UNLESS_CURRENT_CAPABILITY_VERIFIED
+    connected_tool_api_before_browser: REQUIRED
+  fallback_reason_codes:
+    - PS_NOT_AVAILABLE_ON_SURFACE
+    - PS_MODULE_UNAVAILABLE
+    - PS_CAPABILITY_GAP
+    - API_CAPABILITY_GAP
+    - CLI_CAPABILITY_GAP
+    - AUTH_INTERACTIVE_ONLY
+    - SITE_TOOL_UNAVAILABLE
+    - UI_ONLY_OPERATION
+    - SERVICE_BLOCKS_AUTOMATION
+    - OTHER_WITH_EXPLICIT_REASON
+  lower_priority_without_reason: BLOCKED
+  write_controls:
+    read_before_write: REQUIRED
+    least_privilege: REQUIRED
+    dry_run_or_whatif_when_supported_and_useful: REQUIRED
+    post_write_readback: REQUIRED
+    rollback_awareness: REQUIRED
+    secrets_in_prompt_handoff_log: PROHIBITED
+
+remote_reference_only_delivery:
+  hard_gate: true
+  rule: GENERATED_FILE_PROMPT_HANDOFF_REPORT_COMMAND_FILE_OR_EXECUTION_ARTIFACT_INTENDED_FOR_USER_OR_ANOTHER_SURFACE_MUST_BE_PERSISTED_TO_GOVERNED_REMOTE_STORAGE_AND_TRANSFERRED_BY_VERIFIED_LINK_OR_STABLE_REFERENCE_ONLY
+  destination_resolution:
+    code_config_machine_governance: GITHUB
+    human_operational_document_handoff_report: SHAREPOINT
+    document_class_binary: SHAREPOINT_ONLY
+    github_for_document_class: POINTER_OR_PROVENANCE_ONLY
+    dual_publish_when_required_by_G1_or_specific_governance: POINTER_ONLY_FOR_DOCUMENT_CLASS
+  local_or_sandbox_file_delivery_to_user: PROHIBITED
+  direct_file_attachment_as_cross_surface_handoff: PROHIBITED
+  inline_full_file_as_substitute_for_remote_publication: PROHIBITED
+  verified_remote_readback_before_link: REQUIRED
+  receiver_instruction_must_use_remote_link_or_stable_ref: REQUIRED
+  transfer_of_secret_material: PROHIBITED
+  failure_code: G16_REMOTE_REFERENCE_ONLY_DELIVERY_FAILED
+
+audit_record:
+  required_fields:
+    - execution_surface
+    - surface_capability_probe
+    - selected_method_priority
+    - powershell_available
+    - powershell_used
+    - fallback_reason_code
+    - module_api_cli_tool_used
+    - read_before_write
+    - dry_run_or_whatif
+    - write_performed
+    - post_write_readback
+    - rollback_defined
+    - g16_version_or_stable_ref
+    - final_conformance
+    - machine_first_artifact_used
+    - ui_fragment_count
+    - ui_fragment_reason_codes
+    - return_to_machine_route_verified
+
+acceptance:
+  pass_requires:
+    - G16_APPLIED_BEFORE_CROSS_SURFACE_GENERATION
+    - EXECUTION_SURFACE_RECOMMENDATION_PRESENT
+    - MACHINE_FIRST_UI_LAST_CONFORMANT
+    - UI_FRAGMENT_MINIMIZATION_CONFORMANT
+    - POWERSHELL_FIRST_LADDER_CONFORMANT_WHEN_APPLICABLE
+    - REMOTE_REFERENCE_ONLY_DELIVERY_CONFORMANT
+    - REMOTE_TARGET_READBACK_VERIFIED
+  fail_codes:
+    - POWERSHELL_FIRST_POLICY_VIOLATION
+    - EXECUTION_SURFACE_CAPABILITY_MISREPRESENTED
+    - BLOCKED_G16_NOT_APPLIED
+    - G16_REMOTE_REFERENCE_ONLY_DELIVERY_FAILED
+    - EXECUTION_SURFACE_RECOMMENDATION_MISSING
+    - INELIGIBLE_SURFACE_SELECTED
+    - UI_BEFORE_MACHINE_ROUTE_EXHAUSTION
+    - UI_SCOPE_EXPANSION_VIOLATION
+    - UI_FRAGMENT_RETURN_TO_MACHINE_ROUTE_MISSING

@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "matrix_id": "G1_CONTRACT_COMPATIBILITY_V1",
+  "contracts": {
+    "INC_PROJECT_ARTIFACT_EGRESS_V1": {
+      "schema_major": 1,
+      "min_minor": 1,
+      "max_minor": 9
+    },
+    "G1_BINARY_PUBLICATION_V1": {
+      "schema_major": 1,
+      "min_minor": 1,
+      "max_minor": 9
+    },
+    "G1_SHAREPOINT_DESTINATION_V1": {
+      "schema_major": 1,
+      "min_minor": 1,
+      "max_minor": 9
+    },
+    "G1_CROSS_SYSTEM_EVIDENCE_V1": {
+      "schema_major": 1,
+      "min_minor": 1,
+      "max_minor": 9
+    },
+    "G1_REPOSITORY_HYGIENE_V1": {
+      "schema_major": 1,
+      "min_minor": 1,
+      "max_minor": 9
+    },
+    "G1_SECURITY_GATE_V1": {
+      "schema_major": 1,
+      "min_minor": 0,
+      "max_minor": 9
+    },
+    "G1_RECOVERY_DRILL_V1": {
+      "schema_major": 1,
+      "min_minor": 0,
+      "max_minor": 9
+    },
+    "repository_taxonomy": {
+      "schema_major": 2,
+      "min_minor": 0,
+      "max_minor": 9
+    },
+    "repository_routing": {
+      "schema_major": 2,
+      "min_minor": 0,
+      "max_minor": 9
+    }
+  },
+  "failure": "CONTRACT_COMPATIBILITY_FAILED"
+}

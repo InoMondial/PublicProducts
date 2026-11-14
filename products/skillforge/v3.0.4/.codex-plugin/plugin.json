@@ -1,0 +1,23 @@
+{
+  "author": {
+    "name": "INOMondial Inc."
+  },
+  "description": "Source-available SkillForge 3.0.4 with 19 governance Skills and opt-in host connections.",
+  "id": "inomondial-skillforge-public",
+  "interface": {
+    "capabilities": [
+      "skills",
+      "governance"
+    ],
+    "category": "Productivity",
+    "defaultPrompt": "Use SkillForge governance; for new installations, ask permission to start guided setup from setup/CHATGPT_FIRST_RUN.md. Never request secrets in chat. Any external actions require current host connector authority; no public release without explicit exact user consent.",
+    "developerName": "INOMondial Inc.",
+    "displayName": "INOMondial SkillForge",
+    "longDescription": "Public source edition. No private configuration, credentials or automatic service connections.",
+    "shortDescription": "19-Skill governance factory"
+  },
+  "license": "INOMONDIAL-PERSONAL-RESEARCH-1.0",
+  "name": "inomondial-skillforge-public",
+  "skills": "./skills",
+  "version": "3.0.4"
+}

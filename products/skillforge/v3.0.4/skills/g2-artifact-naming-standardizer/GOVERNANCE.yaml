@@ -1,0 +1,77 @@
+schema: INC_GOVERNANCE_SKILL_CANDIDATE_V1
+stable_id: O6-SKL-002
+visible_id: G2
+display_name: G2-Artifact Naming Standardizer
+version: 3.2.2
+lifecycle: production
+project: skill-ecosystem-vnext
+phase: next-release-stage2
+functional_role: NORMAL
+builder_framework_ref: INC_SKILLFORGE
+framework_id: INC_SKILLFORGE
+framework_name: SkillForge
+framework_membership: MEMBER
+framework_registry_ref: INC_SKILL_NAMESPACE_REGISTRY
+framework_membership_contract_ref: INC_SKILL_FRAMEWORK_MEMBERSHIP_V1
+dpga:
+  build_time: REQUIRED
+  runtime: CONDITIONAL
+  hard_gates:
+  - DPGA_COMPLETE
+  - GOVERNANCE_PROPAGATION_COMPLETE
+  - NAMING_PROFILE_COMPILED
+  - FRAMEWORK_DISPLAY_IDENTITY_VALID
+runtime_condition: creates_renames_labels_or_packages_managed_output
+framework_display_policy:
+  membership_source: INC_SKILL_NAMESPACE_REGISTRY
+  name_or_path_heuristic: prohibited
+  builder_provenance_implies_membership: false
+  member_may_display_framework_title: true
+  candidate_must_be_identified_as_candidate: true
+  external_member_mislabel: FRAMEWORK_MEMBERSHIP_MISLABEL
+critical_control_assurance:
+  contract_ref: INC_CRITICAL_CONTROL_ASSURANCE_V1
+  build_time_gate: CRITICAL_CONTROLS_COMPILED
+  runtime_exit_gate: CRITICAL_CONTROLS_VERIFIED
+  self_exit_check: REQUIRED_WHEN_RUNTIME_APPLICABLE
+  independent_double_check: CONDITIONAL_MATERIAL_RISK
+  controls:
+  - id: G2-CC-01
+    rule: Stable ID/history is preserved while visible names and filenames evolve.
+    mandatory: true
+    runtime_condition: WHEN_RELEVANT_TO_CURRENT_ACTIVITY
+    evidence_required: false
+  - id: G2-CC-02
+    rule: Serial/canonical name is resolved from authoritative naming state when available;
+      it is not invented.
+    mandatory: true
+    runtime_condition: WHEN_RELEVANT_TO_CURRENT_ACTIVITY
+    evidence_required: true
+  - id: G2-CC-03
+    rule: Reserved platform filenames and third-party provenance filenames are preserved.
+    mandatory: true
+    runtime_condition: WHEN_RELEVANT_TO_CURRENT_ACTIVITY
+    evidence_required: false
+  - id: G2-CC-04
+    rule: Case/path collision checks pass before publication.
+    mandatory: true
+    runtime_condition: WHEN_RELEVANT_TO_CURRENT_ACTIVITY
+    evidence_required: true
+  - id: G2-CC-05
+    rule: SkillForge framework display is used only for Registry/metadata-resolved
+      MEMBER/CANDIDATE contexts and cannot cause an EXTERNAL Skill to self-identify
+      as a SkillForge member.
+    mandatory: true
+    runtime_condition: WHEN_FRAMEWORK_IDENTITY_IS_DISPLAYED
+    evidence_required: true
+release_acceptance_policy:
+  contract_ref: INC_AUTONOMOUS_RELEASE_ACCEPTANCE_V1
+  profile: AUTONOMOUS_EVIDENCE_BASED
+  precedence: SUPERSEDES_RELEASE_ONLY_EXTERNAL_EXECUTOR_GATES
+  available_tests: REQUIRED
+  failed_executed_tests: BLOCK_RELEASE
+  external_assurance: OPTIONAL_NONBLOCKING
+  real_publication_readback: REQUIRED
+  runtime_security_authorization: UNCHANGED
+publication_privacy_contract: INC_PUBLICIZATION_PRIVACY_GATE_V2
+public_release_requires_new_owner_consent: true

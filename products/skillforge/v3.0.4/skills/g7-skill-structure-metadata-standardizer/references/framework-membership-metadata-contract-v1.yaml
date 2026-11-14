@@ -1,0 +1,53 @@
+schema_version: '1.0'
+contract_id: INC_SKILL_FRAMEWORK_MEMBERSHIP_V1
+owner_skill: G7
+builder_owner: G0
+status: ACTIVE_CANDIDATE
+purpose: Distinguish builder provenance from actual framework membership for every governed Skill.
+fields:
+  builder_framework_ref:
+    required_when_built_by_skillforge: true
+    example: INC_SKILLFORGE
+  framework_id:
+    required_when_member_or_candidate: true
+  framework_name:
+    required_when_member_or_candidate: true
+  framework_membership:
+    required: true
+    allowed: [MEMBER, CANDIDATE_MEMBER, EXTERNAL]
+  framework_registry_ref:
+    required: true
+    example: INC_SKILL_NAMESPACE_REGISTRY
+resolution:
+  source_of_truth: governed_registry_and_metadata
+  name_or_substring_heuristics: prohibited
+  repository_location_heuristics: prohibited
+  builder_provenance_implies_membership: false
+skillforge:
+  framework_id: INC_SKILLFORGE
+  framework_name: SkillForge
+  canonical_member_rule: Active entry under INC_SKILL_NAMESPACE_REGISTRY governance_namespace.assigned resolves MEMBER unless an explicit governed exception says otherwise.
+  candidate_rule: A not-yet-canonical SkillForge candidate resolves CANDIDATE_MEMBER only from explicit candidate registry/authority state; it must not claim MEMBER.
+  external_rule: A Skill built by SkillForge for another framework/project remains EXTERNAL relative to SkillForge unless explicitly registered as a SkillForge member.
+examples:
+  - case: canonical_G7
+    builder_framework_ref: INC_SKILLFORGE
+    framework_id: INC_SKILLFORGE
+    framework_name: SkillForge
+    framework_membership: MEMBER
+  - case: G16_candidate
+    builder_framework_ref: INC_SKILLFORGE
+    framework_id: INC_SKILLFORGE
+    framework_name: SkillForge
+    framework_membership: CANDIDATE_MEMBER
+  - case: external_PFA_skill_built_by_skillforge
+    builder_framework_ref: INC_SKILLFORGE
+    framework_membership: EXTERNAL
+negative_rules:
+  - The words Skill, SkillForge, G-style metadata, or location under a shared repository never establish membership by themselves.
+  - An external framework must not inherit SkillForge branding, backlog authority, or member-only runtime contracts solely because SkillForge built or validated it.
+validation:
+  positive_member_test: required
+  candidate_test: required
+  external_negative_test: required
+  stale_identity_test: required
